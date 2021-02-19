@@ -12,8 +12,7 @@ public class AutoHostClient : MonoBehaviour
 
     void Start()
     {
-        
-       if(!Application.isBatchMode)
+       if (!Application.isBatchMode)
         {
             if(forceOffline)
             {
