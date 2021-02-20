@@ -936,7 +936,7 @@ MonoBehaviour:
   showDebugMessages: 0
   serverTickRate: 30
   offlineScene: Assets/Scenes/Offline.unity
-  onlineScene: Assets/Scenes/Main.unity
+  onlineScene: Assets/Scenes/Casino.unity
   transport: {fileID: 1719019835}
   networkAddress: 216.58.1.35
   maxConnections: 4

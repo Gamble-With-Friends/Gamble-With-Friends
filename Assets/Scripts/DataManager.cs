@@ -20,8 +20,7 @@ public class DataManager : MonoBehaviour
 
     public void Start()
     {
-        Debug.Log("Creating User");
-        SendSQL();
+        
     }
 
     public void SendSQL()
