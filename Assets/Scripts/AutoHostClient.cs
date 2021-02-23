@@ -18,6 +18,7 @@ public class AutoHostClient : MonoBehaviour
             {
                 Debug.Log("Client Build");
                 networkManager.networkAddress = "localhost";
+                networkManager.StopHost();
                 networkManager.StartServer();
                 networkManager.StartClient();
             } else
