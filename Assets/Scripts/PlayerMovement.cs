@@ -1,5 +1,6 @@
 ﻿using Mirror;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -19,6 +20,10 @@ public class PlayerMovement : NetworkBehaviour
     {
         if(isLocalPlayer)
         {
+            if (Input.GetKey(KeyCode.X))
+            {
+                SceneManager.LoadScene("WarGame");
+            }
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
             if (isGrounded)
