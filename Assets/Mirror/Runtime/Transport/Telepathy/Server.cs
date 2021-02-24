@@ -166,6 +166,7 @@ namespace Telepathy
             {
                 // calling StopServer will interrupt this thread with a
                 // 'SocketException: interrupted'. that's okay.
+                Logger.Log("Port with Error: " + port);
                 Logger.Log("Server Thread stopped. That's okay. " + exception);
             }
             catch (Exception exception)
@@ -192,11 +193,11 @@ namespace Telepathy
             // start the listener thread
             // (on low priority. if main thread is too busy then there is not
             //  much value in accepting even more clients)
-            Logger.Log("Server: Start port=" + port);
             listenerThread = new Thread(() => { Listen(port); });
             listenerThread.IsBackground = true;
             listenerThread.Priority = ThreadPriority.BelowNormal;
             listenerThread.Start();
+            Logger.Log("Server: Start port=" + port);
             return true;
         }
 
