@@ -92,7 +92,7 @@ Material:
     - _Roughness: 0.985
     - _Sharpness: 1
     - _Shine: 0.023
-    - _Specularity: 0.54
+    - _Specularity: 4
     - _SrcBlend: 1
     - _TrueTiling: 1.32
     - _UVSec: 0
