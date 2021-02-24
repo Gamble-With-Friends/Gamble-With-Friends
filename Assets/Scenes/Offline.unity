@@ -896,9 +896,9 @@ MonoBehaviour:
   showDebugMessages: 0
   serverTickRate: 30
   offlineScene: Assets/Scenes/Offline.unity
-  onlineScene: Assets/Scenes/TestingMultiplayer.unity
+  onlineScene: Assets/Scenes/Casino.unity
   transport: {fileID: 1719019835}
-  networkAddress: localhost
+  networkAddress: 216.58.1.35
   maxConnections: 4
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
@@ -1090,7 +1090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2040389445
 RectTransform:
   m_ObjectHideFlags: 0
