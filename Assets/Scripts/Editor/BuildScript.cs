@@ -15,7 +15,7 @@ public class BuildScript
     public static void BuildWindowsServer()
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/Offline.unity","Assets/Scenes/TestingMultiplayer.unity" };
+        buildPlayerOptions.scenes = new[] { "Assets/Scenes/Offline.unity","Assets/Scenes/Casino.unity" };
         buildPlayerOptions.locationPathName = "Builds/Windows/Server/Server.exe";
         buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
         buildPlayerOptions.options = BuildOptions.CompressWithLz4HC | BuildOptions.EnableHeadlessMode;
@@ -44,7 +44,7 @@ public class BuildScript
     {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
         {
-            scenes = new[] { "Assets/Scenes/Offline.unity", "Assets/Scenes/TestingMultiplayer.unity" },
+            scenes = new[] { "Assets/Scenes/Offline.unity", "Assets/Scenes/Casino.unity" },
             locationPathName = "Builds/Windows/Client/Client.exe",
             target = BuildTarget.StandaloneWindows64,
             options = BuildOptions.CompressWithLz4HC
