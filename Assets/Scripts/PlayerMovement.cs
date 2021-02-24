@@ -13,6 +13,10 @@ public class PlayerMovement : NetworkBehaviour
     public LayerMask groundMask;
     public float jumpHeight = 3f;
     public GameObject playerCamera;
+    public MeshRenderer playerBodyMeshRenderer;
+
+    [SyncVar]
+    public Color playerColor;
 
     Vector3 velocity;
     bool isGrounded;
@@ -27,6 +31,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 SceneManager.LoadScene("WarGame");
             }
+
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
             if (isGrounded)
@@ -50,6 +55,8 @@ public class PlayerMovement : NetworkBehaviour
 
             velocity.y += gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
+
+            playerBodyMeshRenderer.material.color = playerColor;
         }
     }
 }
