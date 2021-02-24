@@ -1,55 +1,42 @@
-﻿using System;
-using UnityEditor;
+﻿using UnityEditor;
 
 public class BuildScript
 {
+
+    static readonly string[] SCENES = new string[] { "Assets/Scenes/Offline.unity", "Assets/Scenes/Casino.unity" };
+
     [MenuItem("Build/Build All")]
     public static void BuildAll()
     {
         BuildWindowsClient();
         BuildWindowsServer();
-        BuildLinuxServer();
     }
 
     [MenuItem("Build/Build Server (Windows)")]
     public static void BuildWindowsServer()
     {
-        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/Offline.unity","Assets/Scenes/TestingMultiplayer.unity" };
-        buildPlayerOptions.locationPathName = "Builds/Windows/Server/Server.exe";
-        buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
+        BuildPlayerOptions buildPlayerOptions = getWindowsBuild("Builds/Windows/Server/Server.exe");
         buildPlayerOptions.options = BuildOptions.CompressWithLz4HC | BuildOptions.EnableHeadlessMode;
-
-        Console.WriteLine("Building Server (Windows)...");
-        BuildPipeline.BuildPlayer(buildPlayerOptions);
-        Console.WriteLine("Built Server (Windows).");
-    }
-
-    [MenuItem("Build/Build Server (Linux)")]
-    public static void BuildLinuxServer()
-    {
-        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
-        {
-            scenes = new[] { "Assets/Scenes/Main.unity" },
-            locationPathName = "Builds/Linux/Server/Server.x86_64",
-            target = BuildTarget.StandaloneLinux64,
-            options = BuildOptions.CompressWithLz4HC | BuildOptions.EnableHeadlessMode
-        };
         BuildPipeline.BuildPlayer(buildPlayerOptions);
     }
-
 
     [MenuItem("Build/Build Client (Windows)")]
     public static void BuildWindowsClient()
     {
+        BuildPlayerOptions buildPlayerOptions = getWindowsBuild("Builds/Windows/Client/Client.exe");
+        buildPlayerOptions.options = BuildOptions.CompressWithLz4HC;
+        BuildPipeline.BuildPlayer(buildPlayerOptions);
+    }
+
+    static BuildPlayerOptions getWindowsBuild(string path)
+    {
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
         {
-            scenes = new[] { "Assets/Scenes/Offline.unity", "Assets/Scenes/TestingMultiplayer.unity" },
-            locationPathName = "Builds/Windows/Client/Client.exe",
+            scenes = SCENES,
+            locationPathName = path,
             target = BuildTarget.StandaloneWindows64,
-            options = BuildOptions.CompressWithLz4HC
         };
 
-        BuildPipeline.BuildPlayer(buildPlayerOptions);
+        return buildPlayerOptions;
     }
 }
