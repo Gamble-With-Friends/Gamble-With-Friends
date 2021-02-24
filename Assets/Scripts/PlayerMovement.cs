@@ -12,14 +12,17 @@ public class PlayerMovement : NetworkBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public float jumpHeight = 3f;
+    public GameObject playerCamera;
 
     Vector3 velocity;
     bool isGrounded;
 
     void Update()
     {
-        if(isLocalPlayer)
+        if (isLocalPlayer)
         {
+            playerCamera.SetActive(true);
+
             if (Input.GetKey(KeyCode.X))
             {
                 SceneManager.LoadScene("WarGame");

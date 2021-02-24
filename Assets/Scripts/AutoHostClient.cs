@@ -6,36 +6,25 @@ using UnityEngine.SceneManagement;
 
 public class AutoHostClient : MonoBehaviour
 {
-    public bool forceOffline;
 
-    [SerializeField] NetworkManager networkManager;
+    NetworkManager networkManager;
 
     void Start()
     {
+        networkManager = FindObjectOfType<NetworkManagement>();
+
        if (!Application.isBatchMode)
         {
-            if(forceOffline)
-            {
-                Debug.Log("Client Build");
-                networkManager.networkAddress = "localhost";
-                networkManager.StopHost();
-                networkManager.StartServer();
-                networkManager.StartClient();
-            } else
+            if(!Application.isEditor)
             {
                 networkManager.StartClient();
             }
-            
-        } else
-        {
-            Debug.Log("Server Build");
         }
     }
 
     public void JoinLocal()
     {
         networkManager.networkAddress = "localhost";
-        networkManager.StopClient();
         networkManager.StartClient();
     }
 
@@ -43,5 +32,6 @@ public class AutoHostClient : MonoBehaviour
     {
         networkManager.networkAddress = "localhost";
         networkManager.StartServer();
+        networkManager.StartClient();
     }
 }

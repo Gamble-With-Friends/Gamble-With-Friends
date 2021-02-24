@@ -6,9 +6,9 @@ public class BuildScript
     [MenuItem("Build/Build All")]
     public static void BuildAll()
     {
+        BuildWindowsClient();
         BuildWindowsServer();
         BuildLinuxServer();
-        BuildWindowsClient();
     }
 
     [MenuItem("Build/Build Server (Windows)")]
@@ -42,14 +42,14 @@ public class BuildScript
     [MenuItem("Build/Build Client (Windows)")]
     public static void BuildWindowsClient()
     {
-        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions();
-        buildPlayerOptions.scenes = new[] { "Assets/Scenes/Main.unity" };
-        buildPlayerOptions.locationPathName = "Builds/Windows/Client/Client.exe";
-        buildPlayerOptions.target = BuildTarget.StandaloneWindows64;
-        buildPlayerOptions.options = BuildOptions.CompressWithLz4HC;
+        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
+        {
+            scenes = new[] { "Assets/Scenes/Offline.unity", "Assets/Scenes/Casino.unity" },
+            locationPathName = "Builds/Windows/Client/Client.exe",
+            target = BuildTarget.StandaloneWindows64,
+            options = BuildOptions.CompressWithLz4HC
+        };
 
-        Console.WriteLine("Building Client (Windows)...");
         BuildPipeline.BuildPlayer(buildPlayerOptions);
-        Console.WriteLine("Built Client (Windows).");
     }
 }
