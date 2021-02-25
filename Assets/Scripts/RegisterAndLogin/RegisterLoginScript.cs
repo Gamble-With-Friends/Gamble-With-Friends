@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,10 +12,29 @@ public class RegisterLoginScript : MonoBehaviour
     private GameObject emailError;
     private GameObject passwordError;
     private GameObject confirmPasswordError;
+    private GameObject successMessage;
 
     private readonly DataManager dataManager = new DataManager();
 
-    public void ValidateUserInfo()
+    private bool displayRegistrationSuccessMessage;
+    private int timerCounter;
+
+    public void Update()
+    {
+        if (displayRegistrationSuccessMessage)
+        {
+            timerCounter++;
+            if (timerCounter >= 50)
+            {
+                successMessage.GetComponent<Text>().text = "";
+                displayRegistrationSuccessMessage = false;
+                timerCounter = 0;
+                CloseRegistrationForm();
+            }
+        }
+    }
+
+    public void RegisterUser()
     {
         ClearErrorMessages();
         // Retrieve user input
@@ -37,7 +55,11 @@ public class RegisterLoginScript : MonoBehaviour
             var userId = Guid.NewGuid();
             dataManager.AddUserSQL(userId.ToString(), email, userName, password, "2000/01/01");
 
-            // CLOSE THE REGISTRATION FORM
+            // Display success message and close the form in 3 secs
+            successMessage = GameObject.Find("SuccessMessage");
+            successMessage.GetComponent<Text>().text = "Registration completed successfully";
+            timerCounter = 0;
+            displayRegistrationSuccessMessage = true;
         }
     }
 
@@ -101,7 +123,7 @@ public class RegisterLoginScript : MonoBehaviour
 
         if (confirmPassword != password)
         {
-            confirmPasswordError.GetComponent<Text>().text = "Password must be the same.";
+            confirmPasswordError.GetComponent<Text>().text = "Passwords must match.";
             valid = false;
         }
 
@@ -134,6 +156,6 @@ public class RegisterLoginScript : MonoBehaviour
     {
         registrationForm.gameObject.SetActive(true);
         loginButtonGroup.gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.Confined;
+        //Cursor.lockState = CursorLockMode.Confined;
     }
 }
