@@ -38,10 +38,10 @@ public class RegisterLoginScript : MonoBehaviour
     {
         ClearErrorMessages();
         // Retrieve user input
-        var userName = GameObject.Find("DisplayName/InputField/Text").GetComponent<Text>().text;
-        var email = GameObject.Find("EmailInput/InputField/Text").GetComponent<Text>().text;
-        var password = GameObject.Find("PasswordInput/InputField/Text").GetComponent<Text>().text;
-        var confirmPassword = GameObject.Find("ConfirmPasswordInput/InputField/Text").GetComponent<Text>().text;
+        var userName = GameObject.Find("DisplayName/InputField").GetComponent<InputField>().text;
+        var email = GameObject.Find("EmailInput/InputField").GetComponent<InputField>().text;
+        var password = GameObject.Find("PasswordInput/InputField").GetComponent<InputField>().text;
+        var confirmPassword = GameObject.Find("ConfirmPasswordInput/InputField").GetComponent<InputField>().text;
 
         // Clear old error messages
         ClearErrorMessages();
