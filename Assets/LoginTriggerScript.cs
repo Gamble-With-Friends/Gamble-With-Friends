@@ -10,18 +10,18 @@ public class LoginTriggerScript : MonoBehaviour
     static string LOGIN_TEXT = "Press (E) To Login/Register";
 
     public CanvasGroup loginCanvas;
-    public Text instuction;
+    public Text instruction;
     bool isInsideTrigger;
 
     private void OnTriggerEnter(Collider other)
     {
-        instuction.text = LOGIN_TEXT;
+        instruction.text = LOGIN_TEXT;
         isInsideTrigger = true;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        instuction.text = "";
+        instruction.text = "";
         isInsideTrigger = false;
         Cursor.lockState = CursorLockMode.Locked;
         loginCanvas.gameObject.SetActive(false);
@@ -33,12 +33,12 @@ public class LoginTriggerScript : MonoBehaviour
         {
             if(Input.GetKey(KeyCode.E))
             {
-                instuction.text = "";
+                instruction.text = "";
                 Cursor.lockState = CursorLockMode.Confined;
                 loginCanvas.gameObject.SetActive(true);
             } else if (Input.GetKey(KeyCode.Escape))
             {
-                instuction.text = LOGIN_TEXT;
+                instruction.text = LOGIN_TEXT;
                 Cursor.lockState = CursorLockMode.Locked;
                 loginCanvas.gameObject.SetActive(false);
             }
