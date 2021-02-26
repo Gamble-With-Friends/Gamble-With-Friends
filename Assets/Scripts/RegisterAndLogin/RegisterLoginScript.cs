@@ -30,7 +30,7 @@ public class RegisterLoginScript : MonoBehaviour
         if (displayRegistrationSuccessMessage)
         {
             timerCounter++;
-            if (timerCounter >= 50)
+            if (timerCounter >= 150)
             {
                 successMessage.GetComponent<Text>().text = "";
                 displayRegistrationSuccessMessage = false;
@@ -187,6 +187,5 @@ public class RegisterLoginScript : MonoBehaviour
     {
         registrationForm.gameObject.SetActive(true);
         loginButtonGroup.gameObject.SetActive(false);
-        Cursor.lockState = CursorLockMode.Confined;
     }
 }

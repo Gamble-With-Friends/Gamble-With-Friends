@@ -11,42 +11,67 @@ public class LoginTriggerScript : MonoBehaviour
 
     public CanvasGroup loginCanvas;
     public GameObject registerFormGroup;
+    public GameObject loginRegistrationGroup;
+
     public Text instruction;
     bool isInsideTrigger;
+
+    private PlayerMovement collidingPlayerMovement;
+    private MouseLook collidingPlayerMouseLook;
 
     private void OnTriggerEnter(Collider other)
     {
         instruction.text = LOGIN_TEXT;
         isInsideTrigger = true;
+        collidingPlayerMovement = other.gameObject.GetComponent<PlayerMovement>();
+        collidingPlayerMouseLook = other.gameObject.transform.Find("Main Camera").GetComponent<MouseLook>();
     }
 
     private void OnTriggerExit(Collider other)
     {
-        instruction.text = "";
         isInsideTrigger = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        loginCanvas.gameObject.SetActive(false);
+        instruction.text = "";
+        ExitRegistrationLogin();
     }
 
     void Update()
     {
         if(isInsideTrigger)
         {
-            if(Input.GetKey(KeyCode.E))
+            Cursor.lockState = loginRegistrationGroup.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
+
+            if (loginRegistrationGroup.gameObject.activeSelf)
             {
+                collidingPlayerMovement.disableMovement = true;
+                collidingPlayerMouseLook.disableLookaround = true;
+                instruction.text = "";
+            }
+
+            if (Input.GetKey(KeyCode.E))
+            {
+                loginRegistrationGroup.gameObject.SetActive(true);
+
                 if (!registerFormGroup.activeSelf)
                 {
-                    instruction.text = "";
-                    Cursor.lockState = CursorLockMode.Confined;
                     loginCanvas.gameObject.SetActive(true);
                 }
-            } else if (Input.GetKey(KeyCode.Escape))
+            }
+            else if (Input.GetKey(KeyCode.Escape))
             {
                 instruction.text = LOGIN_TEXT;
-                Cursor.lockState = CursorLockMode.Locked;
-                loginCanvas.gameObject.SetActive(false);
+                ExitRegistrationLogin();
             }
         }
+    }
+
+    private void ExitRegistrationLogin()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        loginRegistrationGroup.gameObject.SetActive(false);
+        loginCanvas.gameObject.SetActive(false);
+        registerFormGroup.gameObject.SetActive(false);
+        collidingPlayerMovement.disableMovement = false;
+        collidingPlayerMouseLook.disableLookaround = false;
     }
 
 }
