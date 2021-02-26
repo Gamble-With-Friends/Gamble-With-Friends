@@ -8,10 +8,16 @@ public class RegisterLoginScript : MonoBehaviour
     public CanvasGroup registrationForm;
     public CanvasGroup loginButtonGroup;
 
+    private GameObject userNameObject;
+    private GameObject emailObject;
+    private GameObject passwordObject;
+    private GameObject confirmPasswordObject;
+    
     private GameObject userNameError;
     private GameObject emailError;
     private GameObject passwordError;
     private GameObject confirmPasswordError;
+
     private GameObject successMessage;
 
     private readonly DataManager dataManager = new DataManager();
@@ -37,11 +43,14 @@ public class RegisterLoginScript : MonoBehaviour
     public void RegisterUser()
     {
         ClearErrorMessages();
+
+        InitializeInputObjects();        
+
         // Retrieve user input
-        var userName = GameObject.Find("DisplayName/InputField").GetComponent<InputField>().text;
-        var email = GameObject.Find("EmailInput/InputField").GetComponent<InputField>().text;
-        var password = GameObject.Find("PasswordInput/InputField").GetComponent<InputField>().text;
-        var confirmPassword = GameObject.Find("ConfirmPasswordInput/InputField").GetComponent<InputField>().text;
+        var userName = userNameObject.GetComponent<InputField>().text;
+        var email = emailObject.GetComponent<InputField>().text;
+        var password = passwordObject.GetComponent<InputField>().text;
+        var confirmPassword = confirmPasswordObject.GetComponent<InputField>().text;
 
         // Clear old error messages
         ClearErrorMessages();
@@ -130,6 +139,27 @@ public class RegisterLoginScript : MonoBehaviour
         return valid;
     }
 
+    private void InitializeInputObjects()
+    {
+        userNameObject = GameObject.Find("DisplayName/InputField");
+        emailObject = GameObject.Find("EmailInput/InputField");
+        passwordObject = GameObject.Find("PasswordInput/InputField");
+        confirmPasswordObject = GameObject.Find("ConfirmPasswordInput/InputField");
+    }
+
+    private void ClearInputObjects()
+    {
+        if (userNameObject == null)
+        {
+            InitializeInputObjects();
+        }
+        userNameObject.GetComponent<InputField>().text = string.Empty;
+        emailObject.GetComponent<InputField>().text = string.Empty;
+        passwordObject.GetComponent<InputField>().text = string.Empty;
+        confirmPasswordObject.GetComponent<InputField>().text = string.Empty;
+
+    }
+
     private void ClearErrorMessages()
     {
         // instantiate ErrorMessage objects if not yet 
@@ -149,6 +179,7 @@ public class RegisterLoginScript : MonoBehaviour
 
     public void CloseRegistrationForm()
     {
+        ClearInputObjects();
         registrationForm.gameObject.SetActive(false);
     }
 
@@ -156,6 +187,6 @@ public class RegisterLoginScript : MonoBehaviour
     {
         registrationForm.gameObject.SetActive(true);
         loginButtonGroup.gameObject.SetActive(false);
-        //Cursor.lockState = CursorLockMode.Confined;
+        Cursor.lockState = CursorLockMode.Confined;
     }
 }
