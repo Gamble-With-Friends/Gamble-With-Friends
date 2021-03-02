@@ -6,12 +6,16 @@ using UnityEngine.UI;
 public class RegisterLoginScript : MonoBehaviour
 {
     public CanvasGroup registrationForm;
+    public CanvasGroup loginForm;
     public CanvasGroup loginButtonGroup;
+    public GameObject loginRegistrationGroup;
 
+    #region Registration Scripts
     private GameObject userNameObject;
     private GameObject emailObject;
     private GameObject passwordObject;
     private GameObject confirmPasswordObject;
+    private Toggle overEighteenOld;
     
     private GameObject userNameError;
     private GameObject emailError;
@@ -34,15 +38,15 @@ public class RegisterLoginScript : MonoBehaviour
             {
                 successMessage.GetComponent<Text>().text = "";
                 displayRegistrationSuccessMessage = false;
+                GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
                 timerCounter = 0;
-                CloseRegistrationForm();
             }
         }
     }
 
     public void RegisterUser()
     {
-        ClearErrorMessages();
+        ClearMessages();
 
         InitializeInputObjects();        
 
@@ -53,7 +57,7 @@ public class RegisterLoginScript : MonoBehaviour
         var confirmPassword = confirmPasswordObject.GetComponent<InputField>().text;
 
         // Clear old error messages
-        ClearErrorMessages();
+        ClearMessages();
 
         // Validate new input / display error messages if any
         bool inputValid = ValidateInput(userName, email, password, confirmPassword);
@@ -61,11 +65,11 @@ public class RegisterLoginScript : MonoBehaviour
         // If no errors found, save user to the database
         if (inputValid)
         {
-            var userId = Guid.NewGuid();
-            dataManager.AddUserSQL(userId.ToString(), email, userName, password, "2000/01/01");
+            dataManager.AddUser(email, userName, password);
+
+            // TODO: Complete the login process!!!
 
             // Display success message and close the form in 3 secs
-            successMessage = GameObject.Find("SuccessMessage");
             successMessage.GetComponent<Text>().text = "Registration completed successfully";
             timerCounter = 0;
             displayRegistrationSuccessMessage = true;
@@ -93,7 +97,7 @@ public class RegisterLoginScript : MonoBehaviour
             userNameError.GetComponent<Text>().text = "Only letters, digits, dashes, underscores, and spaces allowed.";
             valid = false;
         }
-        else if (dataManager.DisplayNameExistsSQL(userName))
+        else if (dataManager.DisplayNameExists(userName))
         {
             userNameError.GetComponent<Text>().text = "This display name is already taken.";
             valid = false;
@@ -130,9 +134,17 @@ public class RegisterLoginScript : MonoBehaviour
             valid = false;
         }
 
+        // Validate passeword confirmation
         if (confirmPassword != password)
         {
             confirmPasswordError.GetComponent<Text>().text = "Passwords must match.";
+            valid = false;
+        }
+
+        // Check if ove 18 years old
+        if (!overEighteenOld.isOn)
+        {
+            successMessage.GetComponent<Text>().text = "You must be over 18 years old to register.";
             valid = false;
         }
 
@@ -141,10 +153,12 @@ public class RegisterLoginScript : MonoBehaviour
 
     private void InitializeInputObjects()
     {
-        userNameObject = GameObject.Find("DisplayName/InputField");
-        emailObject = GameObject.Find("EmailInput/InputField");
-        passwordObject = GameObject.Find("PasswordInput/InputField");
+        userNameObject = GameObject.Find("RegisterDisplayName/InputField");
+        emailObject = GameObject.Find("RegisterEmailInput/InputField");
+        passwordObject = GameObject.Find("RegisterPasswordInput/InputField");
         confirmPasswordObject = GameObject.Find("ConfirmPasswordInput/InputField");
+        overEighteenOld = GameObject.Find("OverEighteenToggle").GetComponent<Toggle>();
+        successMessage = GameObject.Find("RegisterSuccessMessage");
     }
 
     private void ClearInputObjects()
@@ -157,35 +171,83 @@ public class RegisterLoginScript : MonoBehaviour
         emailObject.GetComponent<InputField>().text = string.Empty;
         passwordObject.GetComponent<InputField>().text = string.Empty;
         confirmPasswordObject.GetComponent<InputField>().text = string.Empty;
-
+        overEighteenOld.isOn = false;
     }
 
-    private void ClearErrorMessages()
+    private void ClearMessages()
     {
         // instantiate ErrorMessage objects if not yet 
         if (userNameError == null)
         {
-            userNameError = GameObject.Find("DisplayName/ErrorMessage");
-            emailError = GameObject.Find("EmailInput/ErrorMessage");
-            passwordError = GameObject.Find("PasswordInput/ErrorMessage");
+            userNameError = GameObject.Find("RegisterDisplayName/ErrorMessage");
+            emailError = GameObject.Find("RegisterEmailInput/ErrorMessage");
+            passwordError = GameObject.Find("RegisterPasswordInput/ErrorMessage");
             confirmPasswordError = GameObject.Find("ConfirmPasswordInput/ErrorMessage");
+            successMessage = GameObject.Find("RegisterSuccessMessage");
         }
 
         userNameError.GetComponent<Text>().text = string.Empty;
         emailError.GetComponent<Text>().text = string.Empty;
         passwordError.GetComponent<Text>().text = string.Empty;
         confirmPasswordError.GetComponent<Text>().text = string.Empty;
-    }
-
-    public void CloseRegistrationForm()
-    {
-        ClearInputObjects();
-        registrationForm.gameObject.SetActive(false);
-    }
+        successMessage.GetComponent<Text>().text = string.Empty;
+    }    
 
     public void OpenRegistrationForm()
     {
         registrationForm.gameObject.SetActive(true);
+        ClearInputObjects();
+        ClearMessages();
         loginButtonGroup.gameObject.SetActive(false);
+    }
+    #endregion
+
+    #region Login Scripts
+    private GameObject loginUserNameObject;
+    private GameObject loginPasswordObject;
+    private GameObject loginMessageObject;
+    public void LogIn()
+    {
+        var userName = loginUserNameObject.GetComponent<InputField>().text;
+        var password = loginPasswordObject.GetComponent<InputField>().text;
+        if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+        {
+            loginMessageObject.GetComponent<Text>().text = "Both display name and password are required.";
+        }
+        else if (!dataManager.LoginUser(userName, password))
+        {
+            loginMessageObject.GetComponent<Text>().text = "Invalid display name or password.";
+        }
+        else
+        {
+            // TODO: Complete the login process!!!
+            GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
+        }
+    }
+
+    public void InitializeLoginInputs()
+    {
+        if (loginPasswordObject == null)
+        {
+            loginUserNameObject = GameObject.Find("LoginDisplayName/InputField");
+            loginPasswordObject = GameObject.Find("LoginPasswordInput/InputField");
+            loginMessageObject = GameObject.Find("LoginSuccessMessage");
+        }
+        loginUserNameObject.GetComponent<InputField>().text = string.Empty;
+        loginPasswordObject.GetComponent<InputField>().text = string.Empty;
+        loginMessageObject.GetComponent<Text>().text = string.Empty;
+    }   
+
+    public void OpenLoginForm()
+    {        
+        loginForm.gameObject.SetActive(true);
+        InitializeLoginInputs();
+        loginButtonGroup.gameObject.SetActive(false);
+    }
+    #endregion
+
+    public void CloseRegistrationLoginForm()
+    {
+        GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
     }
 }

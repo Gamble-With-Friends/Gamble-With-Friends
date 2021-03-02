@@ -11,6 +11,7 @@ public class LoginTriggerScript : MonoBehaviour
 
     public CanvasGroup loginCanvas;
     public GameObject registerFormGroup;
+    public GameObject loginFormGroup;
     public GameObject loginRegistrationGroup;
 
     public Text instruction;
@@ -51,7 +52,7 @@ public class LoginTriggerScript : MonoBehaviour
             {
                 loginRegistrationGroup.gameObject.SetActive(true);
 
-                if (!registerFormGroup.activeSelf)
+                if (!registerFormGroup.activeSelf && !loginFormGroup.activeSelf)
                 {
                     loginCanvas.gameObject.SetActive(true);
                 }
@@ -64,12 +65,13 @@ public class LoginTriggerScript : MonoBehaviour
         }
     }
 
-    private void ExitRegistrationLogin()
+    public void ExitRegistrationLogin()
     {
         Cursor.lockState = CursorLockMode.Locked;
         loginRegistrationGroup.gameObject.SetActive(false);
         loginCanvas.gameObject.SetActive(false);
         registerFormGroup.gameObject.SetActive(false);
+        loginFormGroup.gameObject.SetActive(false);
         collidingPlayerMovement.disableMovement = false;
         collidingPlayerMouseLook.disableLookaround = false;
     }
