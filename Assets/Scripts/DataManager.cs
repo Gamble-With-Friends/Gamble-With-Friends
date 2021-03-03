@@ -20,7 +20,7 @@ public class DataManager : MonoBehaviour
 
     public void Start()
     {
-        
+        SendSQL();
     }
 
     public void SendSQL()
@@ -32,4 +32,6 @@ public class DataManager : MonoBehaviour
             cmd.ExecuteNonQuery();
         }
     }
+
+
 }

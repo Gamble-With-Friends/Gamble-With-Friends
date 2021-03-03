@@ -1,18 +1,21 @@
 ﻿using Mirror;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    readonly static KeyCode USE_KEY = KeyCode.Mouse0;
+    readonly static float MAX_DISTANCE = 20f;
+    readonly static float SPEED = 12f;
+    readonly static float GROUND_DISTANCE = 0.4f;
+    readonly static float GRAVITY = -9.81f;
+    readonly static float JUMP_HEIGHT = 3f;
 
     public CharacterController controller;
-    public float speed = 12f;
-    public float gravity = -9.81f;
     public Transform groundCheck;
-    public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    public float jumpHeight = 3f;
-    public GameObject playerCamera;
+    public Camera playerCamera;
     public MeshRenderer playerBodyMeshRenderer;
 
     [SyncVar]
@@ -21,24 +24,45 @@ public class PlayerMovement : NetworkBehaviour
     Vector3 velocity;
     bool isGrounded;
 
+
+    void OnEnable()
+    {
+        EventManager.onGameStart += onGameStart;
+    }
+
+    void OnDisable()
+    {
+        EventManager.onGameStart -= onGameStart;
+    }
+
+    void onGameStart(string gameId)
+    {
+        if(isLocalPlayer)
+        {
+            playerCamera.enabled = false;
+        }
+    }
+
     void Update()
     {
         if (isLocalPlayer)
         {
-            playerCamera.SetActive(true);
-
-            if (Input.GetKey(KeyCode.X))
+            if(!playerCamera.enabled)
             {
-                SceneManager.LoadScene("WarGame");
+                playerCamera.enabled = true;
             }
 
-            isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+            if (Input.GetKeyUp(USE_KEY)) {
+                RaycastSingle();
+            }
+
+            isGrounded = Physics.CheckSphere(groundCheck.position, GROUND_DISTANCE, groundMask);
 
             if (isGrounded)
             {
                 if (Input.GetButton("Jump"))
                 {
-                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                    velocity.y = Mathf.Sqrt(JUMP_HEIGHT * -2f * GRAVITY);
                 }
 
                 if (velocity.y < 0)
@@ -51,12 +75,28 @@ public class PlayerMovement : NetworkBehaviour
             float z = Input.GetAxis("Vertical");
 
             Vector3 move = transform.right * x + transform.forward * z;
-            controller.Move(move * speed * Time.deltaTime);
+            controller.Move(move * SPEED * Time.deltaTime);
 
-            velocity.y += gravity * Time.deltaTime;
+            velocity.y += GRAVITY * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
 
             playerBodyMeshRenderer.material.color = playerColor;
+        }
+    }
+
+    private void RaycastSingle()
+    {
+        Vector2 mouseScreenPosition = Input.mousePosition;
+
+        Ray ray = playerCamera.ScreenPointToRay(mouseScreenPosition);
+        Debug.DrawRay(ray.origin, ray.direction * MAX_DISTANCE, Color.green);
+        bool result = Physics.Raycast(ray, out RaycastHit raycastHit, MAX_DISTANCE);
+
+        Debug.Log(raycastHit.collider.name);
+        
+        if(result)
+        {
+            EventManager.FireClickEvent(raycastHit.collider.name);
         }
     }
 }

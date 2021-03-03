@@ -32,6 +32,5 @@ public class AutoHostClient : MonoBehaviour
     {
         networkManager.networkAddress = "localhost";
         networkManager.StartServer();
-        networkManager.StartClient();
     }
 }

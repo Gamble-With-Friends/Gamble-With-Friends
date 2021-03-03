@@ -89,7 +89,7 @@ SphereCollider:
   m_GameObject: {fileID: 2617662908133089456}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
@@ -133,7 +133,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3549858917011912297}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
@@ -413,7 +413,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   jumpHeight: 3
-  playerCamera: {fileID: 3549858917011912297}
+  playerCamera: {fileID: 2172181352287671037}
   playerBodyMeshRenderer: {fileID: 3853397576376226284}
   playerColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &-6353610376586303246
@@ -523,7 +523,7 @@ SphereCollider:
   m_GameObject: {fileID: 9173520796267469239}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
