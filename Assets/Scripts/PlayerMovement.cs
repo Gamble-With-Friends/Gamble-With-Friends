@@ -1,21 +1,19 @@
 ﻿using Mirror;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class PlayerMovement : NetworkBehaviour
 {
-    readonly static KeyCode USE_KEY = KeyCode.Mouse0;
-    readonly static KeyCode EXIT_GAME_KEY = KeyCode.Escape;
-    readonly static float MAX_DISTANCE = 20f;
-    readonly static float SPEED = 12f;
-    readonly static float GROUND_DISTANCE = 0.4f;
-    readonly static float GRAVITY = -9.81f;
-    readonly static float JUMP_HEIGHT = 3f;
+    public bool disableMovement = false;
+    public string playerId;
 
     public CharacterController controller;
+    public float speed = 12f;
+    public float gravity = -9.81f;
     public Transform groundCheck;
+    public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public float jumpHeight = 3f;
     public GameObject playerCamera;
     public MeshRenderer playerBodyMeshRenderer;
 
@@ -24,120 +22,51 @@ public class PlayerMovement : NetworkBehaviour
 
     Vector3 velocity;
     bool isGrounded;
-    bool isMovementDisabled;
-    int currentGameId = -1;
-
-    void OnEnable()
-    {
-        EventManager.OnPrepareToGame += OnPrepareToGame;
-        EventManager.OnReadyToExitGame += OnReadyToExitGame;
-    }
-
-    void OnDisable()
-    {
-        EventManager.OnPrepareToGame -= OnPrepareToGame;
-        EventManager.OnReadyToExitGame -= OnReadyToExitGame;
-    }
-
-    void OnPrepareToGame(int intanceId)
-    {
-        if (isLocalPlayer && !IsInGame())
-        {
-            isMovementDisabled = true;
-            currentGameId = intanceId;
-            Cursor.lockState = CursorLockMode.Confined;
-            playerCamera.SetActive(false);
-            EventManager.FireReadyToGameEvent(intanceId);
-        }
-    }
-
-    void OnReadyToExitGame(int intanceId)
-    {
-        if (isLocalPlayer && IsInGame())
-        {
-            isMovementDisabled = false;
-            currentGameId = -1;
-            Cursor.lockState = CursorLockMode.Locked;
-            playerCamera.SetActive(true);
-        }
-    }
 
     void Update()
     {
         if (isLocalPlayer)
         {
-            HandleExitGame();
-            HandleCamera();
-            HandleRaycasting();
-            HandlePlayerMovement();
-        }
-    }
-
-    void HandleExitGame()
-    {
-        if (isLocalPlayer && IsInGame() && Input.GetKeyUp(EXIT_GAME_KEY))
-        {
-            EventManager.FirePrepareToExitGameEvent(currentGameId);
-        }
-    }
-
-    void HandleCamera()
-    {
-        if (!IsInGame() && !playerCamera.activeSelf)
-        {
             playerCamera.SetActive(true);
-        }
-    }
 
-    void HandlePlayerMovement()
-    {
-        if (!isMovementDisabled)
-        {
-            isGrounded = Physics.CheckSphere(groundCheck.position, GROUND_DISTANCE, groundMask);
-
-            if (isGrounded)
+            if (Input.GetKey(KeyCode.X))
             {
-                if (Input.GetButton("Jump"))
-                {
-                    velocity.y = Mathf.Sqrt(JUMP_HEIGHT * -2f * GRAVITY);
-                }
-
-                if (velocity.y < 0)
-                {
-                    velocity.y = -2f;
-                }
+                SceneManager.LoadScene("WarGame");
             }
 
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
+            if (!disableMovement)
+            {
+                HandleMovement();
+            }            
 
-            Vector3 move = transform.right * x + transform.forward * z;
-            controller.Move(move * SPEED * Time.deltaTime);
-
-            velocity.y += GRAVITY * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
+            playerBodyMeshRenderer.material.color = playerColor;
         }
     }
 
-    void HandleRaycasting()
+    private void HandleMovement()
     {
-        if (Input.GetKeyUp(USE_KEY))
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if (isGrounded)
         {
-            Vector2 mouseScreenPosition = Input.mousePosition;
-
-            Ray ray = playerCamera.GetComponent<Camera>().ScreenPointToRay(mouseScreenPosition);
-            Debug.DrawRay(ray.origin, ray.direction * MAX_DISTANCE, Color.green);
-            bool result = Physics.Raycast(ray, out RaycastHit raycastHit, MAX_DISTANCE);
-
-            if (result)
+            if (Input.GetButton("Jump"))
             {
-                EventManager.FireClickEvent(raycastHit.transform.GetInstanceID());
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            }
+
+            if (velocity.y < 0)
+            {
+                velocity.y = -2f;
             }
         }
-    }
 
-    bool IsInGame()
-    {
-        return currentGameId != -1;
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+
+        Vector3 move = transform.right * x + transform.forward * z;
+        controller.Move(move * speed * Time.deltaTime);
+
+        velocity.y += gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 }
