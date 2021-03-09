@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMovement : NetworkBehaviour
 {
     readonly static KeyCode USE_KEY = KeyCode.Mouse0;
+    readonly static KeyCode EXIT_GAME_KEY = KeyCode.Escape;
     readonly static float MAX_DISTANCE = 20f;
     readonly static float SPEED = 12f;
     readonly static float GROUND_DISTANCE = 0.4f;
@@ -15,7 +16,7 @@ public class PlayerMovement : NetworkBehaviour
     public CharacterController controller;
     public Transform groundCheck;
     public LayerMask groundMask;
-    public Camera playerCamera;
+    public GameObject playerCamera;
     public MeshRenderer playerBodyMeshRenderer;
 
     [SyncVar]
@@ -23,23 +24,41 @@ public class PlayerMovement : NetworkBehaviour
 
     Vector3 velocity;
     bool isGrounded;
-
+    bool isMovementDisabled;
+    int currentGameId = -1;
 
     void OnEnable()
     {
-        EventManager.onGameStart += onGameStart;
+        EventManager.OnPrepareToGame += OnPrepareToGame;
+        EventManager.OnReadyToExitGame += OnReadyToExitGame;
     }
 
     void OnDisable()
     {
-        EventManager.onGameStart -= onGameStart;
+        EventManager.OnPrepareToGame -= OnPrepareToGame;
+        EventManager.OnReadyToExitGame -= OnReadyToExitGame;
     }
 
-    void onGameStart(string gameId)
+    void OnPrepareToGame(int intanceId)
     {
-        if(isLocalPlayer)
+        if (isLocalPlayer && !IsInGame())
         {
-            playerCamera.enabled = false;
+            isMovementDisabled = true;
+            currentGameId = intanceId;
+            Cursor.lockState = CursorLockMode.Confined;
+            playerCamera.SetActive(false);
+            EventManager.FireReadyToGameEvent(intanceId);
+        }
+    }
+
+    void OnReadyToExitGame(int intanceId)
+    {
+        if (isLocalPlayer && IsInGame())
+        {
+            isMovementDisabled = false;
+            currentGameId = -1;
+            Cursor.lockState = CursorLockMode.Locked;
+            playerCamera.SetActive(true);
         }
     }
 
@@ -47,15 +66,33 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            if(!playerCamera.enabled)
-            {
-                playerCamera.enabled = true;
-            }
+            HandleExitGame();
+            HandleCamera();
+            HandleRaycasting();
+            HandlePlayerMovement();
+        }
+    }
 
-            if (Input.GetKeyUp(USE_KEY)) {
-                RaycastSingle();
-            }
+    void HandleExitGame()
+    {
+        if (isLocalPlayer && IsInGame() && Input.GetKeyUp(EXIT_GAME_KEY))
+        {
+            EventManager.FirePrepareToExitGameEvent(currentGameId);
+        }
+    }
 
+    void HandleCamera()
+    {
+        if (!IsInGame() && !playerCamera.activeSelf)
+        {
+            playerCamera.SetActive(true);
+        }
+    }
+
+    void HandlePlayerMovement()
+    {
+        if (!isMovementDisabled)
+        {
             isGrounded = Physics.CheckSphere(groundCheck.position, GROUND_DISTANCE, groundMask);
 
             if (isGrounded)
@@ -79,24 +116,28 @@ public class PlayerMovement : NetworkBehaviour
 
             velocity.y += GRAVITY * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
-
-            playerBodyMeshRenderer.material.color = playerColor;
         }
     }
 
-    private void RaycastSingle()
+    void HandleRaycasting()
     {
-        Vector2 mouseScreenPosition = Input.mousePosition;
-
-        Ray ray = playerCamera.ScreenPointToRay(mouseScreenPosition);
-        Debug.DrawRay(ray.origin, ray.direction * MAX_DISTANCE, Color.green);
-        bool result = Physics.Raycast(ray, out RaycastHit raycastHit, MAX_DISTANCE);
-
-        Debug.Log(raycastHit.collider.name);
-        
-        if(result)
+        if (Input.GetKeyUp(USE_KEY))
         {
-            EventManager.FireClickEvent(raycastHit.collider.name);
+            Vector2 mouseScreenPosition = Input.mousePosition;
+
+            Ray ray = playerCamera.GetComponent<Camera>().ScreenPointToRay(mouseScreenPosition);
+            Debug.DrawRay(ray.origin, ray.direction * MAX_DISTANCE, Color.green);
+            bool result = Physics.Raycast(ray, out RaycastHit raycastHit, MAX_DISTANCE);
+
+            if (result)
+            {
+                EventManager.FireClickEvent(raycastHit.transform.GetInstanceID());
+            }
         }
+    }
+
+    bool IsInGame()
+    {
+        return currentGameId != -1;
     }
 }
