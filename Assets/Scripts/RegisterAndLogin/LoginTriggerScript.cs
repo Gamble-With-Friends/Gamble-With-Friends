@@ -43,7 +43,7 @@ public class LoginTriggerScript : MonoBehaviour
 
             if (loginRegistrationGroup.gameObject.activeSelf)
             {
-                collidingPlayerMovement.disableMovement = true;
+                collidingPlayerMovement.isMovementDisabled = true;
                 collidingPlayerMouseLook.disableLookaround = true;
                 instruction.text = "";
             }
@@ -72,7 +72,7 @@ public class LoginTriggerScript : MonoBehaviour
         loginCanvas.gameObject.SetActive(false);
         registerFormGroup.gameObject.SetActive(false);
         loginFormGroup.gameObject.SetActive(false);
-        collidingPlayerMovement.disableMovement = false;
+        collidingPlayerMovement.isMovementDisabled = false;
         collidingPlayerMouseLook.disableLookaround = false;
     }
 
