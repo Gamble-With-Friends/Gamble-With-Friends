@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using UnityEngine;
 
 public class PokerGameManager : MonoBehaviour
@@ -9,9 +12,13 @@ public class PokerGameManager : MonoBehaviour
     public GameObject chip25;
     public GameObject chip100;
     public GameObject gameCamera;
+    public GameObject playingCardTest;
 
     static List<GameObject> playerChips;
+
+    GameState currentGameState;
     int betAmount;
+
 
     void OnEnable()
     {
@@ -19,6 +26,7 @@ public class PokerGameManager : MonoBehaviour
         EventManager.OnReadyToGame += OnReadyToGame;
         EventManager.OnPrepareToExitGame += OnPrepareToExitGame;
         EventManager.OnModifyBetAction += OnModifyBetAction;
+        EventManager.OnStartGame += OnStartGame;
     }
 
     void OnDisable()
@@ -27,11 +35,13 @@ public class PokerGameManager : MonoBehaviour
         EventManager.OnReadyToGame -= OnReadyToGame;
         EventManager.OnPrepareToExitGame -= OnPrepareToExitGame;
         EventManager.OnModifyBetAction -= OnModifyBetAction;
+        EventManager.OnStartGame -= OnStartGame;
     }
 
     private void Start()
     {
         DestoryChips();
+        currentGameState = GameState.NOT_STARTED;
     }
 
     void OnReadyToGame(int instanceId)
@@ -40,14 +50,53 @@ public class PokerGameManager : MonoBehaviour
         {
             betAmount = 0;
             gameCamera.SetActive(true);
-            InstatiateChips(10, 8, 5, 5);
+            EventManager.FireStartGameEvent(instanceId);
         }
+    }
+
+    void OnStartGame(int instanceId)
+    {
+        if (currentGameState == GameState.NOT_STARTED)
+        {
+            currentGameState = GameState.BETTING;
+
+            InstatiateChips(10, 8, 5, 5);
+
+            EventManager.FireInstructionChangeEvent($"Place your bets...");
+
+            Material newMat = Resources.Load("Black_PlayingCard_Club10_00", typeof(Material)) as Material;
+
+            playingCardTest.GetComponent<Renderer>().material = new$$anonymous$$at;
+
+            Invoke(nameof(DealCards), 10);
+        }
+        else
+        {
+            EventManager.FireInstructionChangeEvent("Game currently in process. Please wait...");
+        }
+    }
+
+    void DealCards()
+    {
+        currentGameState = GameState.DEALING;
+        List<Card> cards = Deck.GetShuffledDeck(3);
+        List<Card> hand = cards.DealCards(5);
+        List<string> imageNames = hand.GetImageNames();
+       
     }
 
     void OnModifyBetAction(int amount)
     {
-        betAmount += amount;
-        Debug.Log("Current Amount: " + betAmount);
+        if (currentGameState == GameState.BETTING)
+        {
+            betAmount += amount;
+            if (betAmount < 0)
+            {
+                betAmount = 0;
+            }
+
+            EventManager.FireInstructionChangeEvent($"You placed ${betAmount}");
+        }
     }
 
     void OnClick(int instanceId)
@@ -64,6 +113,7 @@ public class PokerGameManager : MonoBehaviour
         {
             gameCamera.SetActive(false);
             DestoryChips();
+            EventManager.FireInstructionChangeEvent("");
             EventManager.FireReadyToExitGameEvent(instanceId);
         }
     }
@@ -108,5 +158,12 @@ public class PokerGameManager : MonoBehaviour
         }
 
         playerChips = new List<GameObject>();
+    }
+
+    enum GameState
+    {
+        NOT_STARTED,
+        BETTING,
+        DEALING
     }
 }
