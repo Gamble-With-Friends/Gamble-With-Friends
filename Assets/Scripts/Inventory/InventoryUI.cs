@@ -8,6 +8,7 @@ public class InventoryUI : MonoBehaviour
 {
     public Button sellButton;
     public Image icon;
+    public GameObject description;
 
     public void OnItemClick()
     {
@@ -27,10 +28,22 @@ public class InventoryUI : MonoBehaviour
             sellButton.interactable = false;
         }
     }
-        // Start is called before the first frame update
-        void Start()
+
+
+    public void OnPointerEnter()
     {
-        
+        description.SetActive(true);
+    }
+
+    public void OnPointerExit()
+    {
+        description.SetActive(false);
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+
     }
 
     // Update is called once per frame

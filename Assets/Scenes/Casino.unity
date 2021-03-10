@@ -16927,6 +16927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sellButton: {fileID: 0}
   icon: {fileID: 0}
+  description: {fileID: 0}
 --- !u!1001 &1989342179
 PrefabInstance:
   m_ObjectHideFlags: 0
