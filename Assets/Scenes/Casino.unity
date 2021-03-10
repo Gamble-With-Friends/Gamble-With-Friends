@@ -4225,10 +4225,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ec4267035b6c0b4085b01ab837540aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  loginCanvas: {fileID: 598674085}
-  registerFormGroup: {fileID: 323087630}
+  loginCanvas: {fileID: 598674083}
+  registerFormGroup: {fileID: 399596545}
   loginFormGroup: {fileID: 1887906407}
-  loginRegistrationGroup: {fileID: 399596545}
+  loginRegistrationGroup: {fileID: 323087630}
   instruction: {fileID: 217644004}
 --- !u!65 &473622956
 BoxCollider:
