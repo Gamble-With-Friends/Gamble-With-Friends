@@ -69,7 +69,7 @@ public class DataManager : MonoBehaviour
     {
         using (SqlConnection db = new SqlConnection(connectionString))
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE displayName=@displayName", db);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE displayName=@displayName COLLATE SQL_Latin1_General_CP1_CS_AS", db);
 
             SqlParameter param = new SqlParameter();
             param.ParameterName = "@displayName";
@@ -90,7 +90,7 @@ public class DataManager : MonoBehaviour
     {
         using (SqlConnection db = new SqlConnection(connectionString))
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE displayName=@displayName AND password=@password", db);
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE displayName=@displayName COLLATE SQL_Latin1_General_CP1_CS_AS AND password=@password COLLATE SQL_Latin1_General_CP1_CS_AS", db);
 
             SqlParameter userNameParam = new SqlParameter();
             userNameParam.ParameterName = "@displayName";
