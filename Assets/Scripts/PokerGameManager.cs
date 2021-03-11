@@ -19,6 +19,7 @@ public class PokerGameManager : MonoBehaviour
     GameState currentGameState;
     int betAmount;
 
+    //GameObject variableForPrefab = (GameObject)Resources.Load("Prefabs/FirstPersonPlayer", typeof(GameObject));
 
     void OnEnable()
     {
@@ -64,10 +65,6 @@ public class PokerGameManager : MonoBehaviour
 
             EventManager.FireInstructionChangeEvent($"Place your bets...");
 
-            Material newMat = Resources.Load("Black_PlayingCard_Club10_00", typeof(Material)) as Material;
-
-            playingCardTest.GetComponent<Renderer>().material = new$$anonymous$$at;
-
             Invoke(nameof(DealCards), 10);
         }
         else
@@ -82,7 +79,6 @@ public class PokerGameManager : MonoBehaviour
         List<Card> cards = Deck.GetShuffledDeck(3);
         List<Card> hand = cards.DealCards(5);
         List<string> imageNames = hand.GetImageNames();
-       
     }
 
     void OnModifyBetAction(int amount)

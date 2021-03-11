@@ -69,8 +69,11 @@ public class PlayerMovement : NetworkBehaviour
         {
             HandleExitGame();
             HandleCamera();
-            HandleRaycasting();
-            HandlePlayerMovement();
+            if(playerCamera.activeSelf)
+            {
+                HandleRaycasting();
+                HandlePlayerMovement();
+            }
         }
     }
 
@@ -133,6 +136,7 @@ public class PlayerMovement : NetworkBehaviour
             if (result)
             {
                 EventManager.FireClickEvent(raycastHit.transform.GetInstanceID());
+                Debug.Log(raycastHit.collider.name);
             }
         }
     }

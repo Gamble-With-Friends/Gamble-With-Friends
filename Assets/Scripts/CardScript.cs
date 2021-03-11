@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 public enum CardSuit
 {
     Diamonds,
@@ -10,6 +9,7 @@ public enum CardSuit
     Hearts,
     Spades
 }
+
 public enum CardRank
 {
     Ace = 1,
