@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameCameraManager : MonoBehaviour
+public class GameCameraScript : MonoBehaviour
 {
-
     void Update()
     {
         HandleRaycasting();

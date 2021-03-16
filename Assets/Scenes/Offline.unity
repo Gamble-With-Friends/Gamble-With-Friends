@@ -929,7 +929,7 @@ MonoBehaviour:
   offlineScene: Assets/Scenes/Offline.unity
   onlineScene: Assets/Scenes/Casino.unity
   transport: {fileID: 1719019835}
-  networkAddress: 216.58.1.35
+  networkAddress: localhost
   maxConnections: 4
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60

@@ -67,7 +67,8 @@ public class RegisterLoginScript : MonoBehaviour
         {
             dataManager.AddUser(email, userName, password);
 
-            // TODO: Complete the login process!!!
+            PlayerModelScript player = dataManager.LoginUser(userName, password);            
+            EventManager.FirePlayerLoginEvent(player);
 
             // Display success message and close the form in 3 secs
             successMessage.GetComponent<Text>().text = "Registration completed successfully";
@@ -214,15 +215,19 @@ public class RegisterLoginScript : MonoBehaviour
         {
             loginMessageObject.GetComponent<Text>().text = "Both display name and password are required.";
         }
-        else if (!dataManager.LoginUser(userName, password))
-        {
-            loginMessageObject.GetComponent<Text>().text = "Invalid display name or password.";
-        }
         else
         {
-            // TODO: Complete the login process!!!
-            GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
-        }
+            PlayerModelScript player = dataManager.LoginUser(userName, password);
+            if (player == null)
+            {
+                loginMessageObject.GetComponent<Text>().text = "Invalid display name or password.";
+            }
+            else
+            {
+                GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
+                EventManager.FirePlayerLoginEvent(player);
+            }
+        }       
     }
 
     public void InitializeLoginInputs()

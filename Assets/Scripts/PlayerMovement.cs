@@ -23,8 +23,10 @@ public class PlayerMovement : NetworkBehaviour
     [SyncVar]
     public Color playerColor;
 
-    Vector3 velocity;
-    bool isGrounded;
+    private Vector3 velocity;
+    private bool isGrounded;
+    public PlayerModelScript player;
+    public TextMesh displayNameTextMesh;
     
     int currentGameId = -1;
 
@@ -32,12 +34,20 @@ public class PlayerMovement : NetworkBehaviour
     {
         EventManager.OnPrepareToGame += OnPrepareToGame;
         EventManager.OnReadyToExitGame += OnReadyToExitGame;
+        EventManager.OnPlayerLogin += OnPlayerLogin;
     }
 
     void OnDisable()
     {
         EventManager.OnPrepareToGame -= OnPrepareToGame;
         EventManager.OnReadyToExitGame -= OnReadyToExitGame;
+        EventManager.OnPlayerLogin -= OnPlayerLogin;
+    }
+
+    void OnPlayerLogin(PlayerModelScript player)
+    {
+        this.player = player;
+        displayNameTextMesh.text = player.UserName;
     }
 
     void OnPrepareToGame(int intanceId)
@@ -69,8 +79,11 @@ public class PlayerMovement : NetworkBehaviour
         {
             HandleExitGame();
             HandleCamera();
-            HandleRaycasting();
-            HandlePlayerMovement();
+            if(playerCamera.activeSelf)
+            {
+                HandleRaycasting();
+                HandlePlayerMovement();
+            }
         }
     }
 
@@ -133,6 +146,7 @@ public class PlayerMovement : NetworkBehaviour
             if (result)
             {
                 EventManager.FireClickEvent(raycastHit.transform.GetInstanceID());
+                Debug.Log(raycastHit.collider.name);
             }
         }
     }

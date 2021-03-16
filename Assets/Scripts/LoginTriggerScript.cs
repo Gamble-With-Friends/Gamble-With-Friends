@@ -14,7 +14,6 @@ public class LoginTriggerScript : MonoBehaviour
     public GameObject loginFormGroup;           // login form group
     public GameObject loginRegistrationGroup;   // 'Register' and 'Login' buttons group 
 
-    public Text instruction;
     bool isInsideTrigger;
 
     private PlayerMovement collidingPlayerMovement;
@@ -22,7 +21,7 @@ public class LoginTriggerScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        instruction.text = LOGIN_TEXT;
+        EventManager.FireInstructionChangeEvent(LOGIN_TEXT);
         isInsideTrigger = true;
         collidingPlayerMovement = other.gameObject.GetComponent<PlayerMovement>();
         collidingPlayerMouseLook = other.gameObject.transform.Find("Main Camera").GetComponent<MouseLook>();
@@ -31,7 +30,7 @@ public class LoginTriggerScript : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         isInsideTrigger = false;
-        instruction.text = "";
+        EventManager.FireInstructionChangeEvent("");
         ExitRegistrationLogin();
     }
 
@@ -45,7 +44,7 @@ public class LoginTriggerScript : MonoBehaviour
             {
                 collidingPlayerMovement.isMovementDisabled = true;
                 collidingPlayerMouseLook.disableLookaround = true;
-                instruction.text = "";
+                EventManager.FireInstructionChangeEvent("");
             }
 
             if (Input.GetKey(KeyCode.E))
@@ -59,7 +58,7 @@ public class LoginTriggerScript : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.Escape))
             {
-                instruction.text = LOGIN_TEXT;
+                EventManager.FireInstructionChangeEvent(LOGIN_TEXT);
                 ExitRegistrationLogin();
             }
         }

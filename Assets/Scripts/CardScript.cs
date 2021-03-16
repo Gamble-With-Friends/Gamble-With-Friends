@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 
-
 public enum CardSuit
 {
     Diamonds,
@@ -10,8 +9,10 @@ public enum CardSuit
     Hearts,
     Spades
 }
+
 public enum CardRank
 {
+    Ace = 1,
     Two = 2,
     Three = 3,
     Four = 4,
@@ -23,8 +24,7 @@ public enum CardRank
     Ten = 10,
     Jack = 11,
     Queen = 12,
-    King = 13,
-    Ace = 14
+    King = 13
 }
 
 public class Card
@@ -85,6 +85,59 @@ public static class CardExtensions
             return sum;
         }
         return sum + 10;
+    }
+
+    public static string GetStringValue(this List<Card> hand)
+    {
+        string val = "";
+        foreach (Card c in hand)
+        {
+            val += c.Rank.ToString() + " of " + c.Suit.ToString() + ", ";
+        }
+        val = val.Remove(val.Length - 2);
+
+        return val;
+    }
+
+    public static List<string> GetImageNames(this List<Card> hand)
+    {
+        List<string> imageNames = new List<string>();
+        foreach (Card c in hand)
+        {
+            imageNames.Add(SuitToImageName(c.Suit) + RankToImageName(c.Rank));
+        }
+        return imageNames;
+    }
+
+    private static string RankToImageName(CardRank rank)
+    {
+        string rankString = ((int) rank) + "";
+        if (rankString.Length == 1)
+        {
+            rankString = "0" + rankString;
+        }
+        return rankString;
+    }
+
+    private static string SuitToImageName(CardSuit suit)
+    {
+        string suitString = "";
+        switch (suit)
+        {
+            case CardSuit.Hearts:
+                suitString = "Heart";
+                break;
+            case CardSuit.Diamonds:
+                suitString = "Diamond";
+                break;
+            case CardSuit.Spades:
+                suitString = "Spade";
+                break;
+            case CardSuit.Clubs:
+                suitString = "Club";
+                break;
+        }
+        return suitString;
     }
 }
 
