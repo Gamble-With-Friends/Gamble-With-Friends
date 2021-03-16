@@ -86,11 +86,11 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public bool LoginUser(string displayName, string password)
+    public PlayerModelScript LoginUser(string displayName, string password)
     {
         using (SqlConnection db = new SqlConnection(connectionString))
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE displayName=@displayName COLLATE SQL_Latin1_General_CP1_CS_AS AND password=@password COLLATE SQL_Latin1_General_CP1_CS_AS", db);
+            SqlCommand cmd = new SqlCommand("SELECT userId, displayName, coins FROM Users WHERE displayName=@displayName COLLATE SQL_Latin1_General_CP1_CS_AS AND password=@password COLLATE SQL_Latin1_General_CP1_CS_AS", db);
 
             SqlParameter userNameParam = new SqlParameter();
             userNameParam.ParameterName = "@displayName";
@@ -106,9 +106,10 @@ public class DataManager : MonoBehaviour
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                return true;
+                PlayerModelScript player = new PlayerModelScript(reader.GetString(0), reader.GetString(1), reader.GetDecimal(2));
+                return player;
             }
-            return false;
+            return null;
         }
     }
 }

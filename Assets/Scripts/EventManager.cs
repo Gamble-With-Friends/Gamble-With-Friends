@@ -28,7 +28,7 @@ public class EventManager : MonoBehaviour
     public delegate void InstructionChange(string instruction);
     public static event InstructionChange OnInstructionChange;
 
-    public delegate void PlayerLogin(string playerId);
+    public delegate void PlayerLogin(PlayerModelScript player);
     public static event PlayerLogin OnPlayerLogin;
 
     public static void FireClickEvent(int instanceId)
@@ -71,8 +71,8 @@ public class EventManager : MonoBehaviour
         OnInstructionChange?.Invoke(instruction);
     }
 
-    public static void FirePlayerLoginEvent(string playerId)
+    public static void FirePlayerLoginEvent(PlayerModelScript player)
     {
-        OnPlayerLogin?.Invoke(playerId);
+        OnPlayerLogin?.Invoke(player);
     }
 }

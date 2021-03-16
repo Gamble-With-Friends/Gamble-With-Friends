@@ -25,7 +25,8 @@ public class PlayerMovement : NetworkBehaviour
 
     private Vector3 velocity;
     private bool isGrounded;
-    public string playerId;
+    public PlayerModelScript player;
+    public TextMesh displayNameTextMesh;
     
     int currentGameId = -1;
 
@@ -43,9 +44,10 @@ public class PlayerMovement : NetworkBehaviour
         EventManager.OnPlayerLogin -= OnPlayerLogin;
     }
 
-    void OnPlayerLogin(string playerId)
+    void OnPlayerLogin(PlayerModelScript player)
     {
-        this.playerId = playerId;
+        this.player = player;
+        displayNameTextMesh.text = player.UserName;
     }
 
     void OnPrepareToGame(int intanceId)
