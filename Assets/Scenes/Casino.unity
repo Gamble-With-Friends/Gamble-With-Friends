@@ -17150,6 +17150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instructionText: {fileID: 217644004}
   instructionBackground: {fileID: 649159554}
+--- !u!1001 &1989342179
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
