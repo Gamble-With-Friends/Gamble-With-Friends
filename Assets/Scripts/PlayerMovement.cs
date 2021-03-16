@@ -23,8 +23,9 @@ public class PlayerMovement : NetworkBehaviour
     [SyncVar]
     public Color playerColor;
 
-    Vector3 velocity;
-    bool isGrounded;
+    private Vector3 velocity;
+    private bool isGrounded;
+    public string playerId;
     
     int currentGameId = -1;
 
@@ -32,12 +33,19 @@ public class PlayerMovement : NetworkBehaviour
     {
         EventManager.OnPrepareToGame += OnPrepareToGame;
         EventManager.OnReadyToExitGame += OnReadyToExitGame;
+        EventManager.OnPlayerLogin += OnPlayerLogin;
     }
 
     void OnDisable()
     {
         EventManager.OnPrepareToGame -= OnPrepareToGame;
         EventManager.OnReadyToExitGame -= OnReadyToExitGame;
+        EventManager.OnPlayerLogin -= OnPlayerLogin;
+    }
+
+    void OnPlayerLogin(string playerId)
+    {
+        this.playerId = playerId;
     }
 
     void OnPrepareToGame(int intanceId)

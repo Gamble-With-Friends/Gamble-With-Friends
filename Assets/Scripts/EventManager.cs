@@ -28,7 +28,8 @@ public class EventManager : MonoBehaviour
     public delegate void InstructionChange(string instruction);
     public static event InstructionChange OnInstructionChange;
 
-
+    public delegate void PlayerLogin(string playerId);
+    public static event PlayerLogin OnPlayerLogin;
 
     public static void FireClickEvent(int instanceId)
     {
@@ -55,7 +56,6 @@ public class EventManager : MonoBehaviour
         OnReadyToExitGame?.Invoke(intanceId);
     }
 
-
     public static void FireStartGameEvent(int intanceId)
     {
         OnStartGame?.Invoke(intanceId);
@@ -69,5 +69,10 @@ public class EventManager : MonoBehaviour
     public static void FireInstructionChangeEvent(string instruction)
     {
         OnInstructionChange?.Invoke(instruction);
+    }
+
+    public static void FirePlayerLoginEvent(string playerId)
+    {
+        OnPlayerLogin?.Invoke(playerId);
     }
 }
