@@ -67,7 +67,8 @@ public class RegisterLoginScript : MonoBehaviour
         {
             dataManager.AddUser(email, userName, password);
 
-            // TODO: Complete the login process!!!
+            PlayerModelScript player = dataManager.LoginUser(userName, password);            
+            EventManager.FirePlayerLoginEvent(player);
 
             // Display success message and close the form in 3 secs
             successMessage.GetComponent<Text>().text = "Registration completed successfully";
