@@ -57,7 +57,6 @@ public class PokerGameManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("Adding player: " + UserInfo.GetInstance().UserId);
             CmdAddPlayer(UserInfo.GetInstance().UserId);
             betAmount = 0;
             gameCamera.SetActive(true);

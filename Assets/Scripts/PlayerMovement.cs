@@ -217,6 +217,6 @@ public class PlayerMovement : NetworkBehaviour
             totalCoins = 0;
         }
 
-        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, totalCoins);
+        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, amount);
     }
 }
