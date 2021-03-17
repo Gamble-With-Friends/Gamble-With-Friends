@@ -5,57 +5,38 @@ using System.Data;
 using System.Data.SqlClient;
 using System;
 
-
-// unsecure implementation for testing connection to DB, need API in future
-public class DataManager : MonoBehaviour
+public class DataManager
 {
     private const string SERVER_IP = "216.58.1.35";
     private const string DATABASE = "GambleWithFriends";
     private const string USERNAME = "Anthony";
     private const string PASSWORD = "Password123";
 
-    private string connectionString = @"Data Source = " + SERVER_IP +
-                                    ";Database=" + DATABASE +
-                                    ";User Id=" + USERNAME +
-                                    ";Password=" + PASSWORD + ";";
+    private const string ConnectionString = @"Data Source = " + SERVER_IP + ";Database=" + DATABASE + ";User Id=" +
+                                            USERNAME + ";Password=" + PASSWORD + ";";
 
-    public void Start()
+    public static void AddUser(string email, string displayName, string password)
     {
-
-    }
-
-    public void SendSQL()
-    {
-        using (SqlConnection db = new SqlConnection(connectionString))
+        using (var db = new SqlConnection(ConnectionString))
         {
-            SqlCommand cmd = new SqlCommand("INSERT Users VALUES ('5d931a30-dff0-44b2-aa0b-079529e43756','test@test.com','testuser','testing123!', 1000.00)", db);
-            db.Open();
-            cmd.ExecuteNonQuery();
-        }
-    }
+            var cmd = new SqlCommand("INSERT Users VALUES (@userId, @email, @displayName, @password, 1000.00)", db);
 
-    public void AddUser(string email, string displayName, string password)
-    {
-        using (SqlConnection db = new SqlConnection(connectionString))
-        {
-            SqlCommand cmd = new SqlCommand("INSERT Users VALUES (@userId, @email, @displayName, @password, 1000.00)", db);
-
-            SqlParameter userIdParam = new SqlParameter();
+            var userIdParam = new SqlParameter();
             userIdParam.ParameterName = "@userId";
             userIdParam.Value = Guid.NewGuid().ToString();
             cmd.Parameters.Add(userIdParam);
 
-            SqlParameter emailParam = new SqlParameter();
+            var emailParam = new SqlParameter();
             emailParam.ParameterName = "@email";
             emailParam.Value = email;
             cmd.Parameters.Add(emailParam);
 
-            SqlParameter userNameParam = new SqlParameter();
+            var userNameParam = new SqlParameter();
             userNameParam.ParameterName = "@displayName";
             userNameParam.Value = displayName;
             cmd.Parameters.Add(userNameParam);
 
-            SqlParameter passwordParam = new SqlParameter();
+            var passwordParam = new SqlParameter();
             passwordParam.ParameterName = "@password";
             passwordParam.Value = password;
             cmd.Parameters.Add(passwordParam);
@@ -65,15 +46,14 @@ public class DataManager : MonoBehaviour
         }
     }
 
-    public bool DisplayNameExists(string displayName)
+    public static bool DisplayNameExists(string displayName)
     {
-        using (SqlConnection db = new SqlConnection(connectionString))
+        using (var db = new SqlConnection(ConnectionString))
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Users WHERE displayName=@displayName COLLATE SQL_Latin1_General_CP1_CS_AS", db);
+            var cmd = new SqlCommand(
+                "SELECT * FROM Users WHERE displayName=@displayName COLLATE SQL_Latin1_General_CP1_CS_AS", db);
 
-            SqlParameter param = new SqlParameter();
-            param.ParameterName = "@displayName";
-            param.Value = displayName;
+            var param = new SqlParameter {ParameterName = "@displayName", Value = displayName};
             cmd.Parameters.Add(param);
 
             db.Open();
@@ -82,34 +62,67 @@ public class DataManager : MonoBehaviour
             {
                 return true;
             }
+
             return false;
         }
     }
 
-    public PlayerModelScript LoginUser(string displayName, string password)
+    public static PlayerModelScript LoginUser(string displayName, string password)
     {
-        using (SqlConnection db = new SqlConnection(connectionString))
+        using (var db = new SqlConnection(ConnectionString))
         {
-            SqlCommand cmd = new SqlCommand("SELECT userId, displayName, coins FROM Users WHERE displayName=@displayName COLLATE SQL_Latin1_General_CP1_CS_AS AND password=@password COLLATE SQL_Latin1_General_CP1_CS_AS", db);
+            var cmd = new SqlCommand(
+                "SELECT userId, displayName, coins FROM Users WHERE displayName=@displayName COLLATE SQL_Latin1_General_CP1_CS_AS AND password=@password COLLATE SQL_Latin1_General_CP1_CS_AS",
+                db);
 
-            SqlParameter userNameParam = new SqlParameter();
+            var userNameParam = new SqlParameter();
             userNameParam.ParameterName = "@displayName";
             userNameParam.Value = displayName;
             cmd.Parameters.Add(userNameParam);
 
-            SqlParameter passwordParam = new SqlParameter();
+            var passwordParam = new SqlParameter();
             passwordParam.ParameterName = "@password";
             passwordParam.Value = password;
             cmd.Parameters.Add(passwordParam);
 
             db.Open();
-            SqlDataReader reader = cmd.ExecuteReader();
+            var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                PlayerModelScript player = new PlayerModelScript(reader.GetString(0), reader.GetString(1), reader.GetDecimal(2));
+                var player = new PlayerModelScript
+                {
+                    PlayerId = reader.GetString(0),
+                    UserName = reader.GetString(1),
+                    Coins = reader.GetDecimal(2)
+                };
                 return player;
             }
+
             return null;
+        }
+    }
+
+    public static void ChangeCoinValue(string userId, decimal amount)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT coins FROM Users WHERE userId=@userId", db);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            db.Open();
+            var reader = cmd.ExecuteReader();
+            decimal currentAmount = 0;
+            
+            while (reader.Read())
+            { 
+                currentAmount = reader.GetDecimal(0);
+                if (currentAmount + amount < 0) throw new ArgumentException("Funds not available");
+            }
+            reader.Close();
+            
+            cmd = new SqlCommand("UPDATE Users SET coins = @coins Where userId=@userId", db);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            cmd.Parameters.AddWithValue("@coins", currentAmount + amount);
+            cmd.ExecuteNonQuery();
         }
     }
 }

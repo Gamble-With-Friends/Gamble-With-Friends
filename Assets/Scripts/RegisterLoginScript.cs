@@ -65,9 +65,9 @@ public class RegisterLoginScript : MonoBehaviour
         // If no errors found, save user to the database
         if (inputValid)
         {
-            dataManager.AddUser(email, userName, password);
+            DataManager.AddUser(email, userName, password);
 
-            PlayerModelScript player = dataManager.LoginUser(userName, password);            
+            PlayerModelScript player = DataManager.LoginUser(userName, password);            
             EventManager.FirePlayerLoginEvent(player);
 
             // Display success message and close the form in 3 secs
@@ -98,7 +98,7 @@ public class RegisterLoginScript : MonoBehaviour
             userNameError.GetComponent<Text>().text = "Only letters, digits, dashes, underscores, and spaces allowed.";
             valid = false;
         }
-        else if (dataManager.DisplayNameExists(userName))
+        else if (DataManager.DisplayNameExists(userName))
         {
             userNameError.GetComponent<Text>().text = "This display name is already taken.";
             valid = false;
@@ -217,7 +217,7 @@ public class RegisterLoginScript : MonoBehaviour
         }
         else
         {
-            PlayerModelScript player = dataManager.LoginUser(userName, password);
+            PlayerModelScript player = DataManager.LoginUser(userName, password);
             if (player == null)
             {
                 loginMessageObject.GetComponent<Text>().text = "Invalid display name or password.";

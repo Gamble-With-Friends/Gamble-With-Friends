@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    private readonly DataManager dataManager = new DataManager();
+    
     // Public vars
     public CharacterController controller;
     public Transform groundCheck;
@@ -40,6 +42,7 @@ public class PlayerMovement : NetworkBehaviour
         EventManager.OnPrepareToGame += OnPrepareToGame;
         EventManager.OnReadyToExitGame += OnReadyToExitGame;
         EventManager.OnPlayerLogin += OnPlayerLogin;
+        EventManager.OnChangeCoinValue += OnChangeCoinValue;
     }
 
     private void OnDisable()
@@ -47,6 +50,7 @@ public class PlayerMovement : NetworkBehaviour
         EventManager.OnPrepareToGame -= OnPrepareToGame;
         EventManager.OnReadyToExitGame -= OnReadyToExitGame;
         EventManager.OnPlayerLogin -= OnPlayerLogin;
+        EventManager.OnChangeCoinValue -= OnChangeCoinValue;
     }
 
     private void OnPlayerLogin(PlayerModelScript player)
@@ -170,6 +174,14 @@ public class PlayerMovement : NetworkBehaviour
         return currentGameId != -1;
     }
 
+    private void OnChangeCoinValue(decimal amount)
+    {
+        if (isLocalPlayer)
+        {
+            CmdChangeCoinValue(amount);
+        }
+    }
+
     // Commands
     
     [Command(ignoreAuthority = true)]
@@ -188,5 +200,21 @@ public class PlayerMovement : NetworkBehaviour
     private void CmdSetCoins(decimal total)
     {
         totalCoins = total;
+    }
+    
+    [Command(ignoreAuthority = true)]
+    private void CmdChangeCoinValue(decimal amount)
+    {
+        var userId = UserInfo.GetInstance().UserId;
+
+        if (userId == null) return;
+        
+        totalCoins += amount;
+        if (totalCoins < 0)
+        {
+            totalCoins = 0;
+        }
+
+        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, totalCoins);
     }
 }

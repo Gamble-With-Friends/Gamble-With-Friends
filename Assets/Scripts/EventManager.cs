@@ -39,6 +39,11 @@ public class EventManager : MonoBehaviour
     public delegate void PlayerLogin(PlayerModelScript player);
 
     public static event PlayerLogin OnPlayerLogin;
+    
+    public delegate void ChangeCoinValue(decimal amount);
+
+    public static event ChangeCoinValue OnChangeCoinValue;
+    
 
     public static void FireClickEvent(int instanceId)
     {
@@ -83,5 +88,10 @@ public class EventManager : MonoBehaviour
     public static void FirePlayerLoginEvent(PlayerModelScript player)
     {
         OnPlayerLogin?.Invoke(player);
+    }
+    
+    public static void FireChangeCoinValue(decimal amount)
+    {
+        OnChangeCoinValue?.Invoke(amount);
     }
 }
