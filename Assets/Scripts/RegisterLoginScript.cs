@@ -58,7 +58,7 @@ public class RegisterLoginScript : MonoBehaviour
         ClearMessages();
 
         // Validate new input / display error messages if any
-        bool inputValid = ValidateInput(userName, email, password, confirmPassword);
+        bool inputValid = ValidateInput(userName, email, password, confirmPassword, overEighteenOld.isOn);
 
         // If no errors found, save user to the database
         if (inputValid)
@@ -75,7 +75,7 @@ public class RegisterLoginScript : MonoBehaviour
         }
     }
 
-    private bool ValidateInput(string userName, string email, string password, string confirmPassword)
+    public bool ValidateInput(string userName, string email, string password, string confirmPassword, bool isOverEighteen)
     {
         bool valid = true;
 
@@ -83,22 +83,34 @@ public class RegisterLoginScript : MonoBehaviour
         Regex userNameRegex = new Regex(@"^[\w\s-]{3,}$");
         if (string.IsNullOrEmpty(userName))
         {
-            userNameError.GetComponent<Text>().text = "This field is required.";
+            if (userNameError != null)
+            {
+                userNameError.GetComponent<Text>().text = "This field is required.";
+            }            
             valid = false;
         }
         else if (userName.Length < 3)
         {
-            userNameError.GetComponent<Text>().text = "Display name must be at least 3-character long.";
+            if (userNameError != null)
+            {
+                userNameError.GetComponent<Text>().text = "Display name must be at least 3-character long.";
+            }            
             valid = false;
         }
         else if (!userNameRegex.IsMatch(userName))
         {
-            userNameError.GetComponent<Text>().text = "Only letters, digits, dashes, underscores, and spaces allowed.";
+            if (userNameError != null)
+            {
+                userNameError.GetComponent<Text>().text = "Only letters, digits, dashes, underscores, and spaces allowed.";
+            }            
             valid = false;
         }
         else if (DataManager.DisplayNameExists(userName))
         {
-            userNameError.GetComponent<Text>().text = "This display name is already taken.";
+            if (userNameError != null)
+            {
+                userNameError.GetComponent<Text>().text = "This display name is already taken.";
+            }            
             valid = false;
         }
 
@@ -106,12 +118,18 @@ public class RegisterLoginScript : MonoBehaviour
         Regex emailRegex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
         if (string.IsNullOrEmpty(email))
         {
-            emailError.GetComponent<Text>().text = "This field is required.";
+            if (emailError != null)
+            {
+                emailError.GetComponent<Text>().text = "This field is required.";
+            }
             valid = false;
         }
         else if (!emailRegex.IsMatch(email))
         {
-            emailError.GetComponent<Text>().text = "Please enter a valid email address.";
+            if (emailError != null)
+            {
+                emailError.GetComponent<Text>().text = "Please enter a valid email address.";
+            }            
             valid = false;
         }
 
@@ -119,31 +137,46 @@ public class RegisterLoginScript : MonoBehaviour
         Regex passwordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$");
         if (string.IsNullOrEmpty(password))
         {
-            passwordError.GetComponent<Text>().text = "This field is required.";
+            if (passwordError != null)
+            {
+                passwordError.GetComponent<Text>().text = "This field is required.";
+            }            
             valid = false;
         }
         else if (password.Length < 6)
         {
-            passwordError.GetComponent<Text>().text = "Password must be at least 6-character long.";
+            if (passwordError != null)
+            {
+                passwordError.GetComponent<Text>().text = "Password must be at least 6-character long.";
+            }            
             valid = false;
         }
         else if (!passwordRegex.IsMatch(password))
         {
-            passwordError.GetComponent<Text>().text = "Must contain at least 1 uppercase, 1 lowercase, 1 digit, and 1 special character.";
+            if (passwordError != null)
+            {
+                passwordError.GetComponent<Text>().text = "Password must be at least 6-character long.";
+            }
             valid = false;
         }
 
         // Validate passeword confirmation
         if (confirmPassword != password)
         {
-            confirmPasswordError.GetComponent<Text>().text = "Passwords must match.";
+            if (confirmPasswordError != null)
+            {
+                confirmPasswordError.GetComponent<Text>().text = "Passwords must match.";
+            }            
             valid = false;
         }
 
         // Check if ove 18 years old
-        if (!overEighteenOld.isOn)
+        if (!isOverEighteen)
         {
-            successMessage.GetComponent<Text>().text = "You must be over 18 years old to register.";
+            if (successMessage != null)
+            {
+                successMessage.GetComponent<Text>().text = "You must be over 18 years old to register.";
+            }            
             valid = false;
         }
 

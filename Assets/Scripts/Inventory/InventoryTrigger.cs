@@ -28,30 +28,33 @@ public class InventoryTrigger : MonoBehaviour
 
     void Update()
     {
-        if (isInsideTrigger)
+        if (UserInfo.GetInstance().UserId != null)
         {
-            if (InventoryCanvas.gameObject.activeSelf)
-            {
-                collidingPlayerMovement.isMovementDisabled = true;
-                collidingPlayerMouseLook.disableLookaround = true;
-            }
-
-            if (Input.GetKeyDown(KeyCode.I))
+            if (isInsideTrigger)
             {
                 if (InventoryCanvas.gameObject.activeSelf)
                 {
-                    ExitInventory();
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.Confined;
-                    InventoryCanvas.gameObject.SetActive(true);
+                    collidingPlayerMovement.isMovementDisabled = true;
+                    collidingPlayerMouseLook.disableLookaround = true;
                 }
 
-            }
-            else if (Input.GetKey(KeyCode.Escape))
-            {
-                ExitInventory();
+                if (Input.GetKeyDown(KeyCode.I))
+                {
+                    if (InventoryCanvas.gameObject.activeSelf)
+                    {
+                        ExitInventory();
+                    }
+                    else
+                    {
+                        Cursor.lockState = CursorLockMode.Confined;
+                        InventoryCanvas.gameObject.SetActive(true);
+                    }
+
+                }
+                else if (Input.GetKey(KeyCode.Escape))
+                {
+                    ExitInventory();
+                }
             }
         }
     }
