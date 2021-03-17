@@ -32,6 +32,8 @@ public class PlayerMovement : NetworkBehaviour
     private string displayName;
     [SyncVar]
     private string playerId;
+    [SyncVar]
+    private decimal totalCoins;
 
     private void OnEnable()
     {
@@ -50,8 +52,9 @@ public class PlayerMovement : NetworkBehaviour
     private void OnPlayerLogin(PlayerModelScript player)
     {
         if (!isLocalPlayer) return;
-        CmdChangeDisplayName(player.UserName);
-        CmdChangeUserId(player.PlayerId);
+        CmdSetDisplayName(player.UserName);
+        CmdSetUserId(player.PlayerId);
+        CmdSetCoins(player.Coins);
     }
 
     private void OnPrepareToGame(int instanceId)
@@ -78,7 +81,7 @@ public class PlayerMovement : NetworkBehaviour
     private void Start()
     {
         if (!isLocalPlayer) return;
-        CmdChangeDisplayName("Guest");
+        CmdSetDisplayName("Guest");
     }
 
     private void Update()
@@ -89,6 +92,8 @@ public class PlayerMovement : NetworkBehaviour
         if (!isLocalPlayer) return;
         
         UserInfo.GetInstance().UserId = playerId;
+        UserInfo.GetInstance().TotalCoins = totalCoins;
+        
         HandleExitGame();
         HandleCamera();
         if (!playerCamera.activeSelf) return;
@@ -167,14 +172,20 @@ public class PlayerMovement : NetworkBehaviour
     // Commands
     
     [Command(ignoreAuthority = true)]
-    private void CmdChangeDisplayName(string playerDisplayName)
+    private void CmdSetDisplayName(string playerDisplayName)
     {
         displayName = playerDisplayName;
     }
     
     [Command(ignoreAuthority = true)]
-    private void CmdChangeUserId(string id)
+    private void CmdSetUserId(string id)
     {
         playerId = id;
+    }
+    
+    [Command(ignoreAuthority = true)]
+    private void CmdSetCoins(decimal total)
+    {
+        totalCoins = total;
     }
 }

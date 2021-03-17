@@ -5,6 +5,7 @@ using UnityEngine;
 public class UserInfo
 {
     public string UserId { get; set; }
+    public decimal TotalCoins { get; set; }
 
     private static UserInfo _instance;
     
