@@ -3,11 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="03372e41-68d1-4378-a14b-1ab2bd8ca5f9" name="Default Changelist" comment="Formatting">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DataManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerModelScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerModelScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RegisterLoginScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RegisterLoginScript.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +29,8 @@
       <option value="$PROJECT_DIR$/Assets/UserInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerModelScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DataManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pqpQlBa35qlHTJR57cKgVocGBp" />
@@ -85,7 +81,7 @@
       <option name="presentableId" value="Default" />
       <updated>1615920464179</updated>
       <workItem from="1615920468628" duration="10894000" />
-      <workItem from="1615940859674" duration="11396000" />
+      <workItem from="1615940859674" duration="12479000" />
     </task>
     <task id="LOCAL-00001" summary="Formatting">
       <created>1615920959819</created>
@@ -135,32 +131,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs</url>
-          <line>162</line>
-          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Scripts\PlayerMovement.cs" initialLine="162" containingFunctionPresentation="method 'HandleRaycasting'">
-            <startOffsets>
-              <option value="4427" />
-            </startOffsets>
-            <endOffsets>
-              <option value="4463" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs</url>
-          <line>214</line>
-          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Scripts\PlayerMovement.cs" initialLine="214" containingFunctionPresentation="method 'CmdChangeCoinValue'">
-            <startOffsets>
-              <option value="5754" />
-            </startOffsets>
-            <endOffsets>
-              <option value="5775" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

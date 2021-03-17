@@ -5,8 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : NetworkBehaviour
 {
-    private readonly DataManager dataManager = new DataManager();
-    
     // Public vars
     public CharacterController controller;
     public Transform groundCheck;
@@ -85,7 +83,7 @@ public class PlayerMovement : NetworkBehaviour
     private void Start()
     {
         if (!isLocalPlayer) return;
-        CmdSetDisplayName("Guest");
+        displayNameTextMesh.text = "Guest";
     }
 
     private void Update()
@@ -94,11 +92,8 @@ public class PlayerMovement : NetworkBehaviour
         displayNameTextMesh.text = displayName;
         
         if (!isLocalPlayer) return;
-        
-        UserInfo.GetInstance().UserId = playerId;
-        UserInfo.GetInstance().TotalCoins = totalCoins;
-        UserInfo.GetInstance().DisplayName = displayName;
-        
+
+        SetSyncVars();
         HandleExitGame();
         HandleCamera();
         if (!playerCamera.activeSelf) return;
@@ -106,6 +101,13 @@ public class PlayerMovement : NetworkBehaviour
         HandlePlayerMovement();
     }
 
+    private void SetSyncVars()
+    {
+        UserInfo.GetInstance().UserId = playerId;
+        UserInfo.GetInstance().TotalCoins = totalCoins;
+        UserInfo.GetInstance().DisplayName = displayName;
+    }
+    
     private void HandleExitGame()
     {
         if (!isLocalPlayer) return;

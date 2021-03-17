@@ -24,8 +24,6 @@ public class RegisterLoginScript : MonoBehaviour
 
     private GameObject successMessage;
 
-    private readonly DataManager dataManager = new DataManager();
-
     private bool displayRegistrationSuccessMessage;
     private int timerCounter;
 
