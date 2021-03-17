@@ -211,16 +211,18 @@ public class DataManager
         }
     }
 
-    public static void GetInventoryItems()
+    public static void GetInventoryItems(string userId)
     {
-
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT itemId, equipped FROM Inventory", db);
+            var cmd = new SqlCommand("SELECT itemId, equipped FROM Inventory where playerId = @userId", db);
+
+            cmd.Parameters.AddWithValue("@userId", userId);
 
             db.Open();
             var reader = cmd.ExecuteReader();
 
+            
             InventoryItems.itemIdToRecord = new Dictionary<string, InventoryItems.InventoryItem>();
 
             while (reader.Read())

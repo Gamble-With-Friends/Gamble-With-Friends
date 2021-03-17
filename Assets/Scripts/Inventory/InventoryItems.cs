@@ -16,7 +16,7 @@ public class InventoryItems : MonoBehaviour
     {
         if (itemIdToRecord == null)
         {
-            DataManager.GetInventoryItems();
+            DataManager.GetInventoryItems(UserInfo.GetInstance().UserId);
         }
 
         return itemIdToRecord;
@@ -24,6 +24,6 @@ public class InventoryItems : MonoBehaviour
 
     public static void UpdateItems()
     {
-        DataManager.GetInventoryItems();
+        DataManager.GetInventoryItems(UserInfo.GetInstance().UserId);
     }
 }
