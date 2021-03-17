@@ -2,8 +2,647 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03372e41-68d1-4378-a14b-1ab2bd8ca5f9" name="Default Changelist" comment="Formatting">
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/AssemblyInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/AssemblyInfo.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/GUIConsole.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/GUIConsole.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/InterestManagement.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/InterestManagement/Distance.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/InterestManagement/Distance/DistanceInterestManagement.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/InterestManagement/Distance/DistanceInterestManagement.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/InterestManagement/SpatialHashing.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/InterestManagement/SpatialHashing/Grid2D.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/InterestManagement/SpatialHashing/Grid2D.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/InterestManagement/SpatialHashing/SpatialHashingInterestManagement.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/InterestManagement/SpatialHashing/SpatialHashingInterestManagement.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkOwnerChecker.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkOwnerChecker.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/EditorHelper.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/EditorHelper.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Attributes.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Attributes.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Extensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Extensions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/InterestManagement.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/InterestManagement.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/MessagePacking.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/MessagePacking.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkLoop.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkLoop.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpChannel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpChannel.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpHeader.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpHeader.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Client.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Client.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Common.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Common.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/ConnectionState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/ConnectionState.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/EventType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/EventType.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/LICENSE.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Log.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Log.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Logger.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Logger.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/MagnificentReceivePipe.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/MagnificentReceivePipe.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/MagnificentSendPipe.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/MagnificentSendPipe.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Message.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Message.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/NetworkStreamExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/NetworkStreamExtensions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Pool.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Pool.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/SafeQueue.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/SafeQueue.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Server.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Server.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Telepathy.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Telepathy.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/ThreadExtensions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/ThreadExtensions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/ThreadFunctions.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/ThreadFunctions.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Utils.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/Utils.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/VERSION" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy/VERSION.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/TelepathyTransport.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/TelepathyTransport.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Utils.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Utils.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/Castle.Core.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/Castle.Core.dll.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/ClientSceneTestsBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/ClientSceneTestsBase.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/ClientSceneTests_RegisterPrefabBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/ClientSceneTests_RegisterPrefabBase.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/FakeNetworkConnection.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/FakeNetworkConnection.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/MemoryTransport.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/MemoryTransport.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/Mirror.Tests.Common.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/Mirror.Tests.Common.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/NSubstitute.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/NSubstitute.dll.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/System.Threading.Tasks.Extensions.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Common/System.Threading.Tasks.Extensions.dll.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/BasicAuthenticatorTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/BasicAuthenticatorTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/BatchingTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/BatchingTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/BuiltInMessages.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/BuiltInMessages.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientRpcOverrideTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientRpcOverrideTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientRpcTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientRpcTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_ClearSpawners.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_ClearSpawners.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_GetPrefab.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_GetPrefab.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_OnSpawn.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_OnSpawn.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_PrepareToSpawnSceneObjects.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_PrepareToSpawnSceneObjects.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_RegisterPrefab.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_RegisterPrefab.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_RegisterSpawnHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_RegisterSpawnHandler.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_UnregisterPrefab.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_UnregisterPrefab.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_UnregisterSpawnHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ClientSceneTests_UnregisterSpawnHandler.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CommandOverrideTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CommandOverrideTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CommandTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CommandTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CompressionFloatTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CompressionFloatTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CompressionQuaternionTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CompressionQuaternionTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CustomAttrributeTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CustomAttrributeTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CustomRWTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/CustomRWTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/EnumReadWriteTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/EnumReadWriteTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ExponentialMovingAverageTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ExponentialMovingAverageTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/FallbackTransportTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/FallbackTransportTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/FieldsInBaseClasses.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/FieldsInBaseClasses.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generated.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generated/AttritubeTest.gen.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generated/AttritubeTest.gen.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generated/CollectionWriterTests.gen.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generated/CollectionWriterTests.gen.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/GeneratorBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/GeneratorBase.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generators.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generators/AttributeTestGenerator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generators/AttributeTestGenerator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generators/CollectionWriterGenerator.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Generators/CollectionWriterGenerator.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Grid2DTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Grid2DTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/InterestManagementTests_Common.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/InterestManagementTests_Common.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/InterestManagementTests_Default.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/InterestManagementTests_Default.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/InterestManagementTests_Distance.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/InterestManagementTests_Distance.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/InterestManagementTests_SpatialHashing.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/InterestManagementTests_SpatialHashing.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/LocalConnectionTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/LocalConnectionTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MessageBaseTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MessageBaseTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MessageInheritanceTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MessageInheritanceTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MessagePackingTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MessagePackingTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MiddlewareTransportTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MiddlewareTransportTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Mirror.Tests.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Mirror.Tests.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MultiplexTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/MultiplexTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkBehaviourSerializeTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkBehaviourSerializeTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkBehaviourTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkBehaviourTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkClientTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkClientTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkConnectionToClientTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkConnectionToClientTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkIdentityTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkIdentityTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkLoopTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkLoopTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkManagerStopHostOnServerDisconnectTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkManagerStopHostOnServerDisconnectTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkManagerTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkManagerTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkMatchCheckerTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkMatchCheckerTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkReaderPoolTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkReaderPoolTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkReaderTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkReaderTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkReaderWriterTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkReaderWriterTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkServerTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkServerTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkTransformChildTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkTransformChildTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkTransformTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkTransformTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkWriterCollectionTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkWriterCollectionTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkWriterPoolTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkWriterPoolTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkWriterTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/NetworkWriterTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/OverloadMethodTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/OverloadMethodTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/PoolTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/PoolTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/RemoteTestBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/RemoteTestBase.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/RpcNetworkIdentityTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/RpcNetworkIdentityTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ScriptableObjectWriterTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/ScriptableObjectWriterTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/StructMessagesTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/StructMessagesTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncDictionaryTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncDictionaryTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncListClassTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncListClassTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncListStructTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncListStructTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncListTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncListTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncSetTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncSetTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncVarHookTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncVarHookTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncVarTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncVarTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncVarTestBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/SyncVarTestBase.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TargetRpcOverrideTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TargetRpcOverrideTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TargetRpcTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TargetRpcTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TestPrefabs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TestPrefabs/PrefabWithChildrenForClientScene.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TestPrefabs/PrefabWithChildrenForClientScene.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TestPrefabs/ValidPrefabForClientScene.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TestPrefabs/ValidPrefabForClientScene.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TestPrefabs/invalidPrefabForClientScene.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/TestPrefabs/invalidPrefabForClientScene.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/ComplexClass.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/ComplexClass.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/README.md.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/SomeData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/SomeData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/SomeDataClass.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/SomeDataClass.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/SomeDataClassWithConstructor.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/SomeDataClassWithConstructor.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/SomeDataWithWriter.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/SomeDataWithWriter.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/WeaverTestExtraAssembly.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/ExtraAssembly/WeaverTestExtraAssembly.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverAssembler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverAssembler.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverClientRpcTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverClientRpcTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverClientServerAttributeTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverClientServerAttributeTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverCommandTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverCommandTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverGeneralTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverGeneralTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverGeneratedReaderWriterAnotherAssemblyTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverGeneratedReaderWriterAnotherAssemblyTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverGeneratedReaderWriterTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverGeneratedReaderWriterTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverMessageTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverMessageTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverMonoBehaviourTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverMonoBehaviourTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverNetworkBehaviourTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverNetworkBehaviourTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncDictionaryTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncDictionaryTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncListTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncListTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncSetTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncSetTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncVarHookTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncVarHookTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncVarTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverSyncVarTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverTargetRpcTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverTargetRpcTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Editor/Weaver/WeaverTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/FakeNetworkConnection.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/FakeNetworkConnection.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/Mirror.Tests.Performance.Editor.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/Mirror.Tests.Performance.Editor.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/NetworkIdentityPerformance.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/NetworkIdentityPerformance.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/NetworkIdentityPerformanceWithMultipleBehaviour.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/NetworkIdentityPerformanceWithMultipleBehaviour.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/NetworkWriterPerformance.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Editor/NetworkWriterPerformance.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/README.md.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Runtime.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Runtime/Mirror.Tests.Performance.Runtime.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Runtime/Mirror.Tests.Performance.Runtime.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Runtime/ULocalConnectionPerformance.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Performance/Runtime/ULocalConnectionPerformance.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/ClientSceneTests_DestroyAllClientObjects.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/ClientSceneTests_DestroyAllClientObjects.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/ClientSceneTests_LocalPlayer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/ClientSceneTests_LocalPlayer.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/ClientSceneTests_Runtime_RegisterPrefab.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/ClientSceneTests_Runtime_RegisterPrefab.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/FallbackTransportEnableTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/FallbackTransportEnableTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/HostSetup.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/HostSetup.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/Mirror.Tests.Runtime.asmdef" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/Mirror.Tests.Runtime.asmdef.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/NetworkIdentityTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/NetworkIdentityTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/NetworkManagerTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/NetworkManagerTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/NetworkServerRuntimeTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/NetworkServerRuntimeTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/NetworkServerWithHostRuntimeTest.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/NetworkServerWithHostRuntimeTest.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/SceneObjectSpawningTests.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/SceneObjectSpawningTests.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/Scenes.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/Scenes/SceneObjectSpawningTestsScene.unity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/Scenes/SceneObjectSpawningTestsScene.unity.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/Scenes/TestNetworkManager.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/Scenes/TestNetworkManager.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/Scenes/TestPlayer.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Mirror/Tests/Runtime/Scenes/TestPlayer.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/PlayerCards.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/PlayerCards.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/PokerTable.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Prefabs/PokerTable.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/50-Mirror__Network Manager-NewNetworkManager.cs.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/50-Mirror__Network Manager-NewNetworkManager.cs.txt.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/51-Mirror__Network Authenticator-NewNetworkAuthenticator.cs.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/51-Mirror__Network Authenticator-NewNetworkAuthenticator.cs.txt.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/52-Mirror__Network Behaviour-NewNetworkBehaviour.cs.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/52-Mirror__Network Behaviour-NewNetworkBehaviour.cs.txt.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/53-Mirror__Network Observer-NewNetworkObserver.cs.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/53-Mirror__Network Observer-NewNetworkObserver.cs.txt.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/54-Mirror__Network Room Manager-NewNetworkRoomManager.cs.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/54-Mirror__Network Room Manager-NewNetworkRoomManager.cs.txt.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/55-Mirror__Network Room Player-NewNetworkRoomPlayer.cs.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/55-Mirror__Network Room Player-NewNetworkRoomPlayer.cs.txt.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/56-Mirror__Network Discovery-NewNetworkDiscovery.cs.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/ScriptTemplates/56-Mirror__Network Discovery-NewNetworkDiscovery.cs.txt.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets/PerformanceTestResults.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets/PerformanceTestResults.json.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets/PerformanceTestRunInfo.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets/PerformanceTestRunInfo.json.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets/TestResults.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/StreamingAssets/TestResults.xml.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CanvasScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CanvasScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/CanvasScript.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/CanvasScript.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/JJ_InteriorDoorPack_V1/Scenes.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/JJ_InteriorDoorPack_V1/Scenes.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Authenticators/BasicAuthenticator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Authenticators/BasicAuthenticator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Authenticators/Mirror.Authenticators.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Authenticators/Mirror.Authenticators.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Authenticators/TimeoutAuthenticator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Authenticators/TimeoutAuthenticator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/ApiConnector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/ApiConnector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/BaseApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/BaseApi.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/Events.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/Events.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/ICoroutineRunner.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/ICoroutineRunner.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/IRequestCreator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/IRequestCreator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/IUnityEqualCheck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/IUnityEqualCheck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/JsonStructs.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/JsonStructs.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/Logger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/Logger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/RequestCreator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Core/RequestCreator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServerBaseApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServerBaseApi.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServerClientApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServerClientApi.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServerJson.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServerJson.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServerServerApi.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/ListServer/ListServerServerApi.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/Mirror.Cloud.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/Mirror.Cloud.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Cloud/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Cloud/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/CompilerSymbols/Mirror.CompilerSymbols.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/CompilerSymbols/Mirror.CompilerSymbols.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/CompilerSymbols/PreprocessorDefine.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/CompilerSymbols/PreprocessorDefine.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/NetworkDiscovery.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/NetworkDiscovery.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/NetworkDiscoveryBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/NetworkDiscoveryBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/NetworkDiscoveryHUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/NetworkDiscoveryHUD.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/ServerRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/ServerRequest.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/ServerResponse.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Discovery/ServerResponse.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkLerpRigidbody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkLerpRigidbody.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkRigidbody.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkRigidbody.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkRigidbody2D.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkRigidbody2D.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkTransform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkTransform.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkTransformBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkTransformBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkTransformChild.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Experimental/NetworkTransformChild.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/Mirror.Components.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/Mirror.Components.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkAnimator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkAnimator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkLobbyManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkLobbyManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkLobbyPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkLobbyPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkMatchChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkMatchChecker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkPingDisplay.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkPingDisplay.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkProximityChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkProximityChecker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkRoomManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkRoomManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkRoomPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkRoomPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkSceneChecker.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkSceneChecker.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkTransform.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkTransform.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkTransformBase.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkTransformBase.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkTransformChild.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Components/NetworkTransformChild.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/EnterPlayModeSettingsCheck.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/EnterPlayModeSettingsCheck.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/InspectorHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/InspectorHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Logging/LogLevelWindow.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Logging/LogLevelWindow.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Logging/LogLevelsGUI.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Logging/LogLevelsGUI.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Logging/LogSettingsEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Logging/LogSettingsEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Logging/NetworkLogSettingsEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Logging/NetworkLogSettingsEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Mirror.Editor.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Mirror.Editor.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/NetworkBehaviourInspector.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/NetworkBehaviourInspector.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/NetworkInformationPreview.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/NetworkInformationPreview.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/NetworkManagerEditor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/NetworkManagerEditor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/NetworkScenePostProcess.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/NetworkScenePostProcess.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/SceneDrawer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/SceneDrawer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/ScriptableObjectUtility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/ScriptableObjectUtility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/SyncVarAttributeDrawer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/SyncVarAttributeDrawer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/CompilationFinishedHook.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/CompilationFinishedHook.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Extensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Extensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Helpers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Helpers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Log.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Log.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Mirror.Weaver.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Mirror.Weaver.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/CommandProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/CommandProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/MethodProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/MethodProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/MonoBehaviourProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/MonoBehaviourProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/NetworkBehaviourProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/NetworkBehaviourProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/PropertySiteProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/PropertySiteProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/ReaderWriterProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/ReaderWriterProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/RpcProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/RpcProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/ServerClientAttributeProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/ServerClientAttributeProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/SyncEventProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/SyncEventProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/SyncObjectInitializer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/SyncObjectInitializer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/SyncObjectProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/SyncObjectProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/SyncVarProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/SyncVarProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/TargetRpcProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Processors/TargetRpcProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Readers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Readers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Resolvers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Resolvers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/TypeReferenceComparer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/TypeReferenceComparer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Weaver.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Weaver.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/WeaverExceptions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/WeaverExceptions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/WeaverTypes.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/WeaverTypes.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Writers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Editor/Weaver/Writers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Notice.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Notice.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Plugins/Mono.Cecil/License.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Plugins/Mono.Cecil/License.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Readme.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/AssemblyInfo.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/AssemblyInfo.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/ClientScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/ClientScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/ClientScene.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/ClientScene.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Compression.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Compression.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Compression.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Compression.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/CustomAttributes.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/CustomAttributes.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/DotNetCompatibility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/DotNetCompatibility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/ExponentialMovingAverage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/ExponentialMovingAverage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/ExponentialMovingAverage.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/ExponentialMovingAverage.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/FloatBytePacker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/FloatBytePacker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/LocalConnections.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/LocalConnections.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/LocalConnections.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/LocalConnections.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/LogFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/LogFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/LogFilter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/LogFilter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/LogFilter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/LogFilter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/ConsoleColorLogHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/ConsoleColorLogHandler.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/EditorLogSettingsLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/EditorLogSettingsLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/LogFactory.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/LogFactory.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/LogSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/LogSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/NetworkHeadlessLogger.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/NetworkHeadlessLogger.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/NetworkLogSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Logging/NetworkLogSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/MessagePacker.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/MessagePacker.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Messages.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Messages.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Messages.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Messages.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Mirror.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Mirror.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkAuthenticator.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkAuthenticator.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkAuthenticator.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkAuthenticator.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkBehaviour.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkBehaviour.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkBehaviour.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkBehaviour.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkClient.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkClient.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnection.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnection.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnectionToClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnectionToClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnectionToClient.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnectionToClient.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnectionToServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnectionToServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnectionToServer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkConnectionToServer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkDiagnostics.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkDiagnostics.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkDiagnostics.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkDiagnostics.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkIdentity.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkIdentity.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManagerHUD.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManagerHUD.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkMessage.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkMessage.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkMessage.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkMessage.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkReader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkReader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkReader.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkReader.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkReaderPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkReaderPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkReaderPool.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkReaderPool.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkServer.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkServer.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkStartPosition.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkStartPosition.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkTime.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkTime.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkTime.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkTime.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkVisibility.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkVisibility.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkVisibility.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkVisibility.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkWriter.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkWriter.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkWriter.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkWriter.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkWriterPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkWriterPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkWriterPool.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkWriterPool.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Pool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Pool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Pool.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Pool.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/RemoteCallHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/RemoteCallHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/RemoteCallHelper.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/RemoteCallHelper.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/StringHash.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/StringHash.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncDictionary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncDictionary.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncDictionary.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncDictionary.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncList.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncList.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncList.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncList.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncObject.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncObject.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncObject.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncObject.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncSet.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncSet.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncSet.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/SyncSet.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/FallbackTransport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/FallbackTransport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/MirrorTransport/KcpTransport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/MirrorTransport/KcpTransport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/VERSION" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/VERSION" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpClientConnection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpClientConnection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpConnection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpConnection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpServerConnection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/KcpServerConnection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/Log.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/Log.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/Utils.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/highlevel/Utils.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp/Kcp.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp/Kcp.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp/Segment.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp/Segment.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp/Utils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp2k.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/KCP/kcp2k/kcp2k.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/MiddlewareTransport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/MiddlewareTransport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/MiddlewareTransport.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/MiddlewareTransport.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/MultiplexTransport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/MultiplexTransport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/SimpleWebClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/SimpleWebClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/StandAlone/ClientHandshake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/StandAlone/ClientHandshake.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/StandAlone/ClientSslHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/StandAlone/ClientSslHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/StandAlone/WebSocketClientStandAlone.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/StandAlone/WebSocketClientStandAlone.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/Webgl/SimpleWebJSLib.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/Webgl/SimpleWebJSLib.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/Webgl/WebSocketClientWebGl.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/Webgl/WebSocketClientWebGl.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/Webgl/plugin/SimpleWeb.jslib" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Client/Webgl/plugin/SimpleWeb.jslib" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/BufferPool.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/BufferPool.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Connection.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Connection.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Constants.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/EventType.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/EventType.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Log.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Log.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Message.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Message.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/MessageProcessor.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/MessageProcessor.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/ReadHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/ReadHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/ReceiveLoop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/ReceiveLoop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/SendLoop.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/SendLoop.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/TcpConfig.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/TcpConfig.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Utils.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Common/Utils.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/README.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Server/ServerHandshake.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Server/ServerHandshake.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Server/ServerSslHelper.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Server/ServerSslHelper.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Server/SimpleWebServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Server/SimpleWebServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Server/WebSocketServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/Server/WebSocketServer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/SimpleWebTransport.asmdef" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/SimpleWebTransport.asmdef" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/SimpleWebTransport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/SimpleWebTransport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/SslConfigLoader.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/SimpleWebTransport/SslConfigLoader.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Client.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Client.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Common.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Common.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/EventType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/EventType.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/LICENSE.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Logger.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Logger.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Message.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Message.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/NetworkStreamExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/NetworkStreamExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/SafeQueue.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/SafeQueue.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Server.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Server.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy.asmdef" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Telepathy.asmdef.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/ThreadExtensions.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/ThreadExtensions.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Utils.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Telepathy/Utils.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/TelepathyTransport.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/TelepathyTransport.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Transport.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Transport.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Transport.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Runtime/Transport/Transport.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/UNetwork.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Runtime/UNetwork.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Mirror/Version.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Mirror/Version.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chip1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Chip1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chip100.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Chip100.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chip25.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chip25.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chip5.prefab" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chip5.prefab.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FirstPersonPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FirstPersonPlayer.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Casino.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Casino.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Offline.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Offline.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AutoHostClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/AutoHostClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/NetworkManagement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/NetworkManagement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PokerGameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PokerGameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UserInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/UserInfo.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInfo.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" beforeDir="false" afterPath="$PROJECT_DIR$/ProjectSettings/ProjectSettings.asset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -14,23 +653,30 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/../Gamble-With-Friends_clone_0/Assets/Mirror/Runtime/NetworkManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/UserInfo.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UserInfo.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/ChipScript.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/AutoHostClient.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CanvasManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/LoginTriggerScript.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/NetworkManagement.cs" />
       <option value="$PROJECT_DIR$/Assets/UserInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerModelScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DataManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/RegisterLoginScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/NetworkedPrefabManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/SceneReference.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/SceneReference.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/SceneScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/NetworkedPrefabManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerGameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/AutoHostClient.cs" />
+      <option value="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/NetworkManagement.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pqpQlBa35qlHTJR57cKgVocGBp" />
@@ -62,10 +708,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="13472">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="31440">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="13472" />
+      <option name="pid" value="31440" />
       <option name="selectedOptions">
         <list />
       </option>
@@ -81,7 +727,9 @@
       <option name="presentableId" value="Default" />
       <updated>1615920464179</updated>
       <workItem from="1615920468628" duration="10894000" />
-      <workItem from="1615940859674" duration="14031000" />
+      <workItem from="1615940859674" duration="21207000" />
+      <workItem from="1615971946217" duration="3949000" />
+      <workItem from="1616000862657" duration="9093000" />
     </task>
     <task id="LOCAL-00001" summary="Formatting">
       <created>1615920959819</created>
@@ -115,5 +763,24 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="Formatting" />
     <option name="LAST_COMMIT_MESSAGE" value="Formatting" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Mirror/Components/NetworkRoomManager.cs</url>
+          <line>585</line>
+          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Mirror\Components\NetworkRoomManager.cs" initialLine="585" containingFunctionPresentation="method 'OnRoomServerAddPlayer'">
+            <startOffsets>
+              <option value="23172" />
+            </startOffsets>
+            <endOffsets>
+              <option value="23201" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

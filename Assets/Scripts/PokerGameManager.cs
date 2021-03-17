@@ -6,29 +6,32 @@ using System.Threading.Tasks;
 using Mirror;
 using UnityEngine;
 
-public class PokerGameManager : MonoBehaviour
+public class PokerGameManager : NetworkBehaviour
 {
-    private const int MAX_PLAYERS = 5;
-    public GameObject chip1;
-    public GameObject chip5;
-    public GameObject chip25;
-    public GameObject chip100;
+    private const int MAX_PLAYERS = 1; 
+    GameObject chip1;
+    GameObject chip5;
+    GameObject chip25;
+    GameObject chip100;
     public GameObject gameCamera;
 
-    static List<GameObject> playerChips;
-    
+    private static List<GameObject> _playerChips;
+
     private int betAmount;
 
-    private List<string> players;
-    private GameState currentGameState;
+    [SyncVar] private GameState currentGameState;
+    [SyncVar] private string slotToUserIdSerialized;
+    
+    private Dictionary<int, string> slotToUserId;
 
     //GameObject variableForPrefab = (GameObject)Resources.Load("Prefabs/FirstPersonPlayer", typeof(GameObject));
 
-    void Start()
+    private void Update()
     {
-        players = new List<string>();
+        slotToUserId = (Dictionary<int, string>) JsonUtility.FromJson(slotToUserIdSerialized, typeof(Dictionary<int, string>)) ??
+            new Dictionary<int, string>();
     }
-    
+
     private void OnEnable()
     {
         EventManager.OnClick += OnClick;
@@ -51,34 +54,20 @@ public class PokerGameManager : MonoBehaviour
     {
         if (instanceId != transform.GetInstanceID()) return;
 
-        if (players.Count > MAX_PLAYERS)
-        {
-            EventManager.FireInstructionChangeEvent("Table is full");
-        }
-        else
-        {
-            CmdAddPlayer(UserInfo.GetInstance().UserId);
-            betAmount = 0;
-            gameCamera.SetActive(true);
-            EventManager.FireStartGameEvent(instanceId);
-        }
+        betAmount = 0;
+        gameCamera.SetActive(true);
+        EventManager.FireStartGameEvent(instanceId);
     }
 
     private void OnStartGame(int instanceId)
     {
-        if (currentGameState == GameState.NotStarted)
+        if (slotToUserId.Count < MAX_PLAYERS)
         {
-            currentGameState = GameState.Betting;
-
-            InstantiateChips(10, 8, 5, 5);
-
-            EventManager.FireInstructionChangeEvent($"Place your bets...");
-
-            Invoke(nameof(DealCards), 10);
+            CmdAddPlayer(UserInfo.GetInstance().UserId, slotToUserIdSerialized,null);
         }
         else
         {
-            EventManager.FireInstructionChangeEvent("Game currently in process. Please wait...");
+            EventManager.FireInstructionChangeEvent("Table is full.");
         }
     }
 
@@ -115,6 +104,7 @@ public class PokerGameManager : MonoBehaviour
         if (instanceId != transform.GetInstanceID()) return;
         gameCamera.SetActive(false);
         DestroyChips();
+        CmdRemovePlayer(UserInfo.GetInstance().UserId, slotToUserIdSerialized);
         EventManager.FireInstructionChangeEvent("");
         EventManager.FireReadyToExitGameEvent(instanceId);
     }
@@ -143,38 +133,57 @@ public class PokerGameManager : MonoBehaviour
         for (var i = 0; i < numberOfChips; i++)
         {
             chip.transform.position = new Vector3(posX, posY, posZ);
-            playerChips.Add(Instantiate(chip, chip.transform));
+            _playerChips.Add(Instantiate(chip, chip.transform));
             posY += chipY;
         }
     }
 
     private static void DestroyChips()
     {
-        if (playerChips != null)
+        if (_playerChips != null)
         {
-            foreach (var t in playerChips)
+            foreach (var t in _playerChips)
             {
                 Destroy(t);
             }
         }
 
-        playerChips = new List<GameObject>();
+        _playerChips = new List<GameObject>();
     }
 
-    private void CmdAddPlayer(string userId)
+    [Command(requiresAuthority = false)]
+    private void CmdAddPlayer(string userId, string slotToUserIdJson, NetworkConnectionToClient sender = null)
     {
-        if (players == null) players = new List<string>();
-
-        players.Add(userId);
+        var dict = (Dictionary<int, string>) JsonUtility.FromJson(slotToUserIdSerialized, typeof(Dictionary<int, string>)) ??
+                   new Dictionary<int, string>();
+        
+        for (var i = 0; i < MAX_PLAYERS; i++)
+        {
+            if (dict.ContainsKey(i)) continue;
+            dict.Add(i, userId);
+            break;
+        }
+        
+        slotToUserIdSerialized = JsonUtility.ToJson(dict);
     }
-    
-    private void CmdRemovePlayer(string userId)
+
+    [Command(requiresAuthority = false)]
+    private void CmdRemovePlayer(string userId, string slotToUserIdJson, NetworkConnectionToClient sender = null)
     {
-        if (players == null) players = new List<string>();
-
-        players.Remove(userId);
+        var dict = (Dictionary<int, string>) JsonUtility.FromJson(slotToUserIdJson, typeof(Dictionary<int, string>)) ??
+                   new Dictionary<int, string>();
+        
+        for (var i = 0; i < MAX_PLAYERS; i++)
+        {
+            if (!dict.ContainsKey(i) || dict[i] != userId) continue;
+            dict.Remove(i);
+            break;
+        }
+        
+        slotToUserIdSerialized = JsonUtility.ToJson(dict);
     }
 
+    [Command(requiresAuthority = false)]
     private void CmdSetGameState(GameState state)
     {
         currentGameState = state;

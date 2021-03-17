@@ -1,4 +1,5 @@
-﻿using Mirror;
+﻿using System;
+using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -186,25 +187,25 @@ public class PlayerMovement : NetworkBehaviour
 
     // Commands
     
-    [Command(ignoreAuthority = true)]
+    [Command(requiresAuthority = false)]
     private void CmdSetDisplayName(string playerDisplayName)
     {
         displayName = playerDisplayName;
     }
     
-    [Command(ignoreAuthority = true)]
+    [Command(requiresAuthority = false)]
     private void CmdSetUserId(string id)
     {
         playerId = id;
     }
     
-    [Command(ignoreAuthority = true)]
+    [Command(requiresAuthority = false)]
     private void CmdSetCoins(decimal total)
     {
         totalCoins = total;
     }
     
-    [Command(ignoreAuthority = true)]
+    [Command(requiresAuthority = false)]
     private void CmdChangeCoinValue(decimal amount)
     {
         var userId = UserInfo.GetInstance().UserId;

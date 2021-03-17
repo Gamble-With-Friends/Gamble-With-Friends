@@ -505,10 +505,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   playerCamera: {fileID: 3549858917011912297}
-  playerBodyMeshRenderer: {fileID: 3853397576376226284}
   isMovementDisabled: 0
+  prefabManager: {fileID: 0}
   displayNameTextMesh: {fileID: 1285119941254595718}
-  playerColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!114 &-6353610376586303246
 MonoBehaviour:
   m_ObjectHideFlags: 0

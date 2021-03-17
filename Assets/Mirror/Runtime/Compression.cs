@@ -26,7 +26,7 @@ namespace Mirror
     /// </para>
     /// 
     /// <para>
-    ///     Sign of largest value doesnt matter
+    ///     Sign of largest value doesn't matter
     ///     <code>
     ///     Q * vec3 == (-Q) * vec3
     ///     </code>
@@ -69,6 +69,7 @@ namespace Mirror
         /// </summary>
         public static uint CompressQuaternion(Quaternion value)
         {
+            // make sure value is normalized (don't trust user given value, and math here assumes normalized)
             value = value.normalized;
 
             int largestIndex = FindLargestIndex(value);

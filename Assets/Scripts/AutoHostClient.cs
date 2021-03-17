@@ -11,7 +11,7 @@ public class AutoHostClient : MonoBehaviour
 
     private void Start()
     {
-        networkManager = FindObjectOfType<NetworkManagement>();
+        networkManager = FindObjectOfType<NetworkManager>();
 
        if (!Application.isBatchMode)
         {
@@ -31,6 +31,6 @@ public class AutoHostClient : MonoBehaviour
     public void HostLocalServer()
     {
         networkManager.networkAddress = "localhost";
-        networkManager.StartServer();
+        networkManager.StartHost();
     }
 }
