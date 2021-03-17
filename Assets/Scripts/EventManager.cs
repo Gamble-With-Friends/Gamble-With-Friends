@@ -5,30 +5,39 @@ using UnityEngine;
 public class EventManager : MonoBehaviour
 {
     public delegate void PrepareToGameAction(int intanceId);
+
     public static event PrepareToGameAction OnPrepareToGame;
 
     public delegate void ReadyToGameAction(int intanceId);
+
     public static event ReadyToGameAction OnReadyToGame;
 
     public delegate void PrepareToExitGameAction(int intanceId);
+
     public static event PrepareToExitGameAction OnPrepareToExitGame;
 
     public delegate void ReadyToExitGameAction(int intanceId);
+
     public static event ReadyToExitGameAction OnReadyToExitGame;
 
     public delegate void StartGame(int intanceId);
+
     public static event StartGame OnStartGame;
 
     public delegate void ModifyBetAction(int amount);
+
     public static event ModifyBetAction OnModifyBetAction;
 
     public delegate void ClickAction(int instanceId);
+
     public static event ClickAction OnClick;
 
     public delegate void InstructionChange(string instruction);
+
     public static event InstructionChange OnInstructionChange;
 
     public delegate void PlayerLogin(PlayerModelScript player);
+
     public static event PlayerLogin OnPlayerLogin;
 
     public static void FireClickEvent(int instanceId)

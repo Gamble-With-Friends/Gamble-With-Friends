@@ -3,24 +3,32 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Mirror;
 using UnityEngine;
 
 public class PokerGameManager : MonoBehaviour
 {
+    private const int MAX_PLAYERS = 5;
     public GameObject chip1;
     public GameObject chip5;
     public GameObject chip25;
     public GameObject chip100;
     public GameObject gameCamera;
-    public GameObject playingCardTest;
 
     static List<GameObject> playerChips;
-
-    private GameState currentGameState;
+    
     private int betAmount;
+
+    private List<string> players;
+    private GameState currentGameState;
 
     //GameObject variableForPrefab = (GameObject)Resources.Load("Prefabs/FirstPersonPlayer", typeof(GameObject));
 
+    void Start()
+    {
+        players = new List<string>();
+    }
+    
     private void OnEnable()
     {
         EventManager.OnClick += OnClick;
@@ -39,18 +47,22 @@ public class PokerGameManager : MonoBehaviour
         EventManager.OnStartGame -= OnStartGame;
     }
 
-    private void Start()
-    {
-        DestroyChips();
-        currentGameState = GameState.NotStarted;
-    }
-
     private void OnReadyToGame(int instanceId)
     {
         if (instanceId != transform.GetInstanceID()) return;
-        betAmount = 0;
-        gameCamera.SetActive(true);
-        EventManager.FireStartGameEvent(instanceId);
+
+        if (players.Count > MAX_PLAYERS)
+        {
+            EventManager.FireInstructionChangeEvent("Table is full");
+        }
+        else
+        {
+            Debug.Log("Adding player: " + UserInfo.GetInstance().UserId);
+            CmdAddPlayer(UserInfo.GetInstance().UserId);
+            betAmount = 0;
+            gameCamera.SetActive(true);
+            EventManager.FireStartGameEvent(instanceId);
+        }
     }
 
     private void OnStartGame(int instanceId)
@@ -148,6 +160,25 @@ public class PokerGameManager : MonoBehaviour
         }
 
         playerChips = new List<GameObject>();
+    }
+
+    private void CmdAddPlayer(string userId)
+    {
+        if (players == null) players = new List<string>();
+
+        players.Add(userId);
+    }
+    
+    private void CmdRemovePlayer(string userId)
+    {
+        if (players == null) players = new List<string>();
+
+        players.Remove(userId);
+    }
+
+    private void CmdSetGameState(GameState state)
+    {
+        currentGameState = state;
     }
 
     private enum GameState

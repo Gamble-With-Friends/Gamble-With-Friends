@@ -330,6 +330,10 @@
           </e>
           <e p="EventManager.cs" t="Include" />
           <e p="GameCameraScript.cs" t="Include" />
+          <e p="Inventory" t="Include">
+            <e p="InventoryTrigger.cs" t="Include" />
+            <e p="InventoryUI.cs" t="Include" />
+          </e>
           <e p="LoginTriggerScript.cs" t="Include" />
           <e p="MouseLook.cs" t="Include" />
           <e p="NetworkManagement.cs" t="Include" />
@@ -339,6 +343,7 @@
           <e p="RegisterLoginScript.cs" t="Include" />
           <e p="Utilities.cs" t="Include" />
         </e>
+        <e p="UserInfo.cs" t="Include" />
       </e>
       <e p="Gamble-With-Friends.sln" t="IncludeFlat" />
       <e p="kcp2k.csproj" t="IncludeRecursive" />

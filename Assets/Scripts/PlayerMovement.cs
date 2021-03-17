@@ -86,9 +86,9 @@ public class PlayerMovement : NetworkBehaviour
         // Change display name for all players
         displayNameTextMesh.text = displayName;
         
-        Debug.Log("UserID: " + playerId);
-        
         if (!isLocalPlayer) return;
+        
+        UserInfo.GetInstance().UserId = playerId;
         HandleExitGame();
         HandleCamera();
         if (!playerCamera.activeSelf) return;
@@ -157,7 +157,6 @@ public class PlayerMovement : NetworkBehaviour
 
         if (!result) return;
         EventManager.FireClickEvent(raycastHit.transform.GetInstanceID());
-        Debug.Log(raycastHit.collider.name);
     }
 
     private bool IsInGame()
@@ -165,6 +164,8 @@ public class PlayerMovement : NetworkBehaviour
         return currentGameId != -1;
     }
 
+    // Commands
+    
     [Command(ignoreAuthority = true)]
     private void CmdChangeDisplayName(string playerDisplayName)
     {
