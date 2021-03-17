@@ -16,12 +16,12 @@ public class PokerGameManager : MonoBehaviour
 
     static List<GameObject> playerChips;
 
-    GameState currentGameState;
-    int betAmount;
+    private GameState currentGameState;
+    private int betAmount;
 
     //GameObject variableForPrefab = (GameObject)Resources.Load("Prefabs/FirstPersonPlayer", typeof(GameObject));
 
-    void OnEnable()
+    private void OnEnable()
     {
         EventManager.OnClick += OnClick;
         EventManager.OnReadyToGame += OnReadyToGame;
@@ -30,7 +30,7 @@ public class PokerGameManager : MonoBehaviour
         EventManager.OnStartGame += OnStartGame;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         EventManager.OnClick -= OnClick;
         EventManager.OnReadyToGame -= OnReadyToGame;
@@ -41,27 +41,25 @@ public class PokerGameManager : MonoBehaviour
 
     private void Start()
     {
-        DestoryChips();
-        currentGameState = GameState.NOT_STARTED;
+        DestroyChips();
+        currentGameState = GameState.NotStarted;
     }
 
-    void OnReadyToGame(int instanceId)
+    private void OnReadyToGame(int instanceId)
     {
-        if (instanceId == transform.GetInstanceID())
-        {
-            betAmount = 0;
-            gameCamera.SetActive(true);
-            EventManager.FireStartGameEvent(instanceId);
-        }
+        if (instanceId != transform.GetInstanceID()) return;
+        betAmount = 0;
+        gameCamera.SetActive(true);
+        EventManager.FireStartGameEvent(instanceId);
     }
 
-    void OnStartGame(int instanceId)
+    private void OnStartGame(int instanceId)
     {
-        if (currentGameState == GameState.NOT_STARTED)
+        if (currentGameState == GameState.NotStarted)
         {
-            currentGameState = GameState.BETTING;
+            currentGameState = GameState.Betting;
 
-            InstatiateChips(10, 8, 5, 5);
+            InstantiateChips(10, 8, 5, 5);
 
             EventManager.FireInstructionChangeEvent($"Place your bets...");
 
@@ -73,29 +71,27 @@ public class PokerGameManager : MonoBehaviour
         }
     }
 
-    void DealCards()
+    private void DealCards()
     {
-        currentGameState = GameState.DEALING;
-        List<Card> cards = Deck.GetShuffledDeck(3);
-        List<Card> hand = cards.DealCards(5);
-        List<string> imageNames = hand.GetImageNames();
+        currentGameState = GameState.Dealing;
+        var cards = Deck.GetShuffledDeck(3);
+        var hand = cards.DealCards(5);
+        var imageNames = hand.GetImageNames();
     }
 
-    void OnModifyBetAction(int amount)
+    private void OnModifyBetAction(int amount)
     {
-        if (currentGameState == GameState.BETTING)
+        if (currentGameState != GameState.Betting) return;
+        betAmount += amount;
+        if (betAmount < 0)
         {
-            betAmount += amount;
-            if (betAmount < 0)
-            {
-                betAmount = 0;
-            }
-
-            EventManager.FireInstructionChangeEvent($"You placed ${betAmount}");
+            betAmount = 0;
         }
+
+        EventManager.FireInstructionChangeEvent($"You placed ${betAmount}");
     }
 
-    void OnClick(int instanceId)
+    private void OnClick(int instanceId)
     {
         if (instanceId == transform.GetInstanceID())
         {
@@ -103,39 +99,37 @@ public class PokerGameManager : MonoBehaviour
         }
     }
 
-    void OnPrepareToExitGame(int instanceId)
+    private void OnPrepareToExitGame(int instanceId)
     {
-        if (instanceId == transform.GetInstanceID())
-        {
-            gameCamera.SetActive(false);
-            DestoryChips();
-            EventManager.FireInstructionChangeEvent("");
-            EventManager.FireReadyToExitGameEvent(instanceId);
-        }
+        if (instanceId != transform.GetInstanceID()) return;
+        gameCamera.SetActive(false);
+        DestroyChips();
+        EventManager.FireInstructionChangeEvent("");
+        EventManager.FireReadyToExitGameEvent(instanceId);
     }
 
-    void InstatiateChips(int nChip1, int nChip5, int nChip25, int nChip100)
+    private void InstantiateChips(int nChip1, int nChip5, int nChip25, int nChip100)
     {
-        float chipZ = chip1.transform.localScale.z;
-        float positionX = transform.position.x + transform.localScale.x * 0.45f;
-        float positionY = 2.6f;
-        float positionZ = transform.position.z + transform.localScale.z * 0.15f;
-        float offset = chipZ + chipZ * 0.2f;
+        var chipZ = chip1.transform.localScale.z;
+        var positionX = transform.position.x + transform.localScale.x * 0.45f;
+        const float positionY = 2.6f;
+        var positionZ = transform.position.z + transform.localScale.z * 0.15f;
+        var offset = chipZ + chipZ * 0.2f;
 
-        InstatiateStack(chip1, nChip1, positionX, positionY, positionZ);
+        InstantiateStack(chip1, nChip1, positionX, positionY, positionZ);
         positionZ += offset;
-        InstatiateStack(chip5, nChip5, positionX, positionY, positionZ);
+        InstantiateStack(chip5, nChip5, positionX, positionY, positionZ);
         positionZ += offset;
-        InstatiateStack(chip25, nChip25, positionX, positionY, positionZ);
+        InstantiateStack(chip25, nChip25, positionX, positionY, positionZ);
         positionZ += offset;
-        InstatiateStack(chip100, nChip100, positionX, positionY, positionZ);
+        InstantiateStack(chip100, nChip100, positionX, positionY, positionZ);
     }
 
-    void InstatiateStack(GameObject chip, int numberOfChips, float posX, float posY, float posZ)
+    private static void InstantiateStack(GameObject chip, int numberOfChips, float posX, float posY, float posZ)
     {
-        float chipY = chip.transform.localScale.y;
+        var chipY = chip.transform.localScale.y;
         chipY += chipY * 0.1f;
-        for (int i = 0; i < numberOfChips; i++)
+        for (var i = 0; i < numberOfChips; i++)
         {
             chip.transform.position = new Vector3(posX, posY, posZ);
             playerChips.Add(Instantiate(chip, chip.transform));
@@ -143,23 +137,23 @@ public class PokerGameManager : MonoBehaviour
         }
     }
 
-    void DestoryChips()
+    private static void DestroyChips()
     {
         if (playerChips != null)
         {
-            for (int i = 0; i < playerChips.Count; i++)
+            foreach (var t in playerChips)
             {
-                Destroy(playerChips[i]);
+                Destroy(t);
             }
         }
 
         playerChips = new List<GameObject>();
     }
 
-    enum GameState
+    private enum GameState
     {
-        NOT_STARTED,
-        BETTING,
-        DEALING
+        NotStarted,
+        Betting,
+        Dealing
     }
 }

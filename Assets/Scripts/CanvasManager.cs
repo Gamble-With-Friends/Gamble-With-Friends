@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class CanvasManager : MonoBehaviour
 {
-
     public CanvasGroup editorCanvasGroup;
     public CanvasGroup connectingCanvasGroup;
 
-    void Start()
+    private void Start()
     {
-        if(!Application.isBatchMode)
+        if (!Application.isBatchMode)
         {
-            if(Application.isEditor)
-            {
-                editorCanvasGroup.gameObject.SetActive(true);
-            } else
-            {
-                connectingCanvasGroup.gameObject.SetActive(true);
-            }
+            // if(Application.isEditor)
+            // {
+            //     editorCanvasGroup.gameObject.SetActive(true);
+            // } else
+            // {
+            //     connectingCanvasGroup.gameObject.SetActive(true);
+            // }
+
+            editorCanvasGroup.gameObject.SetActive(true);
         }
     }
-
 }

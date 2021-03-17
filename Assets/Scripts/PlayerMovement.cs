@@ -5,154 +5,175 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : NetworkBehaviour
 {
-    readonly static KeyCode USE_KEY = KeyCode.Mouse0;
-    readonly static KeyCode EXIT_GAME_KEY = KeyCode.Escape;
-    readonly static float MAX_DISTANCE = 20f;
-    readonly static float SPEED = 12f;
-    readonly static float GROUND_DISTANCE = 0.4f;
-    readonly static float GRAVITY = -9.81f;
-    readonly static float JUMP_HEIGHT = 3f;
-
+    // Public vars
     public CharacterController controller;
     public Transform groundCheck;
     public LayerMask groundMask;
     public GameObject playerCamera;
-    public MeshRenderer playerBodyMeshRenderer;
     public bool isMovementDisabled;
 
-    [SyncVar]
-    public Color playerColor;
+    // Private Const
+    private const KeyCode USE_KEY = KeyCode.Mouse0;
+    private const KeyCode EXIT_GAME_KEY = KeyCode.Escape;
+    private const float MAX_DISTANCE = 20f;
+    private const float SPEED = 12f;
+    private const float GROUND_DISTANCE = 0.4f;
+    private const float GRAVITY = -18.81f;
+    private const float JUMP_HEIGHT = 3f;
 
+    // Private vars
     private Vector3 velocity;
     private bool isGrounded;
-    public PlayerModelScript player;
     public TextMesh displayNameTextMesh;
-    
-    int currentGameId = -1;
+    private int currentGameId = -1;
 
-    void OnEnable()
+    // Sync vars
+    [SyncVar]
+    private string displayName;
+    [SyncVar]
+    private string playerId;
+
+    private void OnEnable()
     {
         EventManager.OnPrepareToGame += OnPrepareToGame;
         EventManager.OnReadyToExitGame += OnReadyToExitGame;
         EventManager.OnPlayerLogin += OnPlayerLogin;
     }
 
-    void OnDisable()
+    private void OnDisable()
     {
         EventManager.OnPrepareToGame -= OnPrepareToGame;
         EventManager.OnReadyToExitGame -= OnReadyToExitGame;
         EventManager.OnPlayerLogin -= OnPlayerLogin;
     }
 
-    void OnPlayerLogin(PlayerModelScript player)
+    private void OnPlayerLogin(PlayerModelScript player)
     {
-        this.player = player;
-        displayNameTextMesh.text = player.UserName;
+        if (!isLocalPlayer) return;
+        CmdChangeDisplayName(player.UserName);
+        CmdChangeUserId(player.PlayerId);
     }
 
-    void OnPrepareToGame(int intanceId)
+    private void OnPrepareToGame(int instanceId)
     {
-        if (isLocalPlayer && !IsInGame())
-        {
-            isMovementDisabled = true;
-            currentGameId = intanceId;
-            Cursor.lockState = CursorLockMode.Confined;
-            playerCamera.SetActive(false);
-            EventManager.FireReadyToGameEvent(intanceId);
-        }
+        if (!isLocalPlayer && IsInGame()) return;
+
+        isMovementDisabled = true;
+        currentGameId = instanceId;
+        Cursor.lockState = CursorLockMode.Confined;
+        playerCamera.SetActive(false);
+        EventManager.FireReadyToGameEvent(instanceId);
     }
 
-    void OnReadyToExitGame(int intanceId)
+    private void OnReadyToExitGame(int instanceId)
     {
-        if (isLocalPlayer && IsInGame())
-        {
-            isMovementDisabled = false;
-            currentGameId = -1;
-            Cursor.lockState = CursorLockMode.Locked;
-            playerCamera.SetActive(true);
-        }
+        if (!isLocalPlayer && !IsInGame()) return;
+
+        isMovementDisabled = false;
+        currentGameId = -1;
+        Cursor.lockState = CursorLockMode.Locked;
+        playerCamera.SetActive(true);
+    }
+    
+    private void Start()
+    {
+        if (!isLocalPlayer) return;
+        CmdChangeDisplayName("Guest");
     }
 
-    void Update()
+    private void Update()
     {
-        if (isLocalPlayer)
-        {
-            HandleExitGame();
-            HandleCamera();
-            if(playerCamera.activeSelf)
-            {
-                HandleRaycasting();
-                HandlePlayerMovement();
-            }
-        }
+        // Change display name for all players
+        displayNameTextMesh.text = displayName;
+        
+        Debug.Log("UserID: " + playerId);
+        
+        if (!isLocalPlayer) return;
+        HandleExitGame();
+        HandleCamera();
+        if (!playerCamera.activeSelf) return;
+        HandleRaycasting();
+        HandlePlayerMovement();
     }
 
-    void HandleExitGame()
+    private void HandleExitGame()
     {
-        if (isLocalPlayer && IsInGame() && Input.GetKeyUp(EXIT_GAME_KEY))
+        if (!isLocalPlayer) return;
+
+        if (IsInGame() && Input.GetKeyUp(EXIT_GAME_KEY))
         {
             EventManager.FirePrepareToExitGameEvent(currentGameId);
         }
     }
 
-    void HandleCamera()
+    private void HandleCamera()
     {
+        if (!isLocalPlayer) return;
+
         if (!IsInGame() && !playerCamera.activeSelf)
         {
             playerCamera.SetActive(true);
         }
     }
 
-    void HandlePlayerMovement()
+    private void HandlePlayerMovement()
     {
-        if (!isMovementDisabled)
+        if (isMovementDisabled) return;
+        
+        isGrounded = Physics.CheckSphere(groundCheck.position, GROUND_DISTANCE, groundMask);
+
+        if (isGrounded)
         {
-            isGrounded = Physics.CheckSphere(groundCheck.position, GROUND_DISTANCE, groundMask);
-
-            if (isGrounded)
+            if (Input.GetButton("Jump"))
             {
-                if (Input.GetButton("Jump"))
-                {
-                    velocity.y = Mathf.Sqrt(JUMP_HEIGHT * -2f * GRAVITY);
-                }
-
-                if (velocity.y < 0)
-                {
-                    velocity.y = -2f;
-                }
+                velocity.y = Mathf.Sqrt(JUMP_HEIGHT * -2f * GRAVITY);
             }
 
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
-
-            Vector3 move = transform.right * x + transform.forward * z;
-            controller.Move(move * SPEED * Time.deltaTime);
-
-            velocity.y += GRAVITY * Time.deltaTime;
-            controller.Move(velocity * Time.deltaTime);
-        }
-    }
-
-    void HandleRaycasting()
-    {
-        if (Input.GetKeyUp(USE_KEY))
-        {
-            Vector2 mouseScreenPosition = Input.mousePosition;
-
-            Ray ray = playerCamera.GetComponent<Camera>().ScreenPointToRay(mouseScreenPosition);
-            Debug.DrawRay(ray.origin, ray.direction * MAX_DISTANCE, Color.green);
-            bool result = Physics.Raycast(ray, out RaycastHit raycastHit, MAX_DISTANCE);
-
-            if (result)
+            if (velocity.y < 0)
             {
-                EventManager.FireClickEvent(raycastHit.transform.GetInstanceID());
-                Debug.Log(raycastHit.collider.name);
+                velocity.y = -2f;
             }
         }
+
+        var x = Input.GetAxis("Horizontal");
+        var z = Input.GetAxis("Vertical");
+
+        var move = transform.right * x + transform.forward * z;
+        controller.Move(move * (SPEED * Time.deltaTime));
+
+        velocity.y += GRAVITY * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
-    bool IsInGame()
+    private void HandleRaycasting()
+    {
+        if (!Input.GetKeyUp(USE_KEY)) return;
+        
+        Vector2 mouseScreenPosition = Input.mousePosition;
+
+        var ray = playerCamera.GetComponent<Camera>().ScreenPointToRay(mouseScreenPosition);
+        Debug.DrawRay(ray.origin, ray.direction * MAX_DISTANCE, Color.green);
+        var result = Physics.Raycast(ray, out RaycastHit raycastHit, MAX_DISTANCE);
+
+        if (!result) return;
+        EventManager.FireClickEvent(raycastHit.transform.GetInstanceID());
+        Debug.Log(raycastHit.collider.name);
+    }
+
+    private bool IsInGame()
     {
         return currentGameId != -1;
+    }
+
+    [Command(ignoreAuthority = true)]
+    private void CmdChangeDisplayName(string playerDisplayName)
+    {
+        displayName = playerDisplayName;
+    }
+    
+    [Command(ignoreAuthority = true)]
+    private void CmdChangeUserId(string id)
+    {
+        playerId = id;
     }
 }

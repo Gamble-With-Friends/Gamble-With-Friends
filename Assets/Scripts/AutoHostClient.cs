@@ -9,7 +9,7 @@ public class AutoHostClient : MonoBehaviour
 
     NetworkManager networkManager;
 
-    void Start()
+    private void Start()
     {
         networkManager = FindObjectOfType<NetworkManagement>();
 

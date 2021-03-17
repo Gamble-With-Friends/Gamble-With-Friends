@@ -230,7 +230,7 @@ public class RegisterLoginScript : MonoBehaviour
         }       
     }
 
-    public void InitializeLoginInputs()
+    private void InitializeLoginInputs()
     {
         if (loginPasswordObject == null)
         {

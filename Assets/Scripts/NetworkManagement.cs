@@ -42,12 +42,11 @@ public class NetworkManagement : NetworkManager
     {
         // playerPrefab is the one assigned in the inspector in Network
         // Manager but you can use different prefabs per race for example
-        GameObject gameobject = Instantiate(playerPrefab);
+        var gameobject = Instantiate(playerPrefab);
 
         // Apply data from the message however appropriate for your game
         // Typically Player would be a component you write with syncvars or properties
-        PlayerMovement player = gameobject.GetComponent<PlayerMovement>();
-        player.playerColor = message.playerColor;
+        var player = gameobject.GetComponent<PlayerMovement>();
         player.name = message.name;
 
         player.transform.position = new Vector3(Random.Range(SPAWN_BEGINNING.x, SPAWN_END.x), 3, Random.Range(SPAWN_BEGINNING.y, SPAWN_END.y));

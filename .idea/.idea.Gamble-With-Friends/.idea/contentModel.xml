@@ -333,6 +333,7 @@
           <e p="LoginTriggerScript.cs" t="Include" />
           <e p="MouseLook.cs" t="Include" />
           <e p="NetworkManagement.cs" t="Include" />
+          <e p="PlayerModelScript.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PokerGameManager.cs" t="Include" />
           <e p="RegisterLoginScript.cs" t="Include" />
