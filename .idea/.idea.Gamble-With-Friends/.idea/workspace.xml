@@ -28,8 +28,8 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/NetworkManagement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerGameManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/UserInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
+      <option value="$PROJECT_DIR$/Assets/UserInfo.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pqpQlBa35qlHTJR57cKgVocGBp" />
@@ -80,7 +80,7 @@
       <option name="presentableId" value="Default" />
       <updated>1615920464179</updated>
       <workItem from="1615920468628" duration="10894000" />
-      <workItem from="1615940859674" duration="7675000" />
+      <workItem from="1615940859674" duration="8036000" />
     </task>
     <task id="LOCAL-00001" summary="Formatting">
       <created>1615920959819</created>

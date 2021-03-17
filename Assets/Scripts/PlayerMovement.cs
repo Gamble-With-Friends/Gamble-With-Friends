@@ -93,6 +93,7 @@ public class PlayerMovement : NetworkBehaviour
         
         UserInfo.GetInstance().UserId = playerId;
         UserInfo.GetInstance().TotalCoins = totalCoins;
+        UserInfo.GetInstance().DisplayName = displayName;
         
         HandleExitGame();
         HandleCamera();
