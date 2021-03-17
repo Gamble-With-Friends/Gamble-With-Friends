@@ -4,16 +4,7 @@
     <e p="C:\Users\harou\AppData\Local\JetBrains\Rider2020.3\extResources" t="IncludeRecursive" />
     <e p="C:\Users\harou\AppData\Local\JetBrains\Rider2020.3\resharper-host\Local\Transient\Rider\v203\SolutionCaches\_Gamble-With-Friends.-122486514.00" t="ExcludeRecursive" />
     <e p="C:\Users\harou\Desktop\Gamble-With-Friends" t="IncludeRecursive">
-      <e p="Assembly-CSharp-Editor.csproj" t="IncludeRecursive" />
-      <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="GameReadyAssets" t="Include">
-          <e p="FurniturePack1" t="Include">
-            <e p="Shader" t="Include">
-              <e p="SurfaceMetallicSmoothnessAmbient.shader" t="Include" />
-            </e>
-          </e>
-        </e>
         <e p="Mirror" t="Include">
           <e p="Authenticators" t="Include">
             <e p="BasicAuthenticator.cs" t="Include" />
@@ -264,13 +255,6 @@
               </e>
             </e>
           </e>
-          <e p="Notice.txt" t="Include" />
-          <e p="Plugins" t="Include">
-            <e p="Mono.Cecil" t="Include">
-              <e p="License.txt" t="Include" />
-            </e>
-          </e>
-          <e p="README.txt" t="Include" />
           <e p="Runtime" t="Include">
             <e p="AssemblyInfo.cs" t="Include" />
             <e p="Attributes.cs" t="Include" />
@@ -556,20 +540,6 @@
               <e p="SceneObjectSpawningTests.cs" t="Include" />
             </e>
           </e>
-          <e p="version.txt" t="Include" />
-        </e>
-        <e p="Nice Materials Pack 2" t="Include">
-          <e p="Shaders" t="Include">
-            <e p="Carpet.shader" t="Include" />
-            <e p="Cloth.shader" t="Include" />
-            <e p="Concrete Wall.shader" t="Include" />
-            <e p="Lino.shader" t="Include" />
-            <e p="PaintedWall.shader" t="Include" />
-            <e p="Processed Leather.shader" t="Include" />
-            <e p="ScratchedWood.shader" t="Include" />
-            <e p="Stained Leather.shader" t="Include" />
-            <e p="Stone Tile.shader" t="Include" />
-          </e>
         </e>
         <e p="ParrelSync" t="Include">
           <e p="ParrelSync" t="Include">
@@ -592,16 +562,6 @@
             </e>
             <e p="projectCloner.asmdef" t="Include" />
           </e>
-          <e p="version.txt" t="Include" />
-        </e>
-        <e p="Playing Cards" t="Include">
-          <e p="Image Effects" t="Include">
-            <e p="Shaders" t="Include">
-              <e p="Reversibl_Draw.shader" t="Include" />
-            </e>
-          </e>
-          <e p="Readme_Eng.txt" t="Include" />
-          <e p="Readme_Jpn.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
           <e p="AutoHostClient.cs" t="Include" />
@@ -613,10 +573,14 @@
           <e p="DataManager.cs" t="Include" />
           <e p="Editor" t="Include">
             <e p="BuildScript.cs" t="Include" />
+            <e p="Scripts.Editor.asmdef" t="Include" />
           </e>
           <e p="EventManager.cs" t="Include" />
           <e p="GameCameraScript.cs" t="Include" />
           <e p="Inventory" t="Include">
+            <e p="GameItems.cs" t="Include" />
+            <e p="InventoryButton.cs" t="Include" />
+            <e p="InventoryItems.cs" t="Include" />
             <e p="InventoryTrigger.cs" t="Include" />
             <e p="InventoryUI.cs" t="Include" />
           </e>
@@ -627,22 +591,18 @@
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PokerGameManager.cs" t="Include" />
           <e p="RegisterLoginScript.cs" t="Include" />
+          <e p="ScriptAssembly.asmdef" t="Include" />
           <e p="UserInfo.cs" t="Include" />
           <e p="Utilities.cs" t="Include" />
         </e>
-        <e p="ScriptTemplates" t="Include">
-          <e p="50-Mirror__Network Manager-NewNetworkManager.cs.txt" t="Include" />
-          <e p="51-Mirror__Network Authenticator-NewNetworkAuthenticator.cs.txt" t="Include" />
-          <e p="52-Mirror__Network Behaviour-NewNetworkBehaviour.cs.txt" t="Include" />
-          <e p="53-Mirror__Network Observer-NewNetworkObserver.cs.txt" t="Include" />
-          <e p="54-Mirror__Network Room Manager-NewNetworkRoomManager.cs.txt" t="Include" />
-          <e p="55-Mirror__Network Room Player-NewNetworkRoomPlayer.cs.txt" t="Include" />
-          <e p="56-Mirror__Network Discovery-NewNetworkDiscovery.cs.txt" t="Include" />
-        </e>
-        <e p="StreamingAssets" t="Include">
-          <e p="TestResults.xml" t="Include" />
+        <e p="Tests" t="Include">
+          <e p="EditTests" t="Include">
+            <e p="EditTests.asmdef" t="Include" />
+            <e p="RegisterLoginTests.cs" t="Include" />
+          </e>
         </e>
       </e>
+      <e p="EditTests.csproj" t="IncludeRecursive" />
       <e p="Gamble-With-Friends.sln" t="IncludeFlat" />
       <e p="kcp2k.csproj" t="IncludeRecursive" />
       <e p="Mirror.Authenticators.csproj" t="IncludeRecursive" />
@@ -663,6 +623,8 @@
       <e p="obj" t="ExcludeRecursive" />
       <e p="Packages" t="ExcludeRecursive" />
       <e p="ParrelSync.csproj" t="IncludeRecursive" />
+      <e p="ScriptAssembly.csproj" t="IncludeRecursive" />
+      <e p="Scripts.Editor.csproj" t="IncludeRecursive" />
       <e p="SimpleWebTransport.csproj" t="IncludeRecursive" />
       <e p="Telepathy.csproj" t="IncludeRecursive" />
       <e p="Temp\bin" t="ExcludeRecursive" />
