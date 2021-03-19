@@ -576,6 +576,7 @@
             <e p="Scripts.Editor.asmdef" t="Include" />
           </e>
           <e p="EventManager.cs" t="Include" />
+          <e p="FriendsScript.cs" t="Include" />
           <e p="GameCameraScript.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="GameItems.cs" t="Include" />
@@ -597,6 +598,7 @@
         </e>
         <e p="Tests" t="Include">
           <e p="EditTests" t="Include">
+            <e p="DataManagerTests.cs" t="Include" />
             <e p="EditTests.asmdef" t="Include" />
             <e p="RegisterLoginTests.cs" t="Include" />
           </e>

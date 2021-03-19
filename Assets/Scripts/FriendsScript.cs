@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FriendsScript : MonoBehaviour
 {
     public GameObject friendCardPrefab;
+    public GameObject scrollViewContent;
 
     List<string> friends = new List<string>
         {
@@ -34,15 +36,14 @@ public class FriendsScript : MonoBehaviour
     private void InstantiateFriendCards(List<string> friends, float posX, float posY, float posZ)
     {
         var cardHeight = friendCardPrefab.transform.localScale.y;
-        cardHeight += cardHeight * 0.1f; // space after
-        //friendCardPrefab.transform.SetParent(transform, false);
+        var offset = -100f;
 
         foreach (var friend in friends)
         {            
-            //friendCardPrefab.transform.position = new Vector3(posX, posY, posZ); // set position
-            var card = Instantiate(friendCardPrefab, transform); // instantiate prefab
-            card.transform.localPosition.Set(card.transform.localPosition.x, posY, card.transform.localPosition.z);
-            posY += cardHeight;
+            var card = Instantiate(friendCardPrefab, scrollViewContent.transform); // instantiate prefab
+            var localPosition = card.transform.localPosition;
+            card.transform.localPosition = new Vector3(localPosition.x, cardHeight + offset, localPosition.z);
+            offset -= 100;
         }        
     }
 }
