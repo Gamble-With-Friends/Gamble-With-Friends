@@ -100,6 +100,15 @@ public class PlayerMovement : NetworkBehaviour
         if (!playerCamera.activeSelf) return;
         HandleRaycasting();
         HandlePlayerMovement();
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            EventManager.FireKeyDownEvent(KeyCode.I);
+        } 
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            EventManager.FireKeyDownEvent(KeyCode.F);
+        }
     }
 
     private void SetSyncVars()
