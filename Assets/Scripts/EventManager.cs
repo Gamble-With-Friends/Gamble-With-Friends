@@ -43,7 +43,12 @@ public class EventManager : MonoBehaviour
     public delegate void ChangeCoinValue(decimal amount);
 
     public static event ChangeCoinValue OnChangeCoinValue;
-    
+
+    // Event fired when a key is pressed
+    public delegate void KeyDownEvents(KeyCode key);
+
+    public static event KeyDownEvents OnKeyDown;
+
 
     public static void FireClickEvent(int instanceId)
     {
@@ -93,5 +98,11 @@ public class EventManager : MonoBehaviour
     public static void FireChangeCoinValue(decimal amount)
     {
         OnChangeCoinValue?.Invoke(amount);
+    }
+
+    //
+    public static void FireKeyDownEvent(KeyCode key)
+    {
+        OnKeyDown?.Invoke(key);
     }
 }
