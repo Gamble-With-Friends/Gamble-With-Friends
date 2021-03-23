@@ -24,11 +24,6 @@ public class InventoryUI : MonoBehaviour
     {
         if (UserInfo.GetInstance().UserId != null)
         {
-            if (InventoryCanvas.gameObject.activeSelf)
-            {
-                UserInfo.GetInstance().LockMouse = true;
-                UserInfo.GetInstance().LockMovement = true;
-            }
             if (key == KeyCode.I)
             {
                 if (InventoryCanvas.gameObject.activeSelf)
@@ -39,11 +34,9 @@ public class InventoryUI : MonoBehaviour
                 {
                     Cursor.lockState = CursorLockMode.Confined;
                     InventoryCanvas.gameObject.SetActive(true);
+                    UserInfo.GetInstance().LockMouse = true;
+                    UserInfo.GetInstance().LockMovement = true;
                 }
-            }
-            else if (Input.GetKey(KeyCode.Escape))
-            {
-                ExitInventory();
             }
         }
     }
