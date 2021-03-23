@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03372e41-68d1-4378-a14b-1ab2bd8ca5f9" name="Default Changelist" comment="Formatting" />
+    <list default="true" id="03372e41-68d1-4378-a14b-1ab2bd8ca5f9" name="Default Changelist" comment="Formatting">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Offline.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Offline.unity" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -67,10 +71,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="12928">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="12928" />
       <option name="selectedOptions">
         <list />
       </option>
@@ -91,6 +95,7 @@
       <workItem from="1616000862657" duration="9699000" />
       <workItem from="1616015600175" duration="687000" />
       <workItem from="1616191934671" duration="1433000" />
+      <workItem from="1616530974082" duration="419000" />
     </task>
     <task id="LOCAL-00001" summary="Formatting">
       <created>1615920959819</created>
@@ -140,6 +145,45 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManager.cs</url>
+          <line>407</line>
+          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Mirror\Runtime\NetworkManager.cs" initialLine="407" containingFunctionPresentation="method 'StartClient'">
+            <startOffsets>
+              <option value="18661" />
+            </startOffsets>
+            <endOffsets>
+              <option value="18686" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManager.cs</url>
+          <line>803</line>
+          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Mirror\Runtime\NetworkManager.cs" initialLine="803" containingFunctionPresentation="method 'RegisterClientMessages'">
+            <startOffsets>
+              <option value="34138" />
+            </startOffsets>
+            <endOffsets>
+              <option value="34195" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkClient.cs</url>
+          <line>71</line>
+          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Mirror\Runtime\NetworkClient.cs" initialLine="71" containingFunctionPresentation="method 'Connect'">
+            <startOffsets>
+              <option value="3315" />
+            </startOffsets>
+            <endOffsets>
+              <option value="3524" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

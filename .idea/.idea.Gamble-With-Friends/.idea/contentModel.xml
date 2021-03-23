@@ -577,12 +577,14 @@
           </e>
           <e p="EventManager.cs" t="Include" />
           <e p="FriendsScript.cs" t="Include" />
+          <e p="FriendsUI" t="Include">
+            <e p="FriendsUITriggerScript.cs" t="Include" />
+          </e>
           <e p="GameCameraScript.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="GameItems.cs" t="Include" />
             <e p="InventoryButton.cs" t="Include" />
             <e p="InventoryItems.cs" t="Include" />
-            <e p="InventoryTrigger.cs" t="Include" />
             <e p="InventoryUI.cs" t="Include" />
           </e>
           <e p="LoginTriggerScript.cs" t="Include" />
