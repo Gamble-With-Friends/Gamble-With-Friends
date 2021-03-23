@@ -94,6 +94,8 @@ public class PlayerMovement : NetworkBehaviour
         
         if (!isLocalPlayer) return;
 
+        isMovementDisabled = UserInfo.GetInstance().LockMovement;
+
         SetSyncVars();
         HandleExitGame();
         HandleCamera();

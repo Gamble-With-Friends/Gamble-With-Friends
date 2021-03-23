@@ -7,6 +7,8 @@ public class UserInfo
     public string UserId { get; set; }
     public string DisplayName { get; set; }
     public decimal TotalCoins { get; set; }
+    public bool LockMovement { get; set; }
+    public bool LockMouse { get; set; }
 
     private static UserInfo _instance;
     
