@@ -54,6 +54,9 @@ public class EventManager : MonoBehaviour
 
     public static event FriendRawActionClicked OnFriendRawActionClick;
 
+    public delegate void StringValueChanged(EventType eventType, string oldValue, string newValue);
+
+    public static event StringValueChanged OnStringValueChange;
 
     public static void FireClickEvent(int instanceId)
     {
@@ -114,5 +117,10 @@ public class EventManager : MonoBehaviour
     public static void FireFriendRawActionClick(FriendRawAction action, string displayName)
     {
         OnFriendRawActionClick?.Invoke(action, displayName);
+    }   
+    
+    public static void FireStringValueChange(EventType eventType, string oldValue, string newValue)
+    {
+        OnStringValueChange?.Invoke(eventType, oldValue, newValue);
     }
 }
