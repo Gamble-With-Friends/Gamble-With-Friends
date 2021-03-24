@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class PokerClient : MonoBehaviour
 {
-    public const int MaxPlayers = 1;
-    public TextMesh informationText;
+    public const int MaxPlayers = 2;
+    public TextMesh line1Text;
+    public TextMesh[] slots;
+    public TextMesh seatNumbers;
     public PokerServer server;
     public GameObject gameCamera;
     private int betAmount;
@@ -12,7 +15,7 @@ public class PokerClient : MonoBehaviour
 
     private void Update()
     {
-        informationText.text = "Total Players: " + GetTotalPlayers();
+        // line1Text.text = "Total Players: " + GetTotalPlayers();
     }
 
     private void OnEnable()
@@ -47,6 +50,7 @@ public class PokerClient : MonoBehaviour
         if (!IsTableFull())
         {
             server.AddPlayer(UserInfo.GetInstance().UserId);
+            var seatNumber = GetPlayerSlot();
         }
         else
         {
@@ -95,6 +99,18 @@ public class PokerClient : MonoBehaviour
     private int GetTotalPlayers()
     {
         return server.slotToUserId?.Count ?? 0;
+    }
+
+    private int GetPlayerSlot()
+    {
+        var slot = -1;
+        foreach (var value in server.slotToUserId.Where(value => value.Value == UserInfo.GetInstance().UserId))
+        {
+            slot = value.Key;
+            break;
+        }
+
+        return slot;
     }
 
     private void DealCards()

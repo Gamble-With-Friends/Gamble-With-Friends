@@ -3,6 +3,7 @@ using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PlayerMovement : NetworkBehaviour
 {
@@ -12,6 +13,8 @@ public class PlayerMovement : NetworkBehaviour
     public LayerMask groundMask;
     public GameObject playerCamera;
     public bool isMovementDisabled;
+    public Text displayNameText;
+    public Text totalCoinsText;
 
     // Private Const
     private const KeyCode USE_KEY = KeyCode.Mouse0;
@@ -95,6 +98,9 @@ public class PlayerMovement : NetworkBehaviour
         displayNameTextMesh.text = displayName;
         
         if (!isLocalPlayer) return;
+
+        displayNameText.text = "Username: " + UserInfo.GetInstance().DisplayName;
+        totalCoinsText.text = "Coins: $" + UserInfo.GetInstance().TotalCoins;
 
         isMovementDisabled = UserInfo.GetInstance().LockMovement;
 
