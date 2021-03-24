@@ -53,6 +53,9 @@ public class EventManager : MonoBehaviour
     public delegate void FriendRawActionClicked(FriendRawAction action, string displayName);
 
     public static event FriendRawActionClicked OnFriendRawActionClick;
+    public delegate void OutfitChange();
+
+    public static event OutfitChange OnOutfitChange;
 
 
     public static void FireClickEvent(int instanceId)
@@ -114,5 +117,10 @@ public class EventManager : MonoBehaviour
     public static void FireFriendRawActionClick(FriendRawAction action, string displayName)
     {
         OnFriendRawActionClick?.Invoke(action, displayName);
+    }
+
+    public static void FireOutfitChange()
+    {
+        OnOutfitChange?.Invoke();
     }
 }
