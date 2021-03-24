@@ -110,11 +110,12 @@ public class PokerClient : NetworkBehaviour
 
     public void OnTurnChange(int turn)
     {
+        if (session == null && slotToUserId.ContainsKey(session.seatNumber)) return;
+
         if (server.gameState == GameState.Betting)
         {
-            if (session == null) return;
             var isPlayersTurn = UserInfo.GetInstance().UserId == slotToUserId[session.seatNumber];
-        
+
             if (isPlayersTurn)
             {
                 chipsGameObject.SetActive(true);

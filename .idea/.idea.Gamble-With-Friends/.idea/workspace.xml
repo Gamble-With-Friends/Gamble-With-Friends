@@ -2,18 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03372e41-68d1-4378-a14b-1ab2bd8ca5f9" name="Default Changelist" comment="Formatting">
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/EventType.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/JSONLibrary.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/JsonLibrary.cs.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PokerCardScript.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PokerCardScript.cs.meta" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/FirstPersonPlayer.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/FirstPersonPlayer.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PokerTable.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PokerTable.prefab" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameState.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LoginTriggerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LoginTriggerScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PokerClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PokerClient.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PokerServer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PokerServer.cs" afterDir="false" />
     </list>
@@ -40,7 +30,6 @@
   <component name="IdeDocumentHistory">
     <changedPaths>
       <option value="$PROJECT_DIR$/Assets/Scripts/ChipScript.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/LoginTriggerScript.cs" />
       <option value="$PROJECT_DIR$/Assets/UserInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerModelScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DataManager.cs" />
@@ -64,8 +53,9 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/GameState.cs" />
       <option value="$PROJECT_DIR$/Assets/PokerCardScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/JsonLibrary.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/PokerClient.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerServer.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PokerClient.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/LoginTriggerScript.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pqpQlBa35qlHTJR57cKgVocGBp" />
@@ -125,7 +115,7 @@
       <workItem from="1616537699728" duration="297000" />
       <workItem from="1616545591315" duration="7424000" />
       <workItem from="1616584938729" duration="12052000" />
-      <workItem from="1616597550860" duration="4503000" />
+      <workItem from="1616597550860" duration="5557000" />
     </task>
     <task id="LOCAL-00001" summary="Formatting">
       <created>1615920959819</created>
@@ -175,32 +165,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/PokerServer.cs</url>
-          <line>45</line>
-          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Scripts\PokerServer.cs" initialLine="45" containingFunctionPresentation="method 'SyncTurn'">
-            <startOffsets>
-              <option value="1044" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1074" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Scripts/PokerServer.cs</url>
-          <line>74</line>
-          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Scripts\PokerServer.cs" initialLine="74" containingFunctionPresentation="method 'CmdAddPlayer'">
-            <startOffsets>
-              <option value="1947" />
-            </startOffsets>
-            <endOffsets>
-              <option value="1976" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

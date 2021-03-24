@@ -20,8 +20,6 @@ public class LoginTriggerScript : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!other.gameObject.GetComponent<PlayerMovement>().isLocalPlayer) return;
-        collidingPlayerMovement = other.gameObject.GetComponent<PlayerMovement>();
-        collidingPlayerMouseLook = other.gameObject.transform.Find("Main Camera").GetComponent<MouseLook>();
         EventManager.FireInstructionChangeEvent(LOGIN_TEXT);
         isInsideTrigger = true;
     }
@@ -44,8 +42,8 @@ public class LoginTriggerScript : MonoBehaviour
 
         if (loginRegistrationGroup.gameObject.activeSelf)
         {
-            collidingPlayerMovement.isMovementDisabled = true;
-            collidingPlayerMouseLook.disableLookaround = true;
+            UserInfo.GetInstance().LockMovement = true;
+            UserInfo.GetInstance().LockMouse = true;
             EventManager.FireInstructionChangeEvent("");
         }
 
@@ -74,7 +72,7 @@ public class LoginTriggerScript : MonoBehaviour
         loginCanvas.gameObject.SetActive(false);
         registerFormGroup.gameObject.SetActive(false);
         loginFormGroup.gameObject.SetActive(false);
-        collidingPlayerMovement.isMovementDisabled = false;
-        collidingPlayerMouseLook.disableLookaround = false;
+        UserInfo.GetInstance().LockMovement = false;
+        UserInfo.GetInstance().LockMouse = false;
     }
 }

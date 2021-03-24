@@ -17,7 +17,7 @@ public class PokerServer : NetworkBehaviour
     private string slotToUserIdSerialized;
     
     [SyncVar(hook = nameof(SyncTurn))]
-    private int turn;
+    private int turn = -1;
 
     // Public Functions
     public void AddPlayer(string userId)
