@@ -28,7 +28,10 @@ public class InventoryButton : MonoBehaviour
             }
 
             sellButton.interactable = true;
-            equipButton.interactable = true;
+            if(GameItems.GetItems()[itemName].ItemType != 2)
+            {
+                equipButton.interactable = true;
+            }
         }
     }
 
@@ -93,7 +96,8 @@ public class InventoryButton : MonoBehaviour
     public void OnPointerEnter()
     {
         description.SetActive(true);
-        descriptionText.text = itemName;
+        descriptionText.text = itemName + "\n$" + GameItems.itemNameToRecord[itemName].CoinValue + 
+            "\nIncome Per day: "+ GameItems.itemNameToRecord[itemName].IncomeAmount;
     }
 
     public void OnPointerExit()
@@ -122,9 +126,12 @@ public class InventoryButton : MonoBehaviour
                 shade.a = 1f;
                 icon.color = shade;
                 sellButton.interactable = true;
-                equipButton.interactable = !equip;
-                unequipButton.interactable = equip;
-                EventManager.FireOutfitChange();
+                if(GameItems.GetItems()[itemName].ItemType != 2)
+                {
+                    equipButton.interactable = !equip;
+                    unequipButton.interactable = equip;
+                    EventManager.FireOutfitChange();
+                }
             }
         }
     }

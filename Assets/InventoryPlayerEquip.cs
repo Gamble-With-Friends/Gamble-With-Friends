@@ -26,6 +26,37 @@ public class InventoryPlayerEquip : MonoBehaviour
         EventManager.OnOutfitChange += OnOutfitChange;
     }
 
+    private void ChangeOutfit (string skinname, bool equip)
+    {
+        switch (skinname)
+        {
+            case "Hat":
+                hat.SetActive(equip);
+                break;
+            case "T-Shirt":
+                tshirt.SetActive(equip);
+                break;
+            case "Sweater":
+                sweater.SetActive(equip);
+                break;
+            case "Shoes":
+                shoes.SetActive(equip);
+                break;
+            case "Jeans":
+                jeans.SetActive(equip);
+                break;
+            case "Watch":
+                watch.SetActive(equip);
+                break;
+            case "Headphones":
+                headphones.SetActive(equip);
+                break;
+            case "Glasses":
+                glasses.SetActive(equip);
+                break;
+        }
+    }
+
     private void OnOutfitChange()
     {
         if(UserInfo.GetInstance().UserId != null)
@@ -38,66 +69,18 @@ public class InventoryPlayerEquip : MonoBehaviour
 
                 if (InventoryItems.GetInventoryItems().ContainsKey(itemId))
                 {
-                    if(InventoryItems.GetInventoryItems()[itemId].Equipped)
+                    if (InventoryItems.GetInventoryItems()[itemId].Equipped)
                     {
-                        switch (skinname)
-                        {
-                            case "Hat":
-                                hat.SetActive(true);
-                                break;
-                            case "T-Shirt":
-                                tshirt.SetActive(true);
-                                break;
-                            case "Sweater":
-                                sweater.SetActive(true);
-                                break;
-                            case "Shoes":
-                                shoes.SetActive(true);
-                                break;
-                            case "Jeans":
-                                jeans.SetActive(true);
-                                break;
-                            case "Watch":
-                                watch.SetActive(true);
-                                break;
-                            case "Headphones":
-                                headphones.SetActive(true);
-                                break;
-                            case "Glasses":
-                                glasses.SetActive(true);
-                                break;
-                        }
+                        ChangeOutfit(skinname, true);
                     }
                     else
                     {
-                        switch (skinname)
-                        {
-                            case "Hat":
-                                hat.SetActive(false);
-                                break;
-                            case "T-Shirt":
-                                tshirt.SetActive(false);
-                                break;
-                            case "Sweater":
-                                sweater.SetActive(false);
-                                break;
-                            case "Shoes":
-                                shoes.SetActive(false);
-                                break;
-                            case "Jeans":
-                                jeans.SetActive(false);
-                                break;
-                            case "Watch":
-                                watch.SetActive(false);
-                                break;
-                            case "Headphones":
-                                headphones.SetActive(false);
-                                break;
-                            case "Glasses":
-                                glasses.SetActive(false);
-                                break;
-                        }
+                        ChangeOutfit(skinname, false);
                     }
+                }
+                else
+                {
+                    ChangeOutfit(skinname, false);
                 }
             }
         }

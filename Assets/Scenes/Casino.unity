@@ -5334,6 +5334,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a25473881a76d5f44b42b1bfe80b70c1,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -6363,6 +6369,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e4f0f09edfd61ea42a2496ae073f6977,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -7167,6 +7179,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 38c64006fdd51f44ab4b7ede074e98e7,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -7226,6 +7244,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventorySlot (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726031829574259540, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: itemName
+      value: ParkingLot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9886d3ef4800b4faac2884b7834728, type: 3}
@@ -7767,6 +7790,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 74d2bdd4c46dc3648bb38b13a488b8c5,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -11071,6 +11100,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 03ca6de9ac9ade04db9a8062ce1510be,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -11130,6 +11165,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventorySlot (14)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726031829574259540, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: itemName
+      value: McDonalds
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9886d3ef4800b4faac2884b7834728, type: 3}
@@ -14097,6 +14137,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 149884fadb03fcf4c9d6413ee9a1ce95,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -14156,6 +14202,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventorySlot (13)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726031829574259540, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: itemName
+      value: ConvenienceStore
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9886d3ef4800b4faac2884b7834728, type: 3}
@@ -14322,6 +14373,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b03de1fa14fecda489d1834010a16a65,
+        type: 3}
     - target: {fileID: 1967650194791462447, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_Interactable
@@ -17417,6 +17474,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b9ed81b0058fd5c45b2e2375beb82236,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -17476,6 +17539,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventorySlot (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726031829574259540, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: itemName
+      value: HotdogStand
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9886d3ef4800b4faac2884b7834728, type: 3}
@@ -17785,6 +17853,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5352cbbec1a4a1b459883e13e5420aaa,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -19317,6 +19391,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 73f6ad8d8ac515340a6ef25bba427d56,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -19376,6 +19456,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventorySlot (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726031829574259540, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: itemName
+      value: CryptominingRig
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9886d3ef4800b4faac2884b7834728, type: 3}
@@ -19818,6 +19903,12 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 4294967295
       objectReference: {fileID: 0}
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f7be97285d51fda41a1d680f77eaa32a,
+        type: 3}
     - target: {fileID: 1337522745672779799, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_IsActive
@@ -20179,6 +20270,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c4281c1d83e4bd54790da67e742d1963,
+        type: 3}
     - target: {fileID: 1967650194791462447, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_Interactable
@@ -21013,6 +21110,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 791f6c345632b8547ad1c7373066449d,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -22104,6 +22207,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 7529d04e5a792ca4e8d782abc5ddbca6,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -22164,6 +22273,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventorySlot (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 8726031829574259540, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: itemName
+      value: VendingMachine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9886d3ef4800b4faac2884b7834728, type: 3}
 --- !u!4 &2101376388 stripped
@@ -22179,6 +22293,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e10a17d2026960645bf8e16ee13ea414,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -22238,6 +22358,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventorySlot (15)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726031829574259540, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: itemName
+      value: Casino
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9886d3ef4800b4faac2884b7834728, type: 3}
@@ -22481,6 +22606,12 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 359505458}
     m_Modifications:
+    - target: {fileID: 1057813285255516621, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f2610dad3c1dde149821c20d46f45bb9,
+        type: 3}
     - target: {fileID: 4321591744121882497, guid: 9f9886d3ef4800b4faac2884b7834728,
         type: 3}
       propertyPath: m_RootOrder
@@ -22540,6 +22671,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: InventorySlot (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8726031829574259540, guid: 9f9886d3ef4800b4faac2884b7834728,
+        type: 3}
+      propertyPath: itemName
+      value: CarWash
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f9886d3ef4800b4faac2884b7834728, type: 3}

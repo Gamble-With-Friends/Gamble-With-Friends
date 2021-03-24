@@ -12,6 +12,7 @@ public class GameItems : MonoBehaviour
         public string ItemTitle { get; set; }
         public int ItemType { get; set; }
         public decimal CoinValue { get; set; }
+        public decimal IncomeAmount { get; set; }
     }
 
     public static Dictionary<string, Item> GetItems()

@@ -194,7 +194,7 @@ public class DataManager
 
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT itemId, itemTitle, itemType, coinValue FROM Item", db);
+            var cmd = new SqlCommand("SELECT itemId, itemTitle, itemType, coinValue, incomeAmount FROM Item", db);
 
             db.Open();
             var reader = cmd.ExecuteReader();
@@ -208,6 +208,7 @@ public class DataManager
                     ItemTitle = reader.GetString(1),
                     ItemType = reader.GetInt32(2),
                     CoinValue = reader.GetDecimal(3),
+                    IncomeAmount = reader.GetDecimal(4),
                 });
             }
             reader.Close();
