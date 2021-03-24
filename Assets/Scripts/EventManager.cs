@@ -53,6 +53,7 @@ public class EventManager : MonoBehaviour
     public delegate void FriendRawActionClicked(FriendRawAction action, string displayName);
 
     public static event FriendRawActionClicked OnFriendRawActionClick;
+
     public delegate void OutfitChange();
 
     public static event OutfitChange OnOutfitChange;

@@ -45,6 +45,7 @@ public class InventoryButton : MonoBehaviour
             {
                 DataManager.SellItem(UserInfo.GetInstance().UserId, GameItems.GetItems()[itemName].ItemId);
                 EventManager.FireChangeCoinValue(discountFactor * GameItems.GetItems()[itemName].CoinValue);
+                EventManager.FireOutfitChange();
             }
             equipButton.interactable = false;
             sellButton.interactable = false;
@@ -60,7 +61,7 @@ public class InventoryButton : MonoBehaviour
             if (itemName != null)
             {
                 DataManager.EquiptItem(UserInfo.GetInstance().UserId, itemName);
-                //EventManager.
+                EventManager.FireOutfitChange();
             }
 
             equipButton.interactable = false;
@@ -76,7 +77,7 @@ public class InventoryButton : MonoBehaviour
             if (itemName != null)
             {
                 DataManager.UnequiptItem(UserInfo.GetInstance().UserId, itemName);
-                //EventManager.
+                EventManager.FireOutfitChange();
             }
             unequipButton.interactable = false;
             equipButton.interactable = true;
@@ -123,6 +124,7 @@ public class InventoryButton : MonoBehaviour
                 sellButton.interactable = true;
                 equipButton.interactable = !equip;
                 unequipButton.interactable = equip;
+                EventManager.FireOutfitChange();
             }
         }
     }
