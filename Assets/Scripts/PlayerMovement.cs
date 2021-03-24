@@ -26,7 +26,6 @@ public class PlayerMovement : NetworkBehaviour
     private Vector3 velocity;
     private bool isGrounded;
     public TextMesh displayNameTextMesh;
-    private int currentGameId = -1;
 
     // Sync vars
     [SyncVar]
@@ -62,10 +61,10 @@ public class PlayerMovement : NetworkBehaviour
 
     private void OnPrepareToGame(int instanceId)
     {
-        if (!isLocalPlayer && IsInGame()) return;
+        if (!isLocalPlayer && UserInfo.GetInstance().IsInGame()) return;
 
         isMovementDisabled = true;
-        currentGameId = instanceId;
+        UserInfo.GetInstance().CurrentGameId = instanceId;
         Cursor.lockState = CursorLockMode.Confined;
         playerCamera.SetActive(false);
         EventManager.FireReadyToGameEvent(instanceId);
@@ -73,10 +72,10 @@ public class PlayerMovement : NetworkBehaviour
 
     private void OnReadyToExitGame(int instanceId)
     {
-        if (!isLocalPlayer && !IsInGame()) return;
+        if (!isLocalPlayer && !UserInfo.GetInstance().IsInGame()) return;
 
         isMovementDisabled = false;
-        currentGameId = -1;
+        UserInfo.GetInstance().CurrentGameId = -1;
         Cursor.lockState = CursorLockMode.Locked;
         playerCamera.SetActive(true);
     }
@@ -85,6 +84,9 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
         displayNameTextMesh.text = "Guest";
+        // TODO: Comment out before commiting
+        var player = DataManager.LoginUser("tony", "Qwe!23");
+        EventManager.FirePlayerLoginEvent(player);
     }
 
     private void Update()
@@ -124,9 +126,9 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        if (IsInGame() && Input.GetKeyUp(EXIT_GAME_KEY))
+        if (UserInfo.GetInstance().IsInGame() && Input.GetKeyUp(EXIT_GAME_KEY))
         {
-            EventManager.FirePrepareToExitGameEvent(currentGameId);
+            EventManager.FirePrepareToExitGameEvent(UserInfo.GetInstance().CurrentGameId);
         }
     }
 
@@ -134,7 +136,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
 
-        if (!IsInGame() && !playerCamera.activeSelf)
+        if (!UserInfo.GetInstance().IsInGame() && !playerCamera.activeSelf)
         {
             playerCamera.SetActive(true);
         }
@@ -181,11 +183,6 @@ public class PlayerMovement : NetworkBehaviour
 
         if (!result) return;
         EventManager.FireClickEvent(raycastHit.transform.GetInstanceID());
-    }
-
-    private bool IsInGame()
-    {
-        return currentGameId != -1;
     }
 
     private void OnChangeCoinValue(decimal amount)

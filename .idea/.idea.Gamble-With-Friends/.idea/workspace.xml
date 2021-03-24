@@ -2,9 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03372e41-68d1-4378-a14b-1ab2bd8ca5f9" name="Default Changelist" comment="Formatting">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GameState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GameState.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PokerClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PokerClient.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PokerServer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/PokerServer.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Offline.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Offline.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PokerTable.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PokerTable.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Casino.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Casino.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PokerGameManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PokerGameManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/UserInfo.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,8 +26,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/EAE584CE-26BC-4022-9C1B-1AA476BFA589/1f/e55a66be/SerializableAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Gamble-With-Friends_clone_0/Assets/Mirror/Runtime/NetworkManager.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FE7EE188-1B52-4B0D-9443-F74417FB598B/50/e3f05e2e/GUIUtility.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/UserInfo.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -33,13 +46,17 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/SceneReference.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/SceneScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/NetworkedPrefabManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/PokerGameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/AutoHostClient.cs" />
       <option value="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/NetworkManagement.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CanvasManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/FriendsScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/UserInfo.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/GameState.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PokerGameManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PokerClient.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/PokerServer.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pqpQlBa35qlHTJR57cKgVocGBp" />
@@ -71,10 +88,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="12928">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="18952">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" value="12928" />
+      <option name="pid" value="18952" />
       <option name="selectedOptions">
         <list />
       </option>
@@ -95,7 +112,9 @@
       <workItem from="1616000862657" duration="9699000" />
       <workItem from="1616015600175" duration="687000" />
       <workItem from="1616191934671" duration="1433000" />
-      <workItem from="1616530974082" duration="419000" />
+      <workItem from="1616530974082" duration="5084000" />
+      <workItem from="1616537699728" duration="297000" />
+      <workItem from="1616545591315" duration="5419000" />
     </task>
     <task id="LOCAL-00001" summary="Formatting">
       <created>1615920959819</created>
@@ -145,45 +164,6 @@
             </endOffsets>
           </properties>
           <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManager.cs</url>
-          <line>407</line>
-          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Mirror\Runtime\NetworkManager.cs" initialLine="407" containingFunctionPresentation="method 'StartClient'">
-            <startOffsets>
-              <option value="18661" />
-            </startOffsets>
-            <endOffsets>
-              <option value="18686" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManager.cs</url>
-          <line>803</line>
-          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Mirror\Runtime\NetworkManager.cs" initialLine="803" containingFunctionPresentation="method 'RegisterClientMessages'">
-            <startOffsets>
-              <option value="34138" />
-            </startOffsets>
-            <endOffsets>
-              <option value="34195" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DotNet Breakpoints">
-          <url>file://$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkClient.cs</url>
-          <line>71</line>
-          <properties documentPath="C:\Users\harou\Desktop\Gamble-With-Friends\Assets\Mirror\Runtime\NetworkClient.cs" initialLine="71" containingFunctionPresentation="method 'Connect'">
-            <startOffsets>
-              <option value="3315" />
-            </startOffsets>
-            <endOffsets>
-              <option value="3524" />
-            </endOffsets>
-          </properties>
-          <option name="timeStamp" value="6" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
