@@ -8,42 +8,34 @@ public class FriendsScript : MonoBehaviour
     public GameObject friendCardPrefab;
     public GameObject scrollViewContent;
 
-    List<string> friends = new List<string>
-        {
-            "Harout",
-            "Tony",
-            "Sean",
-            "Mark",
-            "Docker"
-        };
+    
     // Start is called before the first frame update
     void Start()
     {
-        InstantiateFriendCards(friends, transform.position.x, transform.position.y, transform.position.z); // transform.position - position of the parent objectof the script
-    }
+        InstantiateFriendCards(transform.position.x, transform.position.y, transform.position.z); // transform.position - position of the parent objectof the script
+    }    
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public void OpenFriendListTab()
-    {
-        
-    }
-
-    private void InstantiateFriendCards(List<string> friends, float posX, float posY, float posZ)
+    private void InstantiateFriendCards(float posX, float posY, float posZ)
     {
         var cardHeight = friendCardPrefab.transform.localScale.y;
-        var offset = -100f;
+        var offset = -30f;
+
+        var localUserId = UserInfo.GetInstance().UserId;
+        
+        if (localUserId == null)
+        {
+            return;
+        }
+
+        var friends = DataManager.GetFriends(localUserId);
 
         foreach (var friend in friends)
         {            
             var card = Instantiate(friendCardPrefab, scrollViewContent.transform); // instantiate prefab
+            card.GetComponent<FriendCardPrefabScript>().DisplayNameText.text = friend;
             var localPosition = card.transform.localPosition;
             card.transform.localPosition = new Vector3(localPosition.x, cardHeight + offset, localPosition.z);
-            offset -= 100;
+            offset -= 40;
         }        
     }
 }

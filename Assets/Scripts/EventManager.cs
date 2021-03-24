@@ -49,6 +49,11 @@ public class EventManager : MonoBehaviour
 
     public static event KeyDownEvents OnKeyDown;
 
+    // Event fired when when coins are clicked
+    public delegate void FriendRawActionClicked(FriendRawAction action, string displayName);
+
+    public static event FriendRawActionClicked OnFriendRawActionClick;
+
 
     public static void FireClickEvent(int instanceId)
     {
@@ -104,5 +109,10 @@ public class EventManager : MonoBehaviour
     public static void FireKeyDownEvent(KeyCode key)
     {
         OnKeyDown?.Invoke(key);
+    }
+
+    public static void FireFriendRawActionClick(FriendRawAction action, string displayName)
+    {
+        OnFriendRawActionClick?.Invoke(action, displayName);
     }
 }

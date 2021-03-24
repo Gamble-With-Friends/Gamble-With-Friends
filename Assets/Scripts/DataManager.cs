@@ -43,6 +43,7 @@ public class DataManager
 
             db.Open();
             cmd.ExecuteNonQuery();
+            db.Close();
         }
     }
 
@@ -60,9 +61,10 @@ public class DataManager
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
+                reader.Close();
                 return true;
             }
-
+            reader.Close();
             return false;
         }
     }
@@ -95,9 +97,10 @@ public class DataManager
                     UserName = reader.GetString(1),
                     Coins = reader.GetDecimal(2)
                 };
+                reader.Close();
                 return player;
             }
-
+            reader.Close();
             return null;
         }
     }
@@ -234,6 +237,107 @@ public class DataManager
                 });
             }
             reader.Close();
+        }
+    }
+
+    public static List<string> GetFriends(string playerId)
+    {
+        var friendList = new List<string>();
+
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand(
+                "SELECT Users.displayName FROM Friends JOIN Users ON Friends.friendID = Users.userId WHERE Friends.userId = @userId AND Friends.status=1;", db);
+
+            var param = new SqlParameter { ParameterName = "@userId", Value = playerId };
+            cmd.Parameters.Add(param);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                friendList.Add(reader.GetString(0));
+            }
+            reader.Close();
+        }
+
+        return friendList;
+    }
+
+    public static void UnfriendUser(string localUserId, string friendDisplayName)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("DELETE f FROM Friends f JOIN Users u ON f.friendId=u.userId WHERE f.userId=@userId AND u.displayName=@friendDisplayName", db);
+
+            var userIdParam = new SqlParameter();
+            userIdParam.ParameterName = "@userId";
+            userIdParam.Value = localUserId;
+            cmd.Parameters.Add(userIdParam);
+
+            var friendIdParam = new SqlParameter();
+            friendIdParam.ParameterName = "@friendDisplayName";
+            friendIdParam.Value = friendDisplayName;
+            cmd.Parameters.Add(friendIdParam);
+
+            db.Open();
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
+    }
+
+    public static bool GetUserFunds(string playerId, out decimal playerFunds)
+    {
+        playerFunds = 0M;
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT coins FROM Users WHERE userId = @userId", db);
+
+            var param = new SqlParameter { ParameterName = "@userId", Value = playerId };
+            cmd.Parameters.Add(param);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                playerFunds = reader.GetDecimal(0);
+                reader.Close();
+                db.Close();
+                return true;
+            }
+            reader.Close();
+            db.Close();
+            return false;
+        }
+    }
+
+    public static void AddCoinsByDisplayName(string displayName, decimal amountToAdd)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT userId, coins FROM Users WHERE displayName = @displayName", db);
+
+            var param = new SqlParameter { ParameterName = "@displayName", Value = displayName };
+            cmd.Parameters.Add(param);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            string userId = string.Empty;
+            decimal currentAmount = 0M;
+            while (reader.Read())
+            {
+                userId = reader.GetString(0);
+                currentAmount = reader.GetDecimal(1);
+                reader.Close();
+                break;
+            }
+
+            cmd = new SqlCommand("UPDATE Users SET coins = @coins Where userId=@userId", db);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            cmd.Parameters.AddWithValue("@coins", currentAmount + amountToAdd);
+            cmd.ExecuteNonQuery();
+
+            db.Close();
         }
     }
 }

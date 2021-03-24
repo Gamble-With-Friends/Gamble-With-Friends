@@ -1,14 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FriendsUITriggerScript : MonoBehaviour
 {
-
-    public GameObject FriendsUICanvas;             // group containing all groups pertaining to friends management UI
-
-    private PlayerMovement collidingPlayerMovement;
-    private MouseLook collidingPlayerMouseLook;
+    public GameObject FriendsUICanvas;             // group containing all groups pertaining to friends management UI    
 
     private void OnEnable()
     {
@@ -35,26 +32,21 @@ public class FriendsUITriggerScript : MonoBehaviour
     {
         if (UserInfo.GetInstance().UserId != null)
         {
-            if (FriendsUICanvas.gameObject.activeSelf)
+            if (!FriendsUICanvas.gameObject.activeSelf)
             {
-                collidingPlayerMovement.isMovementDisabled = true;
-                collidingPlayerMouseLook.disableLookaround = true;
-                ExitFriendsUI();
-            }
-            else
-            {
+                UserInfo.GetInstance().LockMouse = true;
+                UserInfo.GetInstance().LockMovement = true;
                 Cursor.lockState = CursorLockMode.Confined;
                 FriendsUICanvas.gameObject.SetActive(true);
             }
         }
     }
 
-
     public void ExitFriendsUI()
     {
         Cursor.lockState = CursorLockMode.Locked;
         FriendsUICanvas.gameObject.SetActive(false);
-        collidingPlayerMovement.isMovementDisabled = false;
-        collidingPlayerMouseLook.disableLookaround = false;
-    }
+        UserInfo.GetInstance().LockMouse = false;
+        UserInfo.GetInstance().LockMovement = false;
+    }    
 }
