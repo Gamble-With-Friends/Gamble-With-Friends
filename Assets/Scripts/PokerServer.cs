@@ -6,13 +6,19 @@ using UnityEngine;
 
 public class PokerServer : NetworkBehaviour
 {
-    [SyncVar] public GameState gameState;
+    public PokerClient client;
 
-    [SyncVar(hook = nameof(SetSlotUserId))]
+    [SyncVar] public decimal totalBets;
+
+    [SyncVar(hook = nameof(SyncGameState))]
+    public GameState gameState;
+
+    [SyncVar(hook = nameof(SyncSeatToUserId))]
     private string slotToUserIdSerialized;
-
-    public Dictionary<int, string> slotToUserId;
     
+    [SyncVar(hook = nameof(SyncTurn))]
+    private int turn = -1;
+
     // Public Functions
     public void AddPlayer(string userId)
     {
@@ -24,17 +30,40 @@ public class PokerServer : NetworkBehaviour
         CmdRemovePlayer(userId);
     }
 
-    // Private Functions
-    private void SetSlotUserId(string oldValue, string newValue)
+    // Sync Var Functions
+    private void SyncSeatToUserId(string oldValue, string newValue)
     {
-        var keyValueCollection = JsonUtility.FromJson<KeyValueCollection>(newValue);
-        slotToUserId = keyValueCollection.keyValues.ToDictionary(value => value.slot, value => value.userId);
+        client.OnSeatToUserIdChange(oldValue, newValue);
+    }
+
+    private void SyncGameState(GameState oldValue, GameState newValue)
+    {
+        client.OnGameStateChange(oldValue.ToString(), newValue.ToString());
+    }
+
+    private void SyncTurn(int oldValue, int newValue)
+    {
+        client.OnTurnChange(newValue);
+    }
+
+    private void SetGameState(Dictionary<int,string> dict)
+    {
+        // If not enough players, set the game state to waiting for players
+        if (dict.Count < 2)
+        {
+            gameState = GameState.WaitingForPlayers;
+        }
+        // If more than 1 player and waiting for players, set the game state to betting
+        else if (gameState == GameState.WaitingForPlayers)
+        {
+            gameState = GameState.Betting;
+        }
     }
 
     [Command(requiresAuthority = false)]
     private void CmdAddPlayer(string userId, NetworkConnectionToClient sender = null)
     {
-        var dict = DeserializeDictionary(slotToUserIdSerialized);
+        var dict = JsonLibrary.DeserializeDictionaryIntString(slotToUserIdSerialized);
 
         for (var i = 0; i < PokerClient.MaxPlayers; i++)
         {
@@ -43,13 +72,21 @@ public class PokerServer : NetworkBehaviour
             break;
         }
 
-        slotToUserIdSerialized = SerializeDictionary(dict);
+        var oldGameState = gameState;
+        SetGameState(dict);
+        
+        if (oldGameState == GameState.WaitingForPlayers && gameState == GameState.Betting)
+        {
+            turn = 0;
+        }
+        
+        slotToUserIdSerialized = JsonLibrary.SerializeDictionaryIntString(dict);
     }
 
     [Command(requiresAuthority = false)]
     private void CmdRemovePlayer(string userId, NetworkConnectionToClient sender = null)
     {
-        var dict = DeserializeDictionary(slotToUserIdSerialized);
+        var dict = JsonLibrary.DeserializeDictionaryIntString(slotToUserIdSerialized);
 
         for (var i = 0; i < PokerClient.MaxPlayers; i++)
         {
@@ -58,39 +95,14 @@ public class PokerServer : NetworkBehaviour
             break;
         }
 
-        slotToUserIdSerialized = SerializeDictionary(dict);
+        SetGameState(dict);
+        slotToUserIdSerialized = JsonLibrary.SerializeDictionaryIntString(dict);
     }
 
-    private static string SerializeDictionary(Dictionary<int, string> dict)
-    {
-        var keyValues = dict.Select(value => new KeyValue {slot = value.Key, userId = value.Value}).ToList();
-        var keyValueCollection = new KeyValueCollection {keyValues = keyValues};
-        return JsonUtility.ToJson(keyValueCollection);
-    }
-    
-    private static Dictionary<int,string> DeserializeDictionary(string keyValueCollectionJson)
-    {
-        if (keyValueCollectionJson == null) return new Dictionary<int, string>();
-        var keyValueCollection = JsonUtility.FromJson<KeyValueCollection>(keyValueCollectionJson);
-        return keyValueCollection.keyValues.ToDictionary(value => value.slot, value => value.userId);
-    }
 
     [Command(requiresAuthority = false)]
-    private void CmdSetGameState(GameState state)
+    public void CmdSetGameState(GameState state)
     {
         gameState = state;
-    }
-
-    [Serializable]
-    public class KeyValue
-    {
-        public int slot;
-        public string userId;
-    }
-
-    [Serializable]
-    public class KeyValueCollection
-    {
-        public List<KeyValue> keyValues;
     }
 }

@@ -1,6 +1,8 @@
 ﻿public enum GameState
 {
-    NotStarted,
+    WaitingForPlayers,
     Betting,
-    Dealing
+    Dealing,
+    WaitingToFinish,
+    FullTable
 }

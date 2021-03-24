@@ -64,7 +64,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void OnPrepareToGame(int instanceId)
     {
-        if (!isLocalPlayer && UserInfo.GetInstance().IsInGame()) return;
+        if (!isLocalPlayer || UserInfo.GetInstance().IsInGame()) return;
 
         isMovementDisabled = true;
         UserInfo.GetInstance().CurrentGameId = instanceId;
@@ -75,7 +75,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void OnReadyToExitGame(int instanceId)
     {
-        if (!isLocalPlayer && !UserInfo.GetInstance().IsInGame()) return;
+        if (!isLocalPlayer || !UserInfo.GetInstance().IsInGame()) return;
 
         isMovementDisabled = false;
         UserInfo.GetInstance().CurrentGameId = -1;
