@@ -9,14 +9,13 @@ public class PokerClient : NetworkBehaviour
     public List<PokerCardScript> pokerCardScripts;
     public GameObject cardGameObject;
     public GameObject chipsGameObject;
-    public TextMesh totalPlayersTextMesh;
-    public TextMesh totalBetsTextMesh;
-    public TextMesh gameStatusTextMesh;
+    public TextMesh tableInfoTextMesh;
     public TextMesh sessionInfoTextMesh;
     public TextMesh debugTextMesh;
 
     public const int MaxPlayers = 2;
     public const int MaxBet = 250;
+    private const int Ante = 100;
     public PokerServer server;
     public GameObject gameCamera;
     private int betAmount;
@@ -30,15 +29,14 @@ public class PokerClient : NetworkBehaviour
 
     private void Update()
     {
-        totalPlayersTextMesh.text = "Total Players: " + GetTotalPlayers() + "/" + MaxPlayers;
-        totalBetsTextMesh.text = "Total Bets: $" + server.totalBets;
-        gameStatusTextMesh.text = "Game Status: " + server.gameState;
+        tableInfoTextMesh.text = "Total Players: " + GetTotalPlayers() + "/" + MaxPlayers + "\n" +
+                                 "Total Bets: $" + server.totalBets + "\n" +
+                                 "Game Status: " + server.gameState + "\n" +
+                                 "Turn: " + server.turn;
+
         sessionInfoTextMesh.text = session != null ? session.ToString() : "";
-        var debugText = "";
-        foreach (var keyValue in slotToUserId)
-        {
-            debugText += " " + keyValue.Key + " => " + keyValue.Value + "\n";
-        }
+        var debugText = slotToUserId.Aggregate("",
+            (current, keyValue) => current + (" " + keyValue.Key + " => " + keyValue.Value + "\n"));
 
         debugTextMesh.text = debugText;
     }
@@ -82,12 +80,8 @@ public class PokerClient : NetworkBehaviour
 
     private void OnModifyBetAction(int amount)
     {
-        if (server.gameState != GameState.Betting) return;
-        session.totalBets += amount;
-        if (session.totalBets < 0)
-        {
-            session.totalBets = 0;
-        }
+        if (server.gameState != GameState.BettingAnte) return;
+        session.totalBets = Ante;
     }
 
     private void OnClick(int instanceId)
@@ -110,17 +104,20 @@ public class PokerClient : NetworkBehaviour
 
     public void OnTurnChange(int turn)
     {
-        if (session == null && slotToUserId.ContainsKey(session.seatNumber)) return;
+        // If the player left or it's not their turn, return
+        if (!slotToUserId.ContainsKey(turn) || UserInfo.GetInstance().UserId != slotToUserId[turn]) return;
 
-        if (server.gameState == GameState.Betting)
+        if (server.gameState == GameState.BettingAnte)
         {
-            var isPlayersTurn = UserInfo.GetInstance().UserId == slotToUserId[session.seatNumber];
-
-            if (isPlayersTurn)
-            {
-                chipsGameObject.SetActive(true);
-            }
+            chipsGameObject.SetActive(true);
+            Invoke(nameof(NextPlayer), 10);
         }
+    }
+
+    private void NextPlayer()
+    {
+        chipsGameObject.SetActive(false);
+        server.CmdNextPlayer(session.spot, session.totalBets);
     }
 
     public void OnSeatToUserIdChange(string oldValue, string newValue)
@@ -146,7 +143,7 @@ public class PokerClient : NetworkBehaviour
 
             if (session == null) return;
 
-            session.seatNumber = GetPlayerSeatNumber();
+            session.spot = GetPlayerSeatNumber();
         }
     }
 
@@ -165,6 +162,29 @@ public class PokerClient : NetworkBehaviour
 
         EventManager.FireInstructionChangeEvent("");
         EventManager.FireReadyToExitGameEvent(instanceId);
+    }
+
+    [ClientRpc]
+    public void ClientRPCCardsDealt(List<string> spotToCards)
+    {
+        var spot = session.spot;
+        
+        foreach (var str in spotToCards)
+        {
+            var strChunks = str.Split(',');
+            if (int.Parse(strChunks[0]) == spot)
+            {
+                session.hand = str;
+                cardGameObject.SetActive(true);
+
+                for (var i = 1; i < strChunks.Length; i++)
+                {
+                    pokerCardScripts[i -1].SetCardValue(strChunks[i]);
+                }
+            }
+        }
+        
+        Debug.Log("Spot to cards");
     }
 
     private bool IsTableFull()
@@ -189,28 +209,27 @@ public class PokerClient : NetworkBehaviour
         return slot;
     }
 
-    private void DealCards()
-    {
-        //currentGameState = GameState.Dealing;
-        var cards = Deck.GetShuffledDeck(3);
-        var hand = cards.DealCards(5);
-        var imageNames = hand.GetImageNames();
-    }
-
     public class Session
     {
         public decimal totalBets;
-        public int seatNumber;
+        public int spot;
+        public string hand;
 
         public Session()
         {
-            seatNumber = -1;
+            spot = -1;
         }
 
         public override string ToString()
         {
-            return "Your Total Bets: $" + totalBets + "\n" +
-                   "Your Seat #: " + (seatNumber + 1);
+            var str = "Your Total Bets: $" + totalBets + "\n" +
+                            "Your Seat #: " + (spot + 1) + "\n";
+            if (hand != null)
+            {
+                str += "Hand: " + hand;
+            }
+
+            return str;
         }
     }
 }

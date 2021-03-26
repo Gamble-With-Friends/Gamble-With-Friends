@@ -85,6 +85,15 @@ public class PlayerMovement : NetworkBehaviour
     
     private void Start()
     {
+        
+        var value = "Three|Diamonds";
+        var strChucks = value.Split('|');
+        var rank = (CardRank) Enum.Parse(typeof(CardRank), strChucks[0]);
+        var suit = (CardSuit) Enum.Parse(typeof(CardSuit), strChucks[1]);
+        var card = new Card(rank,suit);
+        var matt = (Material)Resources.Load("CardMaterials/Black_PlayingCards_" + card.GetImageName() + "_00", typeof(Material));
+        
+        
         if (!isLocalPlayer) return;
         displayNameTextMesh.text = "Guest";
         // TODO: Comment out before commiting

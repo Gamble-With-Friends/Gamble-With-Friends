@@ -14,6 +14,7 @@
             </e>
           </e>
         </e>
+        <e p="InventoryPlayerEquip.cs" t="Include" />
         <e p="Mirror" t="Include">
           <e p="Authenticators" t="Include">
             <e p="BasicAuthenticator.cs" t="Include" />

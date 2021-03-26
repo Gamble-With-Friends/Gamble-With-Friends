@@ -1,7 +1,7 @@
 ﻿public enum GameState
 {
     WaitingForPlayers,
-    Betting,
+    BettingAnte,
     Dealing,
     WaitingToFinish,
     FullTable

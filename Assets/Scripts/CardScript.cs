@@ -108,6 +108,11 @@ public static class CardExtensions
         }
         return imageNames;
     }
+    
+    public static string GetImageName(this Card card)
+    {
+        return SuitToImageName(card.Suit) + RankToImageName(card.Rank);
+    }
 
     private static string RankToImageName(CardRank rank)
     {
