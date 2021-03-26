@@ -57,9 +57,5 @@ public class InventoryUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (UserInfo.GetInstance().UserId != null)
-        {
-            CoinsValue.text = GetCoinValue().ToString();
-        }
     }
 }
