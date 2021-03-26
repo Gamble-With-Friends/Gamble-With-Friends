@@ -7,7 +7,12 @@ using UnityEngine.UI;
 public class FriendsUIManagement : MonoBehaviour
 {
     public GameObject FriendsUICanvas;
+
+    public GameObject FriendListCanvas;
     public GameObject SendCoinsCanvas;
+
+    public GameObject AddFriendCanvas;
+    public GameObject FriendRequestsCanvas;
 
     private void OnEnable()
     {
@@ -48,19 +53,49 @@ public class FriendsUIManagement : MonoBehaviour
     public void CloseFriendsUI()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        OpenFriendListTab();
         FriendsUICanvas.gameObject.SetActive(false);
         UserInfo.GetInstance().LockMouse = false;
         UserInfo.GetInstance().LockMovement = false;
     }
+
+    public void OpenFriendListTab()
+    {
+        FriendListCanvas.gameObject.SetActive(true);
+        AddFriendCanvas.gameObject.SetActive(false);
+        FriendRequestsCanvas.gameObject.SetActive(false);
+    }
+
+    public void OpenFriendSearchTab()
+    {
+        FriendListCanvas.gameObject.SetActive(false);
+        AddFriendCanvas.gameObject.SetActive(true);
+        FriendRequestsCanvas.gameObject.SetActive(false);
+    }
+
+    public void OpenPendingRequestsTab()
+    {
+        FriendListCanvas.gameObject.SetActive(false);
+        AddFriendCanvas.gameObject.SetActive(false);
+        FriendRequestsCanvas.gameObject.SetActive(true);
+    }
     #endregion
 
-    #region Send Coins UI
+    #region Send Coins & Unfriend
     private void OnFriendRawActionClick(FriendRawAction action, string displayName)
     {
         if (action == FriendRawAction.SendCoins)
         {
             Debug.Log("Open Send Coins");
             OpenSendCoinsUI(displayName);
+        }
+        else if (action == FriendRawAction.Unfriend)
+        {
+            if (UserInfo.GetInstance().UserId != null && displayName != null)
+            {
+                DataManager.UnfriendUser(UserInfo.GetInstance().UserId, displayName);
+                this.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -81,6 +116,12 @@ public class FriendsUIManagement : MonoBehaviour
         var friendDisplayName = GameObject.Find("SendCoinsRawImage/WindowTitle").GetComponent<Text>().text.Substring(14);
 
         var coinsString = GameObject.Find("SendCoinsInput/InputField").GetComponent<InputField>().text;
+
+        if (string.IsNullOrEmpty(coinsString))
+        {
+            GameObject.Find("SendCoinsRawImage/ErrorMessage").GetComponent<Text>().text = "Enter coins amount";
+            return;
+        }
 
         var coinsValue = 0;
         bool parsed = Int32.TryParse(coinsString, out coinsValue);
@@ -110,8 +151,6 @@ public class FriendsUIManagement : MonoBehaviour
     public void CloseSendCoinsUI()
     {
         SendCoinsCanvas.gameObject.SetActive(false);
-        UserInfo.GetInstance().LockMouse = false;
-        UserInfo.GetInstance().LockMovement = false;
     }
     #endregion
 }

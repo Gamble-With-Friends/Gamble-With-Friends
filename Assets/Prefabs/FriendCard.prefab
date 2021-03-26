@@ -118,7 +118,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4401055313598056795}
+      - m_Target: {fileID: 3548170222066157140}
         m_MethodName: UnfriendUser
         m_Mode: 1
         m_Arguments:
@@ -247,7 +247,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 4401055313598056795}
+      - m_Target: {fileID: 3548170222066157140}
         m_MethodName: SendFriendCoins
         m_Mode: 1
         m_Arguments:
@@ -509,8 +509,7 @@ GameObject:
   - component: {fileID: 7889770120668886408}
   - component: {fileID: 7889770120668886422}
   - component: {fileID: 7889770120668886409}
-  - component: {fileID: 4401055313598056795}
-  - component: {fileID: 6226432473375583503}
+  - component: {fileID: 3548170222066157140}
   m_Layer: 5
   m_Name: FriendCard
   m_TagString: Untagged
@@ -575,7 +574,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &4401055313598056795
+--- !u!114 &3548170222066157140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -584,22 +583,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7889770120668886411}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb0d89b93ec2cf42be5502fa504842b, type: 3}
+  m_Script: {fileID: 11500000, guid: 6efbcb80a36e74443b04d31befad4f0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   DisplayNameText: {fileID: 7889770120436040690}
-  script: {fileID: 6226432473375583503}
---- !u!114 &6226432473375583503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7889770120668886411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e714c318f9a391d4997c29fade83560e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SendCoins: {fileID: 0}
-  whatever: 

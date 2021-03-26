@@ -6,5 +6,6 @@ public enum FriendRawAction
 {
     SendCoins,
     ViewProfile,
-    SendMessage
+    SendMessage,
+    Unfriend
 }
