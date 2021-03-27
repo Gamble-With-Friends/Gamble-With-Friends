@@ -2,6 +2,7 @@
 using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class RegisterLoginScript : MonoBehaviour
 {
@@ -27,6 +28,15 @@ public class RegisterLoginScript : MonoBehaviour
     private bool displayRegistrationSuccessMessage;
     private int timerCounter;
 
+    private EventSystem system;
+
+    void Start()
+    {
+        system = EventSystem.current;// EventSystemManager.currentSystem;
+
+    }
+
+
     public void Update()
     {
         if (displayRegistrationSuccessMessage)
@@ -40,6 +50,20 @@ public class RegisterLoginScript : MonoBehaviour
                 timerCounter = 0;
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (registrationForm.gameObject.activeSelf)
+            {
+                selectNext(userNameObject);
+            }
+            else if (loginForm.gameObject.activeSelf)
+            {                
+                selectNext(loginUserNameObject);
+            }
+        }
+
+        
     }
 
     public void RegisterUser()
@@ -230,6 +254,7 @@ public class RegisterLoginScript : MonoBehaviour
         registrationForm.gameObject.SetActive(true);
         ClearInputObjects();
         ClearMessages();
+        userNameObject.GetComponent<InputField>().Select();
         loginButtonGroup.gameObject.SetActive(false);
     }
     #endregion
@@ -279,11 +304,30 @@ public class RegisterLoginScript : MonoBehaviour
         loginForm.gameObject.SetActive(true);
         InitializeLoginInputs();
         loginButtonGroup.gameObject.SetActive(false);
+        loginUserNameObject.GetComponent<InputField>().Select();
     }
     #endregion
 
     public void CloseRegistrationLoginForm()
     {
         GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
+    }
+
+    public void selectNext(GameObject defaulInput)
+    {
+        try
+        {
+            Selectable next = system.currentSelectedGameObject.GetComponent<Selectable>().FindSelectableOnDown();
+
+            if (next != null)
+            {
+                InputField inputfield = next.GetComponent<InputField>();
+                inputfield.Select();
+            }
+        }
+        catch
+        {
+            defaulInput.GetComponent<InputField>().Select();
+        }
     }
 }
