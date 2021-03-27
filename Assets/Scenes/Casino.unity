@@ -700,7 +700,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FriendsUICanvas: {fileID: 1337824130}
+  friendCardPrefab: {fileID: 7889770120668886411, guid: 56aed2f9a2b178947b7532a8fb5c404a,
+    type: 3}
   FriendListCanvas: {fileID: 523484618}
+  FriendScrollViewContent: {fileID: 603697158}
   SendCoinsCanvas: {fileID: 839064516}
   AddFriendCanvas: {fileID: 764632882}
   FriendRequestsCanvas: {fileID: 140048710}
@@ -14634,7 +14637,6 @@ GameObject:
   - component: {fileID: 1337824131}
   - component: {fileID: 1337824134}
   - component: {fileID: 1337824133}
-  - component: {fileID: 1337824132}
   m_Layer: 5
   m_Name: Friends
   m_TagString: Untagged
@@ -14669,21 +14671,6 @@ RectTransform:
   m_AnchoredPosition: {x: 269.49, y: -87}
   m_SizeDelta: {x: -577.2963, y: -194.87494}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1337824132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1337824130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 310ec2f3d2619ef448b5b301e9d67ba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  friendCardPrefab: {fileID: 7889770120668886411, guid: 56aed2f9a2b178947b7532a8fb5c404a,
-    type: 3}
-  scrollViewContent: {fileID: 603697158}
 --- !u!114 &1337824133
 MonoBehaviour:
   m_ObjectHideFlags: 0
