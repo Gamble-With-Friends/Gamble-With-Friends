@@ -7,14 +7,20 @@ using UnityEngine.UI;
 public class FriendsUIManagement : MonoBehaviour
 {
     public GameObject FriendsUICanvas;
-    public GameObject friendCardPrefab;
+
+    public GameObject FriendCardPrefab;
+    public GameObject FoundUsersCardPrefab;
 
     public GameObject FriendListCanvas;
     public GameObject FriendScrollViewContent;
     public GameObject SendCoinsCanvas;
 
     public GameObject AddFriendCanvas;
+    public GameObject SearchScrollViewContent;
     public GameObject FriendRequestsCanvas;
+
+    private GameObject SearchBarInput;
+    private GameObject SearchErrorMessage;
 
     void Start()
     {
@@ -53,8 +59,7 @@ public class FriendsUIManagement : MonoBehaviour
                 UserInfo.GetInstance().LockMovement = true;
                 Cursor.lockState = CursorLockMode.Confined;
                 FriendsUICanvas.gameObject.SetActive(true);
-
-                RegenerateFriendList();
+                RegenerateFriendListScrollView();
             }
         }
     }
@@ -80,6 +85,7 @@ public class FriendsUIManagement : MonoBehaviour
         FriendListCanvas.gameObject.SetActive(false);
         AddFriendCanvas.gameObject.SetActive(true);
         FriendRequestsCanvas.gameObject.SetActive(false);
+        ClearScrollViewContent(SearchScrollViewContent);
     }
 
     public void OpenPendingRequestsTab()
@@ -103,7 +109,7 @@ public class FriendsUIManagement : MonoBehaviour
             if (UserInfo.GetInstance().UserId != null && displayName != null)
             {
                 DataManager.UnfriendUser(UserInfo.GetInstance().UserId, displayName);
-                RegenerateFriendList();
+                RegenerateFriendListScrollView();
             }
         }
     }
@@ -155,12 +161,88 @@ public class FriendsUIManagement : MonoBehaviour
     {
         SendCoinsCanvas.gameObject.SetActive(false);
     }
-    #endregion
+    #endregion    
 
-    private void InstantiateFriendCards(float posX, float posY, float posZ)
+    public void SearchUser()
     {
-        var cardHeight = friendCardPrefab.transform.localScale.y;
+        ClearScrollViewContent(SearchScrollViewContent);
+
+        if (SearchBarInput == null)
+        {
+            SearchBarInput = GameObject.Find("FriendSearchBar/Text");
+        }
+        if (SearchErrorMessage == null)
+        {
+            SearchErrorMessage = GameObject.Find("FriendSearch/ErrorMessageText");
+        }
+        if (SearchBarInput == null)
+        {
+            if (SearchErrorMessage != null)
+            {
+                SearchErrorMessage.GetComponent<Text>().text = "Unexpected error occured";
+            }
+            return;
+        }
+        var searchString = SearchBarInput.GetComponent<Text>().text;
+
+        if (string.IsNullOrEmpty(searchString))
+        {
+            if (SearchErrorMessage != null)
+            {
+                SearchErrorMessage.GetComponent<Text>().text = "Please provide search input";
+            }
+            return;
+        }
+
+        if (searchString.Length < 2)
+        {
+            if (SearchErrorMessage != null)
+            {
+                SearchErrorMessage.GetComponent<Text>().text = "At least 2 letters required for search";
+            }
+            return;
+        }
+
+        var foundUsers = DataManager.FindBySearchString(searchString, UserInfo.GetInstance().DisplayName);
+
+        if (foundUsers == null && foundUsers.Count == 0)
+        {
+            SearchErrorMessage.GetComponent<Text>().text = "No users found";
+            return;
+        }
+
+        InstantiateScrollViewContent(SearchScrollViewContent, FoundUsersCardPrefab, foundUsers);
+    }
+
+    private void ClearScrollViewContent(GameObject scrollViewContentObj)
+    {
+        if (scrollViewContentObj!= null && scrollViewContentObj.transform.childCount > 0)
+        {
+            for (int i = 0; i < scrollViewContentObj.transform.childCount; ++i) 
+            { 
+                Destroy(scrollViewContentObj.transform.GetChild(i).gameObject); 
+            }
+        }
+    }
+
+    private void InstantiateScrollViewContent(GameObject scrollViewContentObj, GameObject prefab, List<string> users)
+    {
+        var cardHeight = prefab.transform.localScale.y;
         var offset = -30f;
+
+        foreach (var user in users)
+        {
+            var card = Instantiate(prefab, scrollViewContentObj.transform); // instantiate prefab
+            card.transform.GetChild(0).GetComponent<Text>().text = user;
+            var localPosition = card.transform.localPosition;
+            card.transform.localPosition = new Vector3(localPosition.x, cardHeight + offset, localPosition.z);
+            offset -= 40;
+        }
+    }
+
+    private void RegenerateFriendListScrollView()
+    {
+        ClearScrollViewContent(FriendScrollViewContent);
 
         var localUserId = UserInfo.GetInstance().UserId;
 
@@ -171,26 +253,6 @@ public class FriendsUIManagement : MonoBehaviour
 
         var friends = DataManager.GetFriends(localUserId);
 
-        foreach (var friend in friends)
-        {
-            var card = Instantiate(friendCardPrefab, FriendScrollViewContent.transform); // instantiate prefab
-            card.GetComponent<FriendCardPrefabScript>().DisplayNameText.text = friend;
-            var localPosition = card.transform.localPosition;
-            card.transform.localPosition = new Vector3(localPosition.x, cardHeight + offset, localPosition.z);
-            offset -= 40;
-        }
-    }
-
-    private void RegenerateFriendList()
-    {
-        var friendListScrollView = GameObject.Find("FriendScrollView/Viewport/Content");
-        if (friendListScrollView != null && friendListScrollView.transform.childCount > 0)
-        {
-            for (int i = 0; i < friendListScrollView.transform.childCount; ++i) 
-            { 
-                Destroy(friendListScrollView.transform.GetChild(i).gameObject); 
-            }
-        }
-        InstantiateFriendCards(transform.position.x, transform.position.y, transform.position.z);
+        InstantiateScrollViewContent(FriendScrollViewContent, FriendCardPrefab, friends);
     }
 }

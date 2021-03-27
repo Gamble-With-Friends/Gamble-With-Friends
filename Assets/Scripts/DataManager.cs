@@ -341,4 +341,31 @@ public class DataManager
             db.Close();
         }
     }
+
+    public static List<string> FindBySearchString(string searchString, string currentUser)
+    {
+        List<string> foundUsers = new List<string>();
+
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            string strSQL = "SELECT displayName FROM Users WHERE displayName LIKE '%" + searchString + "%'";
+            var cmd = new SqlCommand(strSQL, db);
+            //cmd.Parameters.AddWithValue("@searchString", searchString);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                foundUsers.Add(reader.GetString(0));
+            }
+
+            db.Close();
+        }
+        if (foundUsers.Contains(currentUser))
+        {
+            foundUsers.Remove(currentUser);
+        }
+
+        return foundUsers;
+    }
 }
