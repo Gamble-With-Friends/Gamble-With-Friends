@@ -22,11 +22,7 @@ public class FriendsUIManagement : MonoBehaviour
     private GameObject SearchBarInput;
     private GameObject SearchErrorMessage;
 
-    void Start()
-    {
-        //InstantiateFriendCards(transform.position.x, transform.position.y, transform.position.z); // transform.position - position of the parent objectof the script
-    }
-
+    
     private void OnEnable()
     {
         EventManager.OnFriendRawActionClick += OnFriendRawActionClick;
@@ -112,6 +108,11 @@ public class FriendsUIManagement : MonoBehaviour
                 RegenerateFriendListScrollView();
             }
         }
+        else if (action == FriendRawAction.SendFriendRequest)
+        {  
+            DataManager.SendFriendRequest(UserInfo.GetInstance().UserId, displayName);
+            DisplaySearchMessage("Friend request was sent to " + displayName, false);            
+        }
     }
 
     public void OpenSendCoinsUI(string displayName)
@@ -173,7 +174,7 @@ public class FriendsUIManagement : MonoBehaviour
         }
         if (SearchErrorMessage == null)
         {
-            SearchErrorMessage = GameObject.Find("FriendSearch/ErrorMessageText");
+            SearchErrorMessage = GameObject.Find("FriendSearch/SearchMessageText");
         }
         if (SearchBarInput == null)
         {
@@ -187,29 +188,21 @@ public class FriendsUIManagement : MonoBehaviour
 
         if (string.IsNullOrEmpty(searchString))
         {
-            if (SearchErrorMessage != null)
-            {
-                SearchErrorMessage.GetComponent<Text>().text = "Please provide search input";
-            }
+            DisplaySearchMessage("Please provide search input", true);
             return;
         }
 
         if (searchString.Length < 2)
         {
-            if (SearchErrorMessage != null)
-            {
-                SearchErrorMessage.GetComponent<Text>().text = "At least 2 letters required for search";
-            }
+            DisplaySearchMessage("At least 2 letters required for search", true);
             return;
         }
 
-        var foundUsers = DataManager.FindBySearchString(searchString, UserInfo.GetInstance().DisplayName);
-
-        if (foundUsers == null && foundUsers.Count == 0)
+        var foundUsers = DataManager.FindNonFriendsBySearchString(searchString, UserInfo.GetInstance().UserId);
+        if (foundUsers == null || foundUsers.Count == 0)
         {
-            SearchErrorMessage.GetComponent<Text>().text = "No users found";
-            return;
-        }
+            DisplaySearchMessage("No users found", true);
+        }        
 
         InstantiateScrollViewContent(SearchScrollViewContent, FoundUsersCardPrefab, foundUsers);
     }
@@ -255,4 +248,13 @@ public class FriendsUIManagement : MonoBehaviour
 
         InstantiateScrollViewContent(FriendScrollViewContent, FriendCardPrefab, friends);
     }
+
+    public void DisplaySearchMessage(string message, bool isError)
+    {
+        if (SearchErrorMessage != null)
+        {
+            SearchErrorMessage.GetComponent<Text>().color = isError? Color.red : Color.white;
+            SearchErrorMessage.GetComponent<Text>().text = message;
+        }
+    }            
 }

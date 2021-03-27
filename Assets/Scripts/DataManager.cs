@@ -342,15 +342,15 @@ public class DataManager
         }
     }
 
-    public static List<string> FindBySearchString(string searchString, string currentUser)
+    public static List<string> FindNonFriendsBySearchString(string searchString, string currentUser)
     {
         List<string> foundUsers = new List<string>();
 
         using (var db = new SqlConnection(ConnectionString))
         {
-            string strSQL = "SELECT displayName FROM Users WHERE displayName LIKE '%" + searchString + "%'";
+            string strSQL = "SELECT displayName FROM Users WHERE displayName LIKE '%" + searchString + 
+                "%' AND userId NOT IN (SELECT userId FROM Friends WHERE friendId = '" + currentUser + "')";
             var cmd = new SqlCommand(strSQL, db);
-            //cmd.Parameters.AddWithValue("@searchString", searchString);
 
             db.Open();
             SqlDataReader reader = cmd.ExecuteReader();
@@ -367,5 +367,52 @@ public class DataManager
         }
 
         return foundUsers;
+    }
+
+    // returns list of users who already are user's friends or to whom they have already sent an unaccepted and undenied friend request
+    public static List<string> AlreadyFriendsOrFriendRequestSent(string userId)
+    {
+        List<string> friends = new List<string>();
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT Users.displayName FROM Friends JOIN Users ON Friends.userId = Users.userId WHERE Friends.friendId = @userId;", db);
+            cmd.Parameters.AddWithValue("@userId", userId);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                friends.Add(reader.GetString(0));
+            }
+
+            db.Close();
+        }
+        return friends;
+    }
+
+    public static void SendFriendRequest(string senderId, string recipientUsername)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            string recipientId = string.Empty;
+            var cmd = new SqlCommand("SELECT userId FROM Users WHERE displayName=@recipientUsername", db);
+            cmd.Parameters.AddWithValue("@recipientUsername", recipientUsername);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                recipientId = reader.GetString(0);
+                break;
+            }
+            reader.Close();
+
+            cmd = new SqlCommand("INSERT Friends VALUES (@recipientId, @senderId, 0)", db);            
+            cmd.Parameters.AddWithValue("@senderId", senderId);
+            cmd.Parameters.AddWithValue("@recipientId", recipientId);
+            cmd.ExecuteNonQuery();
+
+            db.Close();
+        }
     }
 }

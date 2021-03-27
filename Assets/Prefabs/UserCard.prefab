@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1106710406120791894}
   - component: {fileID: 1106710406120791890}
   - component: {fileID: 1106710406120791889}
+  - component: {fileID: 8169838741032508147}
   m_Layer: 5
   m_Name: UserCard
   m_TagString: Untagged
@@ -73,6 +74,19 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
+--- !u!114 &8169838741032508147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106710406120791893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a002cb798e96094e971494b68953575, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisplayNameText: {fileID: 1106710406531091213}
 --- !u!1 &1106710406531091212
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,8 +327,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: UnfriendUser
+      - m_Target: {fileID: 8169838741032508147}
+        m_MethodName: SendFriendRequest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

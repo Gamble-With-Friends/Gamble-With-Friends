@@ -15026,7 +15026,7 @@ GameObject:
   - component: {fileID: 1350348831}
   - component: {fileID: 1350348830}
   m_Layer: 5
-  m_Name: ErrorMessageText
+  m_Name: SearchMessageText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
