@@ -37,8 +37,7 @@ public class FriendsUIManagement : MonoBehaviour
         EventManager.OnFriendRawActionClick -= OnFriendRawActionClick;
         EventManager.OnKeyDown -= OnKeyDown;
     }
-
-    #region Friends UI
+    
     private void OnKeyDown(KeyCode key)
     {
         if (key == KeyCode.F)
@@ -48,6 +47,7 @@ public class FriendsUIManagement : MonoBehaviour
         }
     }
 
+    #region open/close UI and tabs
     public void OpenFriendUI()
     {
         if (UserInfo.GetInstance().UserId != null)
@@ -77,6 +77,7 @@ public class FriendsUIManagement : MonoBehaviour
         FriendListCanvas.gameObject.SetActive(true);
         AddFriendCanvas.gameObject.SetActive(false);
         FriendRequestsCanvas.gameObject.SetActive(false);
+        RegenerateFriendListScrollView();
     }
 
     public void OpenFriendSearchTab()
@@ -92,9 +93,7 @@ public class FriendsUIManagement : MonoBehaviour
         FriendListCanvas.gameObject.SetActive(false);
         AddFriendCanvas.gameObject.SetActive(false);
         FriendRequestsCanvas.gameObject.SetActive(true);
-        ClearScrollViewContent(RequestsScrollViewContent);
-        List<string> pendingRequests = DataManager.GetPendingFriendRequests(UserInfo.GetInstance().UserId);
-        InstantiateScrollViewContent(RequestsScrollViewContent, PendingRequestPrefab, pendingRequests);
+        RegenerateRequestsListScrollView();
     }
     #endregion
 
@@ -117,6 +116,14 @@ public class FriendsUIManagement : MonoBehaviour
         else if (action == FriendRawAction.SendFriendRequest)
         {
             SendFriendRequest(UserInfo.GetInstance().UserId, displayName);           
+        }
+        else if (action == FriendRawAction.AcceptRequest)
+        {
+            AcceptFriendRequest(UserInfo.GetInstance().UserId, displayName);
+        }
+        else if (action == FriendRawAction.DenyRequest)
+        {
+            DenyFriendRequest(UserInfo.GetInstance().UserId, displayName);
         }
     }
 
@@ -229,6 +236,17 @@ public class FriendsUIManagement : MonoBehaviour
         }       
     }
     
+    private void AcceptFriendRequest(string currentUserId, string otherUserDisplayName)
+    {
+        DataManager.AcceptFriendRequest(currentUserId, otherUserDisplayName);
+        RegenerateRequestsListScrollView();
+    }
+
+    private void DenyFriendRequest(string currentUserId, string otherUserDisplayName)
+    {
+        DataManager.RemoveFriendRequest(currentUserId, otherUserDisplayName);
+        RegenerateRequestsListScrollView();
+    }
 
     private void ClearScrollViewContent(GameObject scrollViewContentObj)
     {
@@ -270,6 +288,14 @@ public class FriendsUIManagement : MonoBehaviour
         var friends = DataManager.GetFriends(localUserId);
 
         InstantiateScrollViewContent(FriendScrollViewContent, FriendCardPrefab, friends);
+    }
+
+    private void RegenerateRequestsListScrollView()
+    {
+        ClearScrollViewContent(RequestsScrollViewContent);
+        List<string> pendingRequests = DataManager.GetPendingFriendRequests(UserInfo.GetInstance().UserId);
+
+        InstantiateScrollViewContent(RequestsScrollViewContent, PendingRequestPrefab, pendingRequests);
     }
 
     public void DisplaySearchMessage(string message, bool isError)

@@ -10,11 +10,11 @@ public class RequestCardPrefabScript : MonoBehaviour
 
     public void AcceptFriendRequest()
     {
-        EventManager.FireFriendRawActionClick(FriendRawAction.AcceptRequest, this.GetComponent<UserCardPrefabScript>().DisplayNameText.text);
+        EventManager.FireFriendRawActionClick(FriendRawAction.AcceptRequest, this.GetComponent<RequestCardPrefabScript>().DisplayNameText.text);
     }
 
     public void DenyFriendRequest()
     {
-        EventManager.FireFriendRawActionClick(FriendRawAction.DenyRequest, this.GetComponent<UserCardPrefabScript>().DisplayNameText.text);
+        EventManager.FireFriendRawActionClick(FriendRawAction.DenyRequest, this.GetComponent<RequestCardPrefabScript>().DisplayNameText.text);
     }
 }

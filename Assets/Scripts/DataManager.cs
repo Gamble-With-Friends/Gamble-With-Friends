@@ -270,19 +270,18 @@ public class DataManager
         using (var db = new SqlConnection(ConnectionString))
         {
             var cmd = new SqlCommand("DELETE f FROM Friends f JOIN Users u ON f.friendId=u.userId WHERE f.userId=@userId AND u.displayName=@friendDisplayName", db);
-
-            var userIdParam = new SqlParameter();
-            userIdParam.ParameterName = "@userId";
-            userIdParam.Value = localUserId;
-            cmd.Parameters.Add(userIdParam);
-
-            var friendIdParam = new SqlParameter();
-            friendIdParam.ParameterName = "@friendDisplayName";
-            friendIdParam.Value = friendDisplayName;
-            cmd.Parameters.Add(friendIdParam);
+            cmd.Parameters.AddWithValue("@userId", localUserId);
+            cmd.Parameters.AddWithValue("@friendDisplayName", friendDisplayName);
 
             db.Open();
             cmd.ExecuteNonQuery();
+
+
+            cmd = new SqlCommand("DELETE f FROM Friends f JOIN Users u ON f.userId=u.userId WHERE f.friendId=@userId AND u.displayName=@friendDisplayName", db);
+            cmd.Parameters.AddWithValue("@userId", localUserId);
+            cmd.Parameters.AddWithValue("@friendDisplayName", friendDisplayName);
+            cmd.ExecuteNonQuery();
+
             db.Close();
         }
     }
@@ -457,4 +456,62 @@ public class DataManager
         }
         return pendingRequest;
     }
+
+    public static void AcceptFriendRequest(string currentUserId, string otherUserDisplayName)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            string otherUserId = string.Empty;
+            var cmd = new SqlCommand("SELECT userId FROM Users WHERE displayName=@otherUserDisplayName", db);
+            cmd.Parameters.AddWithValue("@otherUserDisplayName", otherUserDisplayName);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                otherUserId = reader.GetString(0);
+                break;
+            }
+            reader.Close();
+
+            cmd = new SqlCommand("UPDATE Friends SET status = 1 WHERE userId=@userId AND friendId=@otherUserId", db);
+            cmd.Parameters.AddWithValue("@userId", currentUserId);
+            cmd.Parameters.AddWithValue("@otherUserId", otherUserId);
+            cmd.ExecuteNonQuery();
+
+            cmd = new SqlCommand("INSERT Friends VALUES (@userId, @friendId, 1)", db);
+            cmd.Parameters.AddWithValue("@userId", otherUserId);
+            cmd.Parameters.AddWithValue("@friendId", currentUserId);
+            cmd.ExecuteNonQuery();
+
+            db.Close();
+        }
+    }
+
+    public static void RemoveFriendRequest(string currentUserId, string otherUserDisplayName)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            string otherUserId = string.Empty;
+            var cmd = new SqlCommand("SELECT userId FROM Users WHERE displayName=@otherUserDisplayName", db);
+            cmd.Parameters.AddWithValue("@otherUserDisplayName", otherUserDisplayName);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                otherUserId = reader.GetString(0);
+                break;
+            }
+            reader.Close();
+
+            cmd = new SqlCommand("DELETE FROM Friends WHERE userId=@userId AND friendId=@otherUserId", db);
+            cmd.Parameters.AddWithValue("@userId", currentUserId);
+            cmd.Parameters.AddWithValue("@otherUserId", otherUserId);
+            cmd.ExecuteNonQuery();
+
+            db.Close();
+        }
+    }
+
 }
