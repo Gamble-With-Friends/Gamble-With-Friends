@@ -38,10 +38,9 @@ public class LoginTriggerScript : MonoBehaviour
 
         if (!isInsideTrigger) return;
 
-        Cursor.lockState = loginCanvas.activeSelf ? CursorLockMode.Confined : CursorLockMode.Locked;
-
         if (loginRegistrationGroup.gameObject.activeSelf)
         {
+            Cursor.lockState = CursorLockMode.Confined;
             UserInfo.GetInstance().LockMovement = true;
             UserInfo.GetInstance().LockMouse = true;
             EventManager.FireInstructionChangeEvent("");

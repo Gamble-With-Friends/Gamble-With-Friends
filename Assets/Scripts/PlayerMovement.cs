@@ -187,6 +187,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private void HandleRaycasting()
     {
+        if (UserInfo.GetInstance().LockMouse) return;
         if (!Input.GetKeyUp(USE_KEY)) return;
         
         Vector2 mouseScreenPosition = Input.mousePosition;

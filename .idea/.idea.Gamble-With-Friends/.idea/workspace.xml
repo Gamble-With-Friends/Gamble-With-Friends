@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="03372e41-68d1-4378-a14b-1ab2bd8ca5f9" name="Default Changelist" comment="Formatting">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/LoginTriggerScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/LoginTriggerScript.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,12 +51,12 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" />
       <option value="$PROJECT_DIR$/Assets/PokerCardScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/JsonLibrary.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/LoginTriggerScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameState.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerServer.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/CardScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerClient.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerCardScript.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/LoginTriggerScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
     </changedPaths>
   </component>
@@ -119,7 +119,7 @@
       <workItem from="1616584938729" duration="12052000" />
       <workItem from="1616597550860" duration="6920000" />
       <workItem from="1616612404967" duration="8812000" />
-      <workItem from="1616872300918" duration="133000" />
+      <workItem from="1616872300918" duration="703000" />
     </task>
     <task id="LOCAL-00001" summary="Formatting">
       <created>1615920959819</created>
