@@ -6,7 +6,6 @@
     <e p="C:\Users\harou\Desktop\Gamble-With-Friends" t="IncludeRecursive">
       <e p="Assembly-CSharp.csproj" t="IncludeRecursive" />
       <e p="Assets" t="Include">
-        <e p="FriendsUIManagement.cs" t="Include" />
         <e p="GameReadyAssets" t="Include">
           <e p="FurniturePack1" t="Include">
             <e p="Shader" t="Include">
@@ -618,11 +617,12 @@
           </e>
           <e p="EventManager.cs" t="Include" />
           <e p="EventType.cs" t="Include" />
-          <e p="FriendCardPrefabScript.cs" t="Include" />
-          <e p="FriendRawAction.cs" t="Include" />
-          <e p="FriendsScript.cs" t="Include" />
           <e p="FriendsUI" t="Include">
-            <e p="FriendsUITriggerScript.cs" t="Include" />
+            <e p="FriendCardPrefabScript.cs" t="Include" />
+            <e p="FriendRawAction.cs" t="Include" />
+            <e p="FriendsScript.cs" t="Include" />
+            <e p="FriendsUIManagement.cs" t="Include" />
+            <e p="UserCardPrefabScript.cs" t="Include" />
           </e>
           <e p="GameCameraScript.cs" t="Include" />
           <e p="GameState.cs" t="Include" />
@@ -643,7 +643,6 @@
           <e p="PokerServer.cs" t="Include" />
           <e p="RegisterLoginScript.cs" t="Include" />
           <e p="ScriptAssembly.asmdef" t="Include" />
-          <e p="SendCoinsTriggerScript.cs" t="Include" />
           <e p="UserInfo.cs" t="Include" />
           <e p="Utilities.cs" t="Include" />
         </e>

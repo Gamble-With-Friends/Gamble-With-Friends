@@ -85,20 +85,13 @@ public class PlayerMovement : NetworkBehaviour
     
     private void Start()
     {
-        
-        var value = "Three|Diamonds";
-        var strChucks = value.Split('|');
-        var rank = (CardRank) Enum.Parse(typeof(CardRank), strChucks[0]);
-        var suit = (CardSuit) Enum.Parse(typeof(CardSuit), strChucks[1]);
-        var card = new Card(rank,suit);
-        var matt = (Material)Resources.Load("CardMaterials/Black_PlayingCards_" + card.GetImageName() + "_00", typeof(Material));
-        
-        
         if (!isLocalPlayer) return;
         displayNameTextMesh.text = "Guest";
-        // TODO: Comment out before commiting
-        var player = DataManager.LoginUser("tony", "Qwe!23");
-        EventManager.FirePlayerLoginEvent(player);
+        if (Application.isEditor)
+        {
+            var player = DataManager.LoginUser("tony", "Qwe!23");
+            EventManager.FirePlayerLoginEvent(player);
+        }
     }
 
     private void Update()
@@ -119,7 +112,13 @@ public class PlayerMovement : NetworkBehaviour
         if (!playerCamera.activeSelf) return;
         HandleRaycasting();
         HandlePlayerMovement();
+        HandleUIKeys();
+    }
 
+    private void HandleUIKeys()
+    {
+        if (UserInfo.GetInstance().LockMovement) return;
+        
         if (Input.GetKeyDown(KeyCode.I))
         {
             EventManager.FireKeyDownEvent(KeyCode.I);
