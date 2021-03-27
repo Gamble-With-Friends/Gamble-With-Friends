@@ -342,14 +342,13 @@ public class DataManager
         }
     }
 
-    public static List<string> FindNonFriendsBySearchString(string searchString, string currentUser)
+    public static List<string> FindBySearchString(string searchString, string currentUser)
     {
         List<string> foundUsers = new List<string>();
 
         using (var db = new SqlConnection(ConnectionString))
         {
-            string strSQL = "SELECT displayName FROM Users WHERE displayName LIKE '%" + searchString + 
-                "%' AND userId NOT IN (SELECT userId FROM Friends WHERE friendId = '" + currentUser + "')";
+            string strSQL = "SELECT displayName FROM Users WHERE displayName LIKE '%" + searchString + "%'";
             var cmd = new SqlCommand(strSQL, db);
 
             db.Open();
@@ -368,26 +367,47 @@ public class DataManager
 
         return foundUsers;
     }
-
-    // returns list of users who already are user's friends or to whom they have already sent an unaccepted and undenied friend request
-    public static List<string> AlreadyFriendsOrFriendRequestSent(string userId)
+    
+    public static bool IsFriend(string userId, string friendName)
     {
-        List<string> friends = new List<string>();
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT Users.displayName FROM Friends JOIN Users ON Friends.userId = Users.userId WHERE Friends.friendId = @userId;", db);
+            var cmd = new SqlCommand(
+                "SELECT f.userId FROM Friends f JOIN Users u ON f.userId = u.userId WHERE friendId=@userId AND u.displayName=@friendName AND f.status=1", db);
             cmd.Parameters.AddWithValue("@userId", userId);
+            cmd.Parameters.AddWithValue("@friendName", friendName);
 
             db.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                friends.Add(reader.GetString(0));
+                return true;
             }
 
             db.Close();
         }
-        return friends;
+        return false;
+    }
+
+    public static bool FriendRequestAlreadySent(string userId, string friendName)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand(
+                "SELECT f.userId FROM Friends f JOIN Users u ON f.userId = u.userId WHERE friendId=@userId AND u.displayName=@friendName AND f.status=0", db);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            cmd.Parameters.AddWithValue("@friendName", friendName);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                return true;
+            }
+
+            db.Close();
+        }
+        return false;
     }
 
     public static void SendFriendRequest(string senderId, string recipientUsername)
@@ -414,5 +434,27 @@ public class DataManager
 
             db.Close();
         }
+    }
+
+    public static List<string> GetPendingFriendRequests(string userId)
+    {
+        List<string> pendingRequest = new List<string>();
+
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT displayName FROM Users u JOIN Friends f ON u.userId = f.friendId WHERE f.userId=@userId AND f.status=0;", db);
+            cmd.Parameters.AddWithValue("@userId", userId);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                pendingRequest.Add(reader.GetString(0));
+                break;
+            }
+            reader.Close();
+            db.Close();
+        }
+        return pendingRequest;
     }
 }

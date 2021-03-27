@@ -8,5 +8,7 @@ public enum FriendRawAction
     ViewProfile,
     SendMessage,
     Unfriend,
-    SendFriendRequest
+    SendFriendRequest,
+    AcceptRequest,
+    DenyRequest
 }

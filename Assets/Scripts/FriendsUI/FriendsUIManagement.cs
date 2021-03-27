@@ -10,6 +10,7 @@ public class FriendsUIManagement : MonoBehaviour
 
     public GameObject FriendCardPrefab;
     public GameObject FoundUsersCardPrefab;
+    public GameObject PendingRequestPrefab;
 
     public GameObject FriendListCanvas;
     public GameObject FriendScrollViewContent;
@@ -17,7 +18,9 @@ public class FriendsUIManagement : MonoBehaviour
 
     public GameObject AddFriendCanvas;
     public GameObject SearchScrollViewContent;
+
     public GameObject FriendRequestsCanvas;
+    public GameObject RequestsScrollViewContent;
 
     private GameObject SearchBarInput;
     private GameObject SearchErrorMessage;
@@ -89,10 +92,13 @@ public class FriendsUIManagement : MonoBehaviour
         FriendListCanvas.gameObject.SetActive(false);
         AddFriendCanvas.gameObject.SetActive(false);
         FriendRequestsCanvas.gameObject.SetActive(true);
+        ClearScrollViewContent(RequestsScrollViewContent);
+        List<string> pendingRequests = DataManager.GetPendingFriendRequests(UserInfo.GetInstance().UserId);
+        InstantiateScrollViewContent(RequestsScrollViewContent, PendingRequestPrefab, pendingRequests);
     }
     #endregion
 
-    #region Send Coins & Unfriend
+    #region Send Coins, Friend Request & Unfriend
     private void OnFriendRawActionClick(FriendRawAction action, string displayName)
     {
         if (action == FriendRawAction.SendCoins)
@@ -109,9 +115,8 @@ public class FriendsUIManagement : MonoBehaviour
             }
         }
         else if (action == FriendRawAction.SendFriendRequest)
-        {  
-            DataManager.SendFriendRequest(UserInfo.GetInstance().UserId, displayName);
-            DisplaySearchMessage("Friend request was sent to " + displayName, false);            
+        {
+            SendFriendRequest(UserInfo.GetInstance().UserId, displayName);           
         }
     }
 
@@ -198,7 +203,7 @@ public class FriendsUIManagement : MonoBehaviour
             return;
         }
 
-        var foundUsers = DataManager.FindNonFriendsBySearchString(searchString, UserInfo.GetInstance().UserId);
+        var foundUsers = DataManager.FindBySearchString(searchString, UserInfo.GetInstance().DisplayName);
         if (foundUsers == null || foundUsers.Count == 0)
         {
             DisplaySearchMessage("No users found", true);
@@ -206,6 +211,24 @@ public class FriendsUIManagement : MonoBehaviour
 
         InstantiateScrollViewContent(SearchScrollViewContent, FoundUsersCardPrefab, foundUsers);
     }
+
+    private void SendFriendRequest(string currentUserId, string otherUserDisplayName)
+    {
+        if (DataManager.IsFriend(currentUserId, otherUserDisplayName))
+        {
+            DisplaySearchMessage("This user already is your friend", true);
+        }
+        else if (DataManager.FriendRequestAlreadySent(currentUserId, otherUserDisplayName))
+        {
+            DisplaySearchMessage("You've already sent sent request to this user", true);
+        }
+        else
+        {
+            DataManager.SendFriendRequest(currentUserId, otherUserDisplayName);
+            DisplaySearchMessage("Friend request was sent to " + otherUserDisplayName, false);
+        }       
+    }
+    
 
     private void ClearScrollViewContent(GameObject scrollViewContentObj)
     {
