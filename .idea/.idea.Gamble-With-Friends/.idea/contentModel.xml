@@ -622,6 +622,7 @@
             <e p="FriendRawAction.cs" t="Include" />
             <e p="FriendsScript.cs" t="Include" />
             <e p="FriendsUIManagement.cs" t="Include" />
+            <e p="RequestCardPrefabScript.cs" t="Include" />
             <e p="UserCardPrefabScript.cs" t="Include" />
           </e>
           <e p="GameCameraScript.cs" t="Include" />
@@ -633,6 +634,7 @@
             <e p="InventoryUI.cs" t="Include" />
           </e>
           <e p="JSONLibrary.cs" t="Include" />
+          <e p="LobbyInfo.cs" t="Include" />
           <e p="LoginTriggerScript.cs" t="Include" />
           <e p="MouseLook.cs" t="Include" />
           <e p="NetworkManagement.cs" t="Include" />
@@ -640,6 +642,7 @@
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PokerCardScript.cs" t="Include" />
           <e p="PokerClient.cs" t="Include" />
+          <e p="PokerHandValue.cs" t="Include" />
           <e p="PokerServer.cs" t="Include" />
           <e p="RegisterLoginScript.cs" t="Include" />
           <e p="ScriptAssembly.asmdef" t="Include" />

@@ -3,9 +3,11 @@ using Mirror;
 
 public class NetworkManagement : NetworkManager
 {
-    public override void OnClientConnect(NetworkConnection conn)
+    public override void OnClientDisconnect(NetworkConnection conn)
     {
-        base.OnClientConnect(conn);
-        Debug.Log(conn.address + " connected!");
+        base.OnClientDisconnect(conn);
+        
+        // Get the user object who disconnected
+        Debug.Log("Client Got Disconnected");
     }
 }

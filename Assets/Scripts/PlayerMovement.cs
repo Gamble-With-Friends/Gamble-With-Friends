@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
@@ -60,6 +61,7 @@ public class PlayerMovement : NetworkBehaviour
         CmdSetDisplayName(player.UserName);
         CmdSetUserId(player.PlayerId);
         CmdSetCoins(player.Coins);
+        LobbyInfo.GetInstance().AddUser(player.PlayerId);
     }
 
     private void OnPrepareToGame(int instanceId)
@@ -98,11 +100,10 @@ public class PlayerMovement : NetworkBehaviour
     {
         // Change display name for all players
         displayNameTextMesh.text = displayName;
-        
-        if (!isLocalPlayer) return;
-
         displayNameText.text = "Username: " + UserInfo.GetInstance().DisplayName;
         totalCoinsText.text = "Coins: $" + UserInfo.GetInstance().TotalCoins;
+        
+        if (!isLocalPlayer) return;
 
         isMovementDisabled = UserInfo.GetInstance().LockMovement;
 
@@ -113,6 +114,8 @@ public class PlayerMovement : NetworkBehaviour
         HandleRaycasting();
         HandlePlayerMovement();
         HandleUIKeys();
+
+        Debug.Log(LobbyInfo.GetInstance().GetLoggedInUsers().Aggregate("", (current, userId) => current + (userId + " ")));
     }
 
     private void HandleUIKeys()
