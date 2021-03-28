@@ -29,7 +29,7 @@ namespace Tests
         {
             string displayName = "testuser";
             string password = "1234";
-            var loggedIn = DataManager.LoginUser(displayName, password);
+            var loggedIn = DataManager.GetUser(displayName, password);
             Assert.IsNull(loggedIn);
         }
 
@@ -38,7 +38,7 @@ namespace Tests
         {
             string displayName = "testuser123456789";
             string password = "testing123!";
-            var loggedIn = DataManager.LoginUser(displayName, password);
+            var loggedIn = DataManager.GetUser(displayName, password);
             Assert.IsNull(loggedIn);
         }
 
@@ -47,7 +47,7 @@ namespace Tests
         {
             string displayName = "testuser";
             string password = "testing123";
-            var loggedIn = DataManager.LoginUser(displayName, password);
+            var loggedIn = DataManager.GetUser(displayName, password);
             Assert.IsNotNull(loggedIn);
         }
     }

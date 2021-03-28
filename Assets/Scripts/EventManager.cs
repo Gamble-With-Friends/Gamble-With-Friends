@@ -36,9 +36,13 @@ public class EventManager : MonoBehaviour
 
     public static event InstructionChange OnInstructionChange;
 
-    public delegate void PlayerLogin(PlayerModelScript player);
+    public delegate void LoginSuccess(string username, string userId, decimal coins);
 
-    public static event PlayerLogin OnPlayerLogin;
+    public static event LoginSuccess OnLoginSuccess;
+    
+    public delegate void LoginError(string username, string message);
+
+    public static event LoginError OnLoginError;
     
     public delegate void ChangeCoinValue(decimal amount);
 
@@ -102,9 +106,14 @@ public class EventManager : MonoBehaviour
         OnInstructionChange?.Invoke(instruction);
     }
 
-    public static void FirePlayerLoginEvent(PlayerModelScript player)
+    public static void FireLoginSuccessEvent(string username, string userId, decimal coins)
     {
-        OnPlayerLogin?.Invoke(player);
+        OnLoginSuccess?.Invoke(username, userId, coins);
+    }
+    
+    public static void FireLoginErrorEvent(string username, string errorMessage)
+    {
+        OnLoginError?.Invoke(username, errorMessage);
     }
     
     public static void FireChangeCoinValue(decimal amount)

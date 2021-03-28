@@ -12,12 +12,13 @@ public class RegisterLoginScript : MonoBehaviour
     public GameObject loginRegistrationGroup;
 
     #region Registration Scripts
+
     private GameObject userNameObject;
     private GameObject emailObject;
     private GameObject passwordObject;
     private GameObject confirmPasswordObject;
     private Toggle overEighteenOld;
-    
+
     private GameObject userNameError;
     private GameObject emailError;
     private GameObject passwordError;
@@ -30,12 +31,22 @@ public class RegisterLoginScript : MonoBehaviour
 
     private EventSystem system;
 
-    void Start()
+    private void Start()
     {
-        system = EventSystem.current;// EventSystemManager.currentSystem;
-
+        system = EventSystem.current; // EventSystemManager.currentSystem;
     }
 
+    private void OnEnable()
+    {
+        EventManager.OnLoginSuccess += OnLoginSuccess;
+        EventManager.OnLoginError += OnLoginError;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnLoginSuccess -= OnLoginSuccess;
+        EventManager.OnLoginError -= OnLoginError;
+    }
 
     public void Update()
     {
@@ -55,22 +66,20 @@ public class RegisterLoginScript : MonoBehaviour
         {
             if (registrationForm.gameObject.activeSelf)
             {
-                selectNext(userNameObject);
+                SelectNext(userNameObject);
             }
             else if (loginForm.gameObject.activeSelf)
-            {                
-                selectNext(loginUserNameObject);
+            {
+                SelectNext(loginUserNameObject);
             }
         }
-
-        
     }
 
     public void RegisterUser()
     {
         ClearMessages();
 
-        InitializeInputObjects();        
+        InitializeInputObjects();
 
         // Retrieve user input
         var userName = userNameObject.GetComponent<InputField>().text;
@@ -88,18 +97,12 @@ public class RegisterLoginScript : MonoBehaviour
         if (inputValid)
         {
             DataManager.AddUser(email, userName, password);
-
-            PlayerModelScript player = DataManager.LoginUser(userName, password);            
-            EventManager.FirePlayerLoginEvent(player);
-
-            // Display success message and close the form in 3 secs
-            successMessage.GetComponent<Text>().text = "Registration completed successfully";
-            timerCounter = 0;
-            displayRegistrationSuccessMessage = true;
+            LobbyInfo.GetInstance().Login(userName, password);
         }
     }
 
-    public bool ValidateInput(string userName, string email, string password, string confirmPassword, bool isOverEighteen)
+    public bool ValidateInput(string userName, string email, string password, string confirmPassword,
+        bool isOverEighteen)
     {
         bool valid = true;
 
@@ -110,7 +113,8 @@ public class RegisterLoginScript : MonoBehaviour
             if (userNameError != null)
             {
                 userNameError.GetComponent<Text>().text = "This field is required.";
-            }            
+            }
+
             valid = false;
         }
         else if (userName.Length < 3)
@@ -118,15 +122,18 @@ public class RegisterLoginScript : MonoBehaviour
             if (userNameError != null)
             {
                 userNameError.GetComponent<Text>().text = "Display name must be at least 3-character long.";
-            }            
+            }
+
             valid = false;
         }
         else if (!userNameRegex.IsMatch(userName))
         {
             if (userNameError != null)
             {
-                userNameError.GetComponent<Text>().text = "Only letters, digits, dashes, underscores, and spaces allowed.";
-            }            
+                userNameError.GetComponent<Text>().text =
+                    "Only letters, digits, dashes, underscores, and spaces allowed.";
+            }
+
             valid = false;
         }
         else if (DataManager.DisplayNameExists(userName))
@@ -134,7 +141,8 @@ public class RegisterLoginScript : MonoBehaviour
             if (userNameError != null)
             {
                 userNameError.GetComponent<Text>().text = "This display name is already taken.";
-            }            
+            }
+
             valid = false;
         }
 
@@ -146,6 +154,7 @@ public class RegisterLoginScript : MonoBehaviour
             {
                 emailError.GetComponent<Text>().text = "This field is required.";
             }
+
             valid = false;
         }
         else if (!emailRegex.IsMatch(email))
@@ -153,7 +162,8 @@ public class RegisterLoginScript : MonoBehaviour
             if (emailError != null)
             {
                 emailError.GetComponent<Text>().text = "Please enter a valid email address.";
-            }            
+            }
+
             valid = false;
         }
 
@@ -164,7 +174,8 @@ public class RegisterLoginScript : MonoBehaviour
             if (passwordError != null)
             {
                 passwordError.GetComponent<Text>().text = "This field is required.";
-            }            
+            }
+
             valid = false;
         }
         else if (password.Length < 6)
@@ -172,7 +183,8 @@ public class RegisterLoginScript : MonoBehaviour
             if (passwordError != null)
             {
                 passwordError.GetComponent<Text>().text = "Password must be at least 6-character long.";
-            }            
+            }
+
             valid = false;
         }
         else if (!passwordRegex.IsMatch(password))
@@ -181,6 +193,7 @@ public class RegisterLoginScript : MonoBehaviour
             {
                 passwordError.GetComponent<Text>().text = "Password must be at least 6-character long.";
             }
+
             valid = false;
         }
 
@@ -190,7 +203,8 @@ public class RegisterLoginScript : MonoBehaviour
             if (confirmPasswordError != null)
             {
                 confirmPasswordError.GetComponent<Text>().text = "Passwords must match.";
-            }            
+            }
+
             valid = false;
         }
 
@@ -200,7 +214,8 @@ public class RegisterLoginScript : MonoBehaviour
             if (successMessage != null)
             {
                 successMessage.GetComponent<Text>().text = "You must be over 18 years old to register.";
-            }            
+            }
+
             valid = false;
         }
 
@@ -223,6 +238,7 @@ public class RegisterLoginScript : MonoBehaviour
         {
             InitializeInputObjects();
         }
+
         userNameObject.GetComponent<InputField>().text = string.Empty;
         emailObject.GetComponent<InputField>().text = string.Empty;
         passwordObject.GetComponent<InputField>().text = string.Empty;
@@ -247,7 +263,7 @@ public class RegisterLoginScript : MonoBehaviour
         passwordError.GetComponent<Text>().text = string.Empty;
         confirmPasswordError.GetComponent<Text>().text = string.Empty;
         successMessage.GetComponent<Text>().text = string.Empty;
-    }    
+    }
 
     public void OpenRegistrationForm()
     {
@@ -257,12 +273,15 @@ public class RegisterLoginScript : MonoBehaviour
         userNameObject.GetComponent<InputField>().Select();
         loginButtonGroup.gameObject.SetActive(false);
     }
+
     #endregion
 
     #region Login Scripts
+
     private GameObject loginUserNameObject;
     private GameObject loginPasswordObject;
     private GameObject loginMessageObject;
+
     public void LogIn()
     {
         var userName = loginUserNameObject.GetComponent<InputField>().text;
@@ -273,17 +292,18 @@ public class RegisterLoginScript : MonoBehaviour
         }
         else
         {
-            PlayerModelScript player = DataManager.LoginUser(userName, password);
-            if (player == null)
-            {
-                loginMessageObject.GetComponent<Text>().text = "Invalid display name or password.";
-            }
-            else
-            {
-                GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
-                EventManager.FirePlayerLoginEvent(player);
-            }
-        }       
+            LobbyInfo.GetInstance().Login(userName, password);
+        }
+    }
+
+    private void OnLoginSuccess(string username, string userId, decimal coins)
+    {
+        GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
+    }
+
+    private void OnLoginError(string displayName, string errorMessage)
+    {
+        loginMessageObject.GetComponent<Text>().text = errorMessage;
     }
 
     private void InitializeLoginInputs()
@@ -294,18 +314,20 @@ public class RegisterLoginScript : MonoBehaviour
             loginPasswordObject = GameObject.Find("LoginPasswordInput/InputField");
             loginMessageObject = GameObject.Find("LoginSuccessMessage");
         }
+
         loginUserNameObject.GetComponent<InputField>().text = string.Empty;
         loginPasswordObject.GetComponent<InputField>().text = string.Empty;
         loginMessageObject.GetComponent<Text>().text = string.Empty;
-    }   
+    }
 
     public void OpenLoginForm()
-    {        
+    {
         loginForm.gameObject.SetActive(true);
         InitializeLoginInputs();
         loginButtonGroup.gameObject.SetActive(false);
         loginUserNameObject.GetComponent<InputField>().Select();
     }
+
     #endregion
 
     public void CloseRegistrationLoginForm()
@@ -313,7 +335,7 @@ public class RegisterLoginScript : MonoBehaviour
         GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
     }
 
-    public void selectNext(GameObject defaulInput)
+    public void SelectNext(GameObject defaulInput)
     {
         try
         {

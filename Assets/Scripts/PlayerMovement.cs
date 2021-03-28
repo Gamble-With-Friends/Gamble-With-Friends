@@ -14,8 +14,7 @@ public class PlayerMovement : NetworkBehaviour
     public LayerMask groundMask;
     public GameObject playerCamera;
     public bool isMovementDisabled;
-    public Text displayNameText;
-    public Text totalCoinsText;
+    public Text userInfoText;
 
     // Private Const
     private const KeyCode USE_KEY = KeyCode.Mouse0;
@@ -43,7 +42,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         EventManager.OnPrepareToGame += OnPrepareToGame;
         EventManager.OnReadyToExitGame += OnReadyToExitGame;
-        EventManager.OnPlayerLogin += OnPlayerLogin;
+        EventManager.OnLoginSuccess += OnLoginSuccess;
         EventManager.OnChangeCoinValue += OnChangeCoinValue;
     }
 
@@ -51,17 +50,16 @@ public class PlayerMovement : NetworkBehaviour
     {
         EventManager.OnPrepareToGame -= OnPrepareToGame;
         EventManager.OnReadyToExitGame -= OnReadyToExitGame;
-        EventManager.OnPlayerLogin -= OnPlayerLogin;
+        EventManager.OnLoginSuccess -= OnLoginSuccess;
         EventManager.OnChangeCoinValue -= OnChangeCoinValue;
     }
 
-    private void OnPlayerLogin(PlayerModelScript player)
+    private void OnLoginSuccess(string username, string userId, decimal coins)
     {
         if (!isLocalPlayer) return;
-        CmdSetDisplayName(player.UserName);
-        CmdSetUserId(player.PlayerId);
-        CmdSetCoins(player.Coins);
-        LobbyInfo.GetInstance().AddUser(player.PlayerId);
+        CmdSetDisplayName(username);
+        CmdSetUserId(userId);
+        CmdSetCoins(coins);
     }
 
     private void OnPrepareToGame(int instanceId)
@@ -89,22 +87,23 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
         displayNameTextMesh.text = "Guest";
-        if (Application.isEditor)
-        {
-            var player = DataManager.LoginUser("tony", "Qwe!23");
-            EventManager.FirePlayerLoginEvent(player);
-        }
     }
 
     private void Update()
     {
         // Change display name for all players
         displayNameTextMesh.text = displayName;
-        displayNameText.text = "Username: " + UserInfo.GetInstance().DisplayName;
-        totalCoinsText.text = "Coins: $" + UserInfo.GetInstance().TotalCoins;
-        
-        if (!isLocalPlayer) return;
+        if (UserInfo.GetInstance().UserId != null)
+        {
+            userInfoText.text = "Username: " + UserInfo.GetInstance().DisplayName + "\n" +
+                                "Coins: $" + UserInfo.GetInstance().TotalCoins;
+        }
+        else
+        {
+            userInfoText.text = "You're not logged in";
+        }
 
+        if (!isLocalPlayer) return;
         isMovementDisabled = UserInfo.GetInstance().LockMovement;
 
         SetSyncVars();

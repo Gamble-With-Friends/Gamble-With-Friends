@@ -69,7 +69,7 @@ public class DataManager
         }
     }
 
-    public static PlayerModelScript LoginUser(string displayName, string password)
+    public static PlayerModelScript GetUser(string displayName, string password)
     {
         using (var db = new SqlConnection(ConnectionString))
         {
@@ -91,9 +91,10 @@ public class DataManager
             var reader = cmd.ExecuteReader();
             while (reader.Read())
             {
+                var userId = reader.GetString(0);
                 var player = new PlayerModelScript
                 {
-                    PlayerId = reader.GetString(0),
+                    UserId = userId,
                     UserName = reader.GetString(1),
                     Coins = reader.GetDecimal(2)
                 };
@@ -514,4 +515,63 @@ public class DataManager
         }
     }
 
+    public static void CreateServer(string serverId)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("INSERT Server VALUES (@serverId)", db);
+            cmd.Parameters.AddWithValue("@serverId",serverId);
+            db.Open();
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
+    }
+    
+    public static void CreateLoginSession(int connectionId, string serverId, string userId)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("INSERT LoginSession (loginSessionId, playerId, loginDateTime, serverId) VALUES (@loginSessionId, @playerId, @loginDateTime, @serverId)", db);
+            cmd.Parameters.AddWithValue("@serverId",serverId);
+            cmd.Parameters.AddWithValue("@loginSessionId", connectionId);
+            cmd.Parameters.AddWithValue("@playerId",userId);
+            cmd.Parameters.AddWithValue("@loginDateTime", DateTime.Now);
+            db.Open();
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
+    }
+    
+    public static void UpdateLogoutTime(int connectionId, string serverId)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("UPDATE LoginSession SET logoutDateTime = @logoutDateTime WHERE serverId = @serverId AND loginSessionId = @loginSessionId", db);
+            cmd.Parameters.AddWithValue("@logoutDateTime",DateTime.Now);
+            cmd.Parameters.AddWithValue("@loginSessionId", connectionId);
+            cmd.Parameters.AddWithValue("@serverId",serverId);
+            db.Open();
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
+    }
+
+    public static bool IsPlayerLoggedIn(string userId, string serverId)
+    {
+        var isLoggedIn = false;
+        
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT loginSessionId FROM LoginSession WHERE serverId = @serverId AND playerId = @playerId AND logoutDateTime IS NULL", db);
+            cmd.Parameters.AddWithValue("@playerId", userId);
+            cmd.Parameters.AddWithValue("@serverId", serverId);
+            db.Open();
+            var reader = cmd.ExecuteReader();
+            isLoggedIn = reader.HasRows;
+            reader.Close();
+            db.Close();
+        }
+
+        return isLoggedIn;
+    }
 }
