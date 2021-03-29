@@ -60,6 +60,18 @@ public class RegisterLoginScript : MonoBehaviour
             }
         }
 
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (registrationForm.gameObject.activeSelf)
+            {
+                RegisterUser();
+            }
+            else if (loginForm.gameObject.activeSelf)
+            {
+                LogIn();
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             if (registrationForm.gameObject.activeSelf)
