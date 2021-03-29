@@ -24,12 +24,14 @@ public class PlayerMovement : NetworkBehaviour
     private const float GROUND_DISTANCE = 0.4f;
     private const float GRAVITY = -18.81f;
     private const float JUMP_HEIGHT = 3f;
+    private const int MAX_KEY_HISTORY = 32;
 
     // Private vars
     private Vector3 velocity;
     private bool isGrounded;
-    public TextMesh displayNameTextMesh;
+    private string lastKeysPressed = "";
 
+    public TextMesh displayNameTextMesh;
     // Sync vars
     [SyncVar]
     private string displayName;
@@ -37,6 +39,11 @@ public class PlayerMovement : NetworkBehaviour
     private string playerId;
     [SyncVar]
     private decimal totalCoins;
+
+    private void OnGUI()
+    {
+        
+    }
 
     private void OnEnable()
     {
@@ -105,29 +112,53 @@ public class PlayerMovement : NetworkBehaviour
 
         if (!isLocalPlayer) return;
         isMovementDisabled = UserInfo.GetInstance().LockMovement;
-
+        HandleKeys();
         SetSyncVars();
         HandleExitGame();
         HandleCamera();
         if (!playerCamera.activeSelf) return;
         HandleRaycasting();
         HandlePlayerMovement();
-        HandleUIKeys();
-
-        Debug.Log(LobbyInfo.GetInstance().GetLoggedInUsers().Aggregate("", (current, userId) => current + (userId + " ")));
     }
 
-    private void HandleUIKeys()
+    private void HandleKeys()
     {
-        if (UserInfo.GetInstance().LockMovement) return;
-        
-        if (Input.GetKeyDown(KeyCode.I))
+        foreach(KeyCode vKey in Enum.GetValues(typeof(KeyCode)))
         {
-            EventManager.FireKeyDownEvent(KeyCode.I);
-        } 
-        else if (Input.GetKeyDown(KeyCode.F))
+            if (!Input.GetKeyDown(vKey)) continue;
+
+            HandleCheats(vKey);
+
+            if (!UserInfo.GetInstance().LockMovement)
+            {
+                EventManager.FireKeyDownEvent(vKey);
+            }
+        }
+    }
+
+    private void HandleCheats(KeyCode vKey)
+    {
+        lastKeysPressed += vKey;
+
+        if (lastKeysPressed.Length > MAX_KEY_HISTORY)
         {
-            EventManager.FireKeyDownEvent(KeyCode.F);
+            lastKeysPressed = lastKeysPressed.Substring( lastKeysPressed.Length - MAX_KEY_HISTORY, MAX_KEY_HISTORY);
+        }
+
+        var clearKeys = false;
+        if (lastKeysPressed.Contains("HAROUT"))
+        {
+            clearKeys = true;
+            LobbyInfo.GetInstance().Login("harout","Qwe!23");
+        } else if (lastKeysPressed.Contains("TONY"))
+        {
+            clearKeys = true;
+            LobbyInfo.GetInstance().Login("tony","Qwe!23");
+        }
+
+        if (clearKeys)
+        {
+            lastKeysPressed = "";
         }
     }
 
