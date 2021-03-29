@@ -146,11 +146,11 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         var clearKeys = false;
-        if (lastKeysPressed.Contains("HAROUT"))
+        if (lastKeysPressed.Contains("HHHHH"))
         {
             clearKeys = true;
             LobbyInfo.GetInstance().Login("harout","Qwe!23");
-        } else if (lastKeysPressed.Contains("TONY"))
+        } else if (lastKeysPressed.Contains("TTTTT"))
         {
             clearKeys = true;
             LobbyInfo.GetInstance().Login("tony","Qwe!23");

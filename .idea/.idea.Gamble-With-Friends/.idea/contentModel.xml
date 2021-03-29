@@ -635,6 +635,7 @@
           </e>
           <e p="JSONLibrary.cs" t="Include" />
           <e p="LobbyInfo.cs" t="Include" />
+          <e p="LoginChecker.cs" t="Include" />
           <e p="LoginTriggerScript.cs" t="Include" />
           <e p="MouseLook.cs" t="Include" />
           <e p="NetworkManagement.cs" t="Include" />

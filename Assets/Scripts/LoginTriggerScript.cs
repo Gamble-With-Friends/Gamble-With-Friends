@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,11 +12,37 @@ public class LoginTriggerScript : MonoBehaviour
     public GameObject loginCanvas; // group containing all groups pertaining to registration and login processes
     public GameObject registerFormGroup; // registration form group
     public GameObject loginFormGroup; // login form group
-    public GameObject loginRegistrationGroup; // 'Register' and 'Login' buttons group 
+    public RegisterLoginScript registerLoginScript;
 
     private bool isInsideTrigger;
     private PlayerMovement collidingPlayerMovement;
-    private MouseLook collidingPlayerMouseLook;
+
+
+    private void OnEnable()
+    {
+        EventManager.OnKeyDown += OnKeyDown;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnKeyDown -= OnKeyDown;
+    }
+
+    private void OnKeyDown(KeyCode keyCode)
+    {
+        if (!isInsideTrigger) return;
+        
+        if (Input.GetKey(KeyCode.E))
+        {
+            loginCanvas.gameObject.SetActive(true);
+            loginFormGroup.gameObject.SetActive(true);
+            Cursor.lockState = CursorLockMode.Confined;
+            UserInfo.GetInstance().LockMovement = true;
+            UserInfo.GetInstance().LockMouse = true;
+            EventManager.FireInstructionChangeEvent("");
+            registerLoginScript.OpenLoginForm();
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -32,42 +59,9 @@ public class LoginTriggerScript : MonoBehaviour
         ExitRegistrationLogin();
     }
 
-    private void Update()
-    {
-        if (collidingPlayerMovement != null && !collidingPlayerMovement.isLocalPlayer) return;
-
-        if (!isInsideTrigger) return;
-
-        if (loginRegistrationGroup.gameObject.activeSelf)
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-            UserInfo.GetInstance().LockMovement = true;
-            UserInfo.GetInstance().LockMouse = true;
-            EventManager.FireInstructionChangeEvent("");
-        }
-
-        if (Input.GetKey(KeyCode.E))
-        {
-            loginCanvas.gameObject.SetActive(true);
-
-            if (!registerFormGroup.activeSelf && !loginFormGroup.activeSelf)
-            {
-                loginRegistrationGroup.gameObject.SetActive(true);
-            }
-        }
-        else if (Input.GetKey(KeyCode.Escape))
-        {
-            EventManager.FireInstructionChangeEvent(LOGIN_TEXT);
-            ExitRegistrationLogin();
-        }
-    }
-
     public void ExitRegistrationLogin()
     {
-        if (collidingPlayerMovement != null && !collidingPlayerMovement.isLocalPlayer) return;
-        
         Cursor.lockState = CursorLockMode.Locked;
-        loginRegistrationGroup.gameObject.SetActive(false);
         loginCanvas.gameObject.SetActive(false);
         registerFormGroup.gameObject.SetActive(false);
         loginFormGroup.gameObject.SetActive(false);

@@ -8,8 +8,6 @@ public class RegisterLoginScript : MonoBehaviour
 {
     public CanvasGroup registrationForm;
     public CanvasGroup loginForm;
-    public CanvasGroup loginButtonGroup;
-    public GameObject loginRegistrationGroup;
 
     #region Registration Scripts
 
@@ -271,7 +269,7 @@ public class RegisterLoginScript : MonoBehaviour
         ClearInputObjects();
         ClearMessages();
         userNameObject.GetComponent<InputField>().Select();
-        loginButtonGroup.gameObject.SetActive(false);
+        loginForm.gameObject.SetActive(false);
     }
 
     #endregion
@@ -323,8 +321,8 @@ public class RegisterLoginScript : MonoBehaviour
     public void OpenLoginForm()
     {
         loginForm.gameObject.SetActive(true);
+        registrationForm.gameObject.SetActive(false);
         InitializeLoginInputs();
-        loginButtonGroup.gameObject.SetActive(false);
         loginUserNameObject.GetComponent<InputField>().Select();
     }
 
@@ -335,7 +333,7 @@ public class RegisterLoginScript : MonoBehaviour
         GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
     }
 
-    public void SelectNext(GameObject defaulInput)
+    public void SelectNext(GameObject defaultInput)
     {
         try
         {
@@ -349,7 +347,7 @@ public class RegisterLoginScript : MonoBehaviour
         }
         catch
         {
-            defaulInput.GetComponent<InputField>().Select();
+            defaultInput.GetComponent<InputField>().Select();
         }
     }
 }
