@@ -574,4 +574,34 @@ public class DataManager
 
         return isLoggedIn;
     }
+
+    public static void CreateGameSession(int connectionId, string serverId, string userId, string gameId)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("INSERT GameSession (gameSessionId, playerId, startTime, serverId, gameId) VALUES (@gameSessionId, @playerId, @startTime, @serverId, @gameId)", db);
+            cmd.Parameters.AddWithValue("@serverId", serverId);
+            cmd.Parameters.AddWithValue("@gameSessionId", connectionId);
+            cmd.Parameters.AddWithValue("@playerId", userId);
+            cmd.Parameters.AddWithValue("@startTime", DateTime.Now);
+            cmd.Parameters.AddWithValue("@gameId", gameId);
+            db.Open();
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
+    }
+
+    public static void UpdateGameSessionTime(int connectionId, string serverId)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("UPDATE GameSession SET endTime = @endTime WHERE serverId = @serverId AND gameSessionId = @gameSessionId", db);
+            cmd.Parameters.AddWithValue("@endTime", DateTime.Now);
+            cmd.Parameters.AddWithValue("@gameSessionId", connectionId);
+            cmd.Parameters.AddWithValue("@serverId", serverId);
+            db.Open();
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
+    }
 }
