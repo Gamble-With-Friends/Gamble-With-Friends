@@ -27,6 +27,33 @@ public enum CardRank
     King = 13
 }
 
+public enum PokerHand
+{
+    HighCard = 0,
+    OnePair = 1,
+    TwoPair = 3,
+    ThreeOfAKind = 4,
+    Straight = 5,
+    Flush = 6,
+    FullHouse = 7,
+    FourOfAKind = 8,
+    StraightFlush = 9,
+    RoyalFlush = 10
+}
+
+public class Hand
+{
+    public PokerHand PokerHand { get; set; }
+    public List<Card> SortedHand { get; set; }
+
+    public Hand(PokerHand pokerHand, List<Card> hand)
+    {
+        this.PokerHand = pokerHand;
+        this.SortedHand = hand;
+    }
+}
+
+#region Card class
 public class Card
 {
     public CardRank Rank { get; set; }
@@ -48,13 +75,20 @@ public class Card
         return (int)Rank < 10 ? (int)Rank : (int)Rank > 13 ? 1 : 0;
     }
 
+    public int PokerValue()
+    {
+        return (int)Rank == 1 ? 14 : (int)Rank;
+    }
+
     // Included for testing
     public string Print()
     {
         return Rank.ToString() + " of " + Suit.ToString();
     }
 }
+#endregion
 
+#region CardExtensions
 public static class CardExtensions
 {
     // takes in a deck of cards, removes the first, and returns the removed card
@@ -144,8 +178,91 @@ public static class CardExtensions
         }
         return suitString;
     }
-}
 
+    private static List<Card> SortHandByValue(this List<Card> hand)
+    {
+        return hand = hand.OrderBy(card => card.PokerValue()).ToList();
+    }
+
+    public static bool HasPair(this List<Card> hand)
+    {
+        return hand.GroupBy(card => card.Rank).Count(group => group.Count() == 2) == 1;
+    }
+
+    public static bool IsPair(this List<Card> hand)
+    {
+        return hand.GroupBy(card => card.Rank).Count(group => group.Count() == 3) == 0 && hand.HasPair();
+    }
+
+    public static bool IsTwoPair(this List<Card> hand)
+    {
+        return hand.GroupBy(card => card.Rank).Count(group => group.Count() >= 2) == 2;
+    }
+
+    public static bool IsStraight(this List<Card> hand)
+    {
+        return hand.GroupBy(card => card.Rank).Count() == hand.Count() && hand.Max(card => card.PokerValue()) - hand.Min(card => card.PokerValue()) == 4;
+    }
+
+    public static bool HasThreeOfKind(this List<Card> hand)
+    {
+        return hand.GroupBy(card => card.Rank).Any(group => group.Count() == 3);
+    }
+
+    public static bool IsThreeOfKind(this List<Card> hand)
+    {
+        return HasThreeOfKind(hand) && !HasPair(hand);
+    }
+
+    public static bool IsFlush(this List<Card> hand)
+    {
+        return hand.GroupBy(card => card.Suit).Count() == 1;
+    }
+
+    public static bool IsFourOfKind(this List<Card> hand)
+    {
+        return hand.GroupBy(card => card.Rank).Any(group => group.Count() == 4);
+    }
+
+    public static bool IsFullHouse(this List<Card> hand)
+    {
+        return HasPair(hand) && HasThreeOfKind(hand);
+    }
+
+    public static bool HasStraightFlush(this List<Card> hand)
+    {
+        return IsFlush(hand) && IsStraight(hand);
+    }
+
+    public static bool IsRoyalFlush(this List<Card> hand)
+    {
+        return hand.Min(card => (int)card.Rank) == 10 && HasStraightFlush(hand);
+    }
+
+    public static bool IsStraightFlush(this List<Card> hand)
+    {
+        return HasStraightFlush(hand) && !IsRoyalFlush(hand);
+    }
+
+    public static Hand GetEvaluatedHand(this List<Card> hand)
+    {       
+        List<Card> sortedHand = hand.SortHandByValue();
+
+        PokerHand pokerHand = hand.IsRoyalFlush() ? PokerHand.RoyalFlush :
+                                hand.IsStraightFlush() ? PokerHand.StraightFlush :
+                                hand.IsFourOfKind() ? PokerHand.FourOfAKind :
+                                hand.IsFullHouse() ? PokerHand.FullHouse :
+                                hand.IsFlush() ? PokerHand.Flush :
+                                hand.IsStraight() ? PokerHand.Straight :
+                                hand.IsThreeOfKind() ? PokerHand.ThreeOfAKind :
+                                hand.IsTwoPair() ? PokerHand.TwoPair :
+                                hand.IsPair() ? PokerHand.OnePair : PokerHand.HighCard;
+        return new Hand(pokerHand, sortedHand);
+    }
+}
+#endregion
+
+#region Deck class
 // static class designed to generate a shuffled deck of cards or several shuffled deck of cards
 public static class Deck
 {
@@ -252,4 +369,52 @@ public static class Deck
     {
         return GetShuffledDeck(1);
     }
+
+    public static int CompareHands(Hand firstHand, Hand secondHand)
+    {
+        if ((int)firstHand.PokerHand > (int)secondHand.PokerHand)
+        {
+            return 1;
+        }
+        else if ((int)secondHand.PokerHand > (int)firstHand.PokerHand)
+        {
+            return -1;
+        }
+        else
+        {
+            for (int i = 0; i < firstHand.SortedHand.Count; i++)
+            {
+                if (firstHand.SortedHand[i].PokerValue() > secondHand.SortedHand[i].PokerValue())
+                {
+                    return 1;
+                }
+                else if (secondHand.SortedHand[i].PokerValue() > firstHand.SortedHand[i].PokerValue())
+                {
+                    return -1;
+                }
+            }
+            return 0;
+        }
+    }
+
+    public static List<int> WinnerPositions(List<Hand> hands)
+    {
+        List<int> winnerPositions = new List<int> { 0 };
+        Hand highestValueHand = hands[0];
+        for (int i = 1; i < hands.Count; i++)
+        {
+            int result = Deck.CompareHands(highestValueHand, hands[i]);
+            if (result == -1)
+            {
+                winnerPositions = new List<int> { i };
+                highestValueHand = hands[i];
+            }
+            else if (result == 0)
+            {
+                winnerPositions.Add(i);
+            }
+        }
+        return winnerPositions;
+    }
 }
+#endregion
