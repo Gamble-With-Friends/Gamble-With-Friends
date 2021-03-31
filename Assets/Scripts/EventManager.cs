@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,11 +37,15 @@ public class EventManager : MonoBehaviour
 
     public static event InstructionChange OnInstructionChange;
 
-    public delegate void LoginSuccess(string username, string userId, decimal coins);
+    public delegate void LoginSuccess();
 
     public static event LoginSuccess OnLoginSuccess;
     
     public delegate void LoginError(string username, string message);
+    
+    public static event BeforeLoginSuccess OnBeforeLoginSuccess;
+    
+    public delegate void BeforeLoginSuccess();
 
     public static event LoginError OnLoginError;
     
@@ -65,6 +70,17 @@ public class EventManager : MonoBehaviour
     public delegate void StringValueChanged(EventType eventType, string oldValue, string newValue);
 
     public static event StringValueChanged OnStringValueChange;
+
+
+    private void OnEnable()
+    {
+        OnBeforeLoginSuccess += OnBeforeLoginSuccess;
+    }
+
+    private void OnDisable()
+    {
+        OnBeforeLoginSuccess -= OnBeforeLoginSuccess;
+    }
 
     public static void FireClickEvent(int instanceId)
     {
@@ -108,9 +124,18 @@ public class EventManager : MonoBehaviour
 
     public static void FireLoginSuccessEvent(string username, string userId, decimal coins)
     {
-        OnLoginSuccess?.Invoke(username, userId, coins);
+        UserInfo.GetInstance().UserId = userId;
+        UserInfo.GetInstance().TotalCoins = coins;
+        UserInfo.GetInstance().DisplayName = username;
+
+        OnBeforeLoginSuccess?.Invoke();
     }
-    
+
+    public static void FireDelayedLoginSuccessEvent()
+    {
+        OnLoginSuccess?.Invoke();
+    }
+
     public static void FireLoginErrorEvent(string username, string errorMessage)
     {
         OnLoginError?.Invoke(username, errorMessage);
@@ -120,8 +145,7 @@ public class EventManager : MonoBehaviour
     {
         OnChangeCoinValue?.Invoke(amount);
     }
-
-    //
+    
     public static void FireKeyDownEvent(KeyCode key)
     {
         OnKeyDown?.Invoke(key);
@@ -141,4 +165,6 @@ public class EventManager : MonoBehaviour
     {
         OnOutfitChange?.Invoke();
     }
+    
+    
 }

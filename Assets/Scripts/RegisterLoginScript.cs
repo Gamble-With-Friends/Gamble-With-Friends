@@ -306,7 +306,7 @@ public class RegisterLoginScript : MonoBehaviour
         }
     }
 
-    private void OnLoginSuccess(string username, string userId, decimal coins)
+    private void OnLoginSuccess()
     {
         GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
     }

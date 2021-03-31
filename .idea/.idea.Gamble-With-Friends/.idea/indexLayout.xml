@@ -19,7 +19,6 @@
       <Path>.vs</Path>
       <Path>Builds</Path>
       <Path>Library</Path>
-      <Path>Temp</Path>
       <Path>obj</Path>
     </explicitExcludes>
   </component>

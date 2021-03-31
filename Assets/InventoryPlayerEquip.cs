@@ -61,7 +61,7 @@ public class InventoryPlayerEquip : MonoBehaviour
     {
         if(UserInfo.GetInstance().UserId != null)
         {
-            InventoryItems.UpdateItems(UserInfo.GetInstance().UserId);
+            InventoryItems.UpdateItems();
 
             foreach (string skinname in skins)
             {

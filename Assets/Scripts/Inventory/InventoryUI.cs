@@ -25,54 +25,47 @@ public class InventoryUI : MonoBehaviour
 
     private void OnKeyDown(KeyCode key)
     {
-        if (UserInfo.GetInstance().UserId != null)
+        if (UserInfo.GetInstance().UserId == null) return;
+        if (key != KeyCode.I) return;
+        
+        if (InventoryCanvas.gameObject.activeSelf)
         {
-            if (key == KeyCode.I)
-            {
-                if (InventoryCanvas.gameObject.activeSelf)
-                {
-                    ExitInventory();
-                }
-                else
-                {
-                    Cursor.lockState = CursorLockMode.Confined;
-                    InventoryCanvas.gameObject.SetActive(true);
-                    UserInfo.GetInstance().LockMouse = true;
-                    UserInfo.GetInstance().LockMovement = true;
-                }
-            }
+            ExitInventory();
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            InventoryCanvas.gameObject.SetActive(true);
+            UserInfo.GetInstance().LockMouse = true;
+            UserInfo.GetInstance().LockMovement = true;
         }
     }
 
-    private void OnLoginSuccess(string userName, string userId, decimal coin)
+    private void OnLoginSuccess()
     {
-        InventoryItems.UpdateItems(userId);
-        PayInvestment(userId);
+        InventoryItems.UpdateItems();
+        PayInvestment();
     }
 
-    public void PayInvestment(string userId)
+    private void PayInvestment()
     {
         decimal amount = 0;
 
         var investments = new string[] { "CryptominingRig", "VendingMachine", "HotdogStand", "CarWash", "ParkingLot", "ConvenienceStore", "McDonalds", "Casino" };
-        InventoryItems.UpdateItems(userId);
+        InventoryItems.UpdateItems();
 
-        foreach (string invest in investments)
+        foreach (var invest in investments)
         {
             var itemId = GameItems.GetItems()[invest].ItemId;
 
-            if (InventoryItems.GetInventoryItems().ContainsKey(itemId))
-            {
-                int difference = (int)(DateTime.Now - InventoryItems.GetInventoryItems()[itemId].PurchaseDate).TotalDays;
-                if (difference > InventoryItems.GetInventoryItems()[itemId].Payouts)
-                {
-                    int payout = InventoryItems.GetInventoryItems()[itemId].Payouts;
-                    amount += GameItems.GetItems()[invest].IncomeAmount * Math.Abs((Convert.ToDecimal((int)(InventoryItems.GetInventoryItems()[itemId].PurchaseDate - DateTime.Now).TotalDays)-payout));
+            if (!InventoryItems.GetInventoryItems().ContainsKey(itemId)) continue;
+            var difference = (int)(DateTime.Now - InventoryItems.GetInventoryItems()[itemId].PurchaseDate).TotalDays;
+            if (difference <= InventoryItems.GetInventoryItems()[itemId].Payouts) continue;
+            var payout = InventoryItems.GetInventoryItems()[itemId].Payouts;
+            amount += GameItems.GetItems()[invest].IncomeAmount * Math.Abs((Convert.ToDecimal((int)(InventoryItems.GetInventoryItems()[itemId].PurchaseDate - DateTime.Now).TotalDays)-payout));
 
-                    payout += difference;
-                    DataManager.UpdateInvestmentPayout(userId, itemId, payout);
-                }
-            }
+            payout += difference;
+            DataManager.UpdateInvestmentPayout(UserInfo.GetInstance().UserId, itemId, payout);
         }
         EventManager.FireChangeCoinValue(amount);
     }

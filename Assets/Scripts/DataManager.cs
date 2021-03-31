@@ -146,7 +146,7 @@ public class DataManager
             cmd.ExecuteNonQuery();
         }
 
-        InventoryItems.UpdateItems(UserInfo.GetInstance().UserId);
+        InventoryItems.UpdateItems();
     }
 
     public static void SellItem(string userId, string itemId)
@@ -161,7 +161,7 @@ public class DataManager
             db.Open();
             cmd.ExecuteNonQuery();
         }
-        InventoryItems.UpdateItems(UserInfo.GetInstance().UserId);
+        InventoryItems.UpdateItems();
     }
 
     public static void EquiptItem(string userId, string itemName)

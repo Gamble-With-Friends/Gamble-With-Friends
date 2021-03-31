@@ -643,7 +643,6 @@
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PokerCardScript.cs" t="Include" />
           <e p="PokerClient.cs" t="Include" />
-          <e p="PokerHandValue.cs" t="Include" />
           <e p="PokerServer.cs" t="Include" />
           <e p="RegisterLoginScript.cs" t="Include" />
           <e p="ScriptAssembly.asmdef" t="Include" />

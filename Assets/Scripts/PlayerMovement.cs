@@ -40,33 +40,29 @@ public class PlayerMovement : NetworkBehaviour
     [SyncVar]
     private decimal totalCoins;
 
-    private void OnGUI()
-    {
-        
-    }
-
     private void OnEnable()
     {
         EventManager.OnPrepareToGame += OnPrepareToGame;
         EventManager.OnReadyToExitGame += OnReadyToExitGame;
-        EventManager.OnLoginSuccess += OnLoginSuccess;
         EventManager.OnChangeCoinValue += OnChangeCoinValue;
+        EventManager.OnBeforeLoginSuccess += OnBeforeLoginSuccess;
     }
 
     private void OnDisable()
     {
         EventManager.OnPrepareToGame -= OnPrepareToGame;
         EventManager.OnReadyToExitGame -= OnReadyToExitGame;
-        EventManager.OnLoginSuccess -= OnLoginSuccess;
         EventManager.OnChangeCoinValue -= OnChangeCoinValue;
+        EventManager.OnBeforeLoginSuccess -= OnBeforeLoginSuccess;
     }
 
-    private void OnLoginSuccess(string username, string userId, decimal coins)
+    private void OnBeforeLoginSuccess()
     {
         if (!isLocalPlayer) return;
-        CmdSetDisplayName(username);
-        CmdSetUserId(userId);
-        CmdSetCoins(coins);
+        CmdSetDisplayName(UserInfo.GetInstance().DisplayName);
+        CmdSetUserId(UserInfo.GetInstance().UserId);
+        CmdSetCoins(UserInfo.GetInstance().TotalCoins);
+        EventManager.FireDelayedLoginSuccessEvent();
     }
 
     private void OnPrepareToGame(int instanceId)
@@ -237,7 +233,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            CmdChangeCoinValue(amount);
+            CmdChangeCoinValue(UserInfo.GetInstance().UserId, UserInfo.GetInstance().TotalCoins, amount);
         }
     }
 
@@ -262,18 +258,16 @@ public class PlayerMovement : NetworkBehaviour
     }
     
     [Command(requiresAuthority = false)]
-    private void CmdChangeCoinValue(decimal amount)
+    private void CmdChangeCoinValue(string userId, decimal currentAmount, decimal changeAmount)
     {
-        var userId = UserInfo.GetInstance().UserId;
-
         if (userId == null) return;
         
-        totalCoins += amount;
+        totalCoins = currentAmount + changeAmount;
         if (totalCoins < 0)
         {
             totalCoins = 0;
         }
 
-        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, amount);
+        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, changeAmount);
     }
 }

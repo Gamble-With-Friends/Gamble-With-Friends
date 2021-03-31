@@ -25,8 +25,8 @@ public class InventoryItems : MonoBehaviour
         return itemIdToRecord;
     }
 
-    public static void UpdateItems(string userId)
+    public static void UpdateItems()
     {
-        DataManager.GetInventoryItems(userId);
+        DataManager.GetInventoryItems(UserInfo.GetInstance().UserId);
     }
 }
