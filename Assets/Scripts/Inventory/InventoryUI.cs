@@ -70,11 +70,6 @@ public class InventoryUI : MonoBehaviour
         EventManager.FireChangeCoinValue(amount);
     }
 
-    public void DailyIncome()
-    {
-
-    }
-
     public void ExitInventory()
     {
         Cursor.lockState = CursorLockMode.Locked;

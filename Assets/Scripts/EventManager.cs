@@ -129,6 +129,7 @@ public class EventManager : MonoBehaviour
         UserInfo.GetInstance().DisplayName = username;
 
         OnBeforeLoginSuccess?.Invoke();
+        OnOutfitChange?.Invoke();
     }
 
     public static void FireDelayedLoginSuccessEvent()
