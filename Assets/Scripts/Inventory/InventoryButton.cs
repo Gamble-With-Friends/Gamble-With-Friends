@@ -13,24 +13,36 @@ public class InventoryButton : MonoBehaviour
     public GameObject description;
     public Text descriptionText;
     public string itemName;
+    public GameObject errorWindow;
+    public Text errorText;
+    private bool displayErrorMessage = false;
+    private int timerCounter = 0;
 
     public void OnItemClick()
     {
         if (sellButton.interactable != true)
         {
-            Color shade = icon.color;
-            shade.a = 1f;
-            icon.color = shade;
             if (itemName != null)
             {
-                DataManager.Buyitem(UserInfo.GetInstance().UserId, itemName);
-                EventManager.FireChangeCoinValue(-GameItems.GetItems()[itemName].CoinValue);
-            }
-
-            sellButton.interactable = true;
-            if(GameItems.GetItems()[itemName].ItemType != 2)
-            {
-                equipButton.interactable = true;
+                if (UserInfo.GetInstance().TotalCoins > GameItems.GetItems()[itemName].CoinValue)
+                {
+                    Color shade = icon.color;
+                    shade.a = 1f;
+                    icon.color = shade;
+                    DataManager.Buyitem(UserInfo.GetInstance().UserId, itemName);
+                    EventManager.FireChangeCoinValue(-GameItems.GetItems()[itemName].CoinValue);
+                    sellButton.interactable = true;
+                    if (GameItems.GetItems()[itemName].ItemType != 2)
+                    {
+                        equipButton.interactable = true;
+                    }
+                }
+                else
+                {
+                    errorText.text = "Insufficient funds";
+                    displayErrorMessage = true;
+                    errorWindow.SetActive(true);
+                }
             }
         }
     }
@@ -139,6 +151,15 @@ public class InventoryButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (displayErrorMessage)
+        {
+            timerCounter++;
+            if (timerCounter >= 150)
+            {
+                displayErrorMessage = false;
+                errorWindow.SetActive(false);
+                timerCounter = 0;
+            }
+        }
     }
 }
