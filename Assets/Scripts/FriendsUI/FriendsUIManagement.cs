@@ -153,7 +153,11 @@ public class FriendsUIManagement : MonoBehaviour
         {
             decimal coinsInWallet = 0M;
 
-            if (!DataManager.GetUserFunds(localUserId, out coinsInWallet))
+            if (coinsValue < 0)
+            {
+                GameObject.Find("SendCoinsRawImage/ErrorMessage").GetComponent<Text>().text = "Coin value must be positive";
+            }
+            else if (!DataManager.GetUserFunds(localUserId, out coinsInWallet))
             {
                 GameObject.Find("SendCoinsRawImage/ErrorMessage").GetComponent<Text>().text = "Unexpected error occurred";
             }
