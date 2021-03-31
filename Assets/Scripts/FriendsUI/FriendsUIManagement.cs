@@ -58,7 +58,7 @@ public class FriendsUIManagement : MonoBehaviour
                 UserInfo.GetInstance().LockMovement = true;
                 Cursor.lockState = CursorLockMode.Confined;
                 FriendsUICanvas.gameObject.SetActive(true);
-                RegenerateFriendListScrollView();
+                RegenerateFriendListScrollView();                
             }
         }
     }
@@ -85,6 +85,7 @@ public class FriendsUIManagement : MonoBehaviour
         FriendListCanvas.gameObject.SetActive(false);
         AddFriendCanvas.gameObject.SetActive(true);
         FriendRequestsCanvas.gameObject.SetActive(false);
+        ClearSearchInputAndMessage();
         ClearScrollViewContent(SearchScrollViewContent);
     }
 
@@ -186,7 +187,7 @@ public class FriendsUIManagement : MonoBehaviour
 
         if (SearchBarInput == null)
         {
-            SearchBarInput = GameObject.Find("FriendSearchBar/Text");
+            SearchBarInput = GameObject.Find("FriendSearchBar");
         }
         if (SearchErrorMessage == null)
         {
@@ -200,7 +201,7 @@ public class FriendsUIManagement : MonoBehaviour
             }
             return;
         }
-        var searchString = SearchBarInput.GetComponent<Text>().text;
+        var searchString = SearchBarInput.GetComponent<InputField>().text;
 
         if (string.IsNullOrEmpty(searchString))
         {
@@ -309,5 +310,19 @@ public class FriendsUIManagement : MonoBehaviour
             SearchErrorMessage.GetComponent<Text>().color = isError? Color.red : Color.white;
             SearchErrorMessage.GetComponent<Text>().text = message;
         }
-    }            
+    }
+
+    public void ClearSearchInputAndMessage()
+    {
+        if (SearchBarInput == null)
+        {
+            SearchBarInput = GameObject.Find("FriendSearchBar");            
+        }
+        SearchBarInput.GetComponent<InputField>().text = "";
+        if (SearchErrorMessage == null)
+        {
+            SearchErrorMessage = GameObject.Find("FriendSearch/SearchMessageText");            
+        }
+        SearchErrorMessage.GetComponent<Text>().text = "";
+    }
 }
