@@ -134,17 +134,19 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("INSERT Inventory VALUES (@userId, @itemId, @equipped)", db);
+            var cmd = new SqlCommand("INSERT Inventory VALUES (@userId, @itemId, @equipped, @purchaseDate, @payouts)", db);
 
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@itemId", GameItems.GetItems()[itemName].ItemId);
             cmd.Parameters.AddWithValue("@equipped", 0);
+            cmd.Parameters.AddWithValue("@purchaseDate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@payouts", 0);
 
             db.Open();
             cmd.ExecuteNonQuery();
         }
 
-        InventoryItems.UpdateItems();
+        InventoryItems.UpdateItems(UserInfo.GetInstance().UserId);
     }
 
     public static void SellItem(string userId, string itemId)
@@ -159,7 +161,7 @@ public class DataManager
             db.Open();
             cmd.ExecuteNonQuery();
         }
-        InventoryItems.UpdateItems();
+        InventoryItems.UpdateItems(UserInfo.GetInstance().UserId);
     }
 
     public static void EquiptItem(string userId, string itemName)
@@ -220,7 +222,7 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT itemId, equipped FROM Inventory where playerId = @userId", db);
+            var cmd = new SqlCommand("SELECT itemId, equipped, purchaseDate, payouts FROM Inventory where playerId = @userId", db);
 
             cmd.Parameters.AddWithValue("@userId", userId);
 
@@ -235,7 +237,9 @@ public class DataManager
                 InventoryItems.itemIdToRecord.Add(reader.GetString(0), new InventoryItems.InventoryItem
                 {
                     ItemId = reader.GetString(0),
-                    Equipped = reader.GetBoolean(1)
+                    Equipped = reader.GetBoolean(1),
+                    PurchaseDate = reader.GetDateTime(2),
+                    Payouts = reader.GetInt32(3)
                 });
             }
             reader.Close();
@@ -579,12 +583,13 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("INSERT GameSession (gameSessionId, playerId, startTime, serverId, gameId) VALUES (@gameSessionId, @playerId, @startTime, @serverId, @gameId)", db);
+            var cmd = new SqlCommand("INSERT GameSession (gameSessionId, playerId, startTime, serverId, gameId, result) VALUES (@gameSessionId, @playerId, @startTime, @serverId, @gameId, @result)", db);
             cmd.Parameters.AddWithValue("@serverId", serverId);
             cmd.Parameters.AddWithValue("@gameSessionId", connectionId);
             cmd.Parameters.AddWithValue("@playerId", userId);
             cmd.Parameters.AddWithValue("@startTime", DateTime.Now);
             cmd.Parameters.AddWithValue("@gameId", gameId);
+            cmd.Parameters.AddWithValue("@result", 0);
             db.Open();
             cmd.ExecuteNonQuery();
             db.Close();
@@ -599,6 +604,33 @@ public class DataManager
             cmd.Parameters.AddWithValue("@endTime", DateTime.Now);
             cmd.Parameters.AddWithValue("@gameSessionId", connectionId);
             cmd.Parameters.AddWithValue("@serverId", serverId);
+            db.Open();
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
+    }
+    public static void UpdateGameSessionResult (int connectionId, string serverId, decimal result)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("UPDATE GameSession SET result = @result WHERE serverId = @serverId AND gameSessionId = @gameSessionId", db);
+            cmd.Parameters.AddWithValue("@gameSessionId", connectionId);
+            cmd.Parameters.AddWithValue("@serverId", serverId);
+            cmd.Parameters.AddWithValue("@result", result);
+            db.Open();
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
+    }
+
+    public static void UpdateInvestmentPayout(string userId, string itemId, int payouts)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("UPDATE Inventory SET payouts = @payouts WHERE playerId = @userId AND itemId = @itemId", db);
+            cmd.Parameters.AddWithValue("@userId", userId);
+            cmd.Parameters.AddWithValue("@itemId", itemId);
+            cmd.Parameters.AddWithValue("@payouts", payouts);
             db.Open();
             cmd.ExecuteNonQuery();
             db.Close();
