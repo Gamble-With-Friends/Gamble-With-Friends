@@ -382,7 +382,7 @@ public static class Deck
         }
         else
         {
-            for (int i = 0; i < firstHand.SortedHand.Count; i++)
+            for (int i = firstHand.SortedHand.Count - 1; i >= 0; i--)
             {
                 if (firstHand.SortedHand[i].PokerValue() > secondHand.SortedHand[i].PokerValue())
                 {
