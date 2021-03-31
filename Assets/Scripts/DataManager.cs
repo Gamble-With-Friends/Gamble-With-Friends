@@ -636,4 +636,33 @@ public class DataManager
             db.Close();
         }
     }
+
+    public static void RegisterSendCoinsTransaction(string senderId, string recieverDisplayName, decimal amount)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            string receiverId = string.Empty;
+            var cmd = new SqlCommand("SELECT userId FROM Users WHERE displayName=@recieverDisplayName", db);
+            cmd.Parameters.AddWithValue("@recieverDisplayName", recieverDisplayName);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                receiverId = reader.GetString(0);
+                break;
+            }
+            reader.Close();
+
+            cmd = new SqlCommand("INSERT INTO TransactionHistory VALUES (@transactionId, @senderId, @receiverId, @amount, @transactionInitiated)", db);
+            cmd.Parameters.AddWithValue("@transactionId", Guid.NewGuid());
+            cmd.Parameters.AddWithValue("@senderId", senderId);
+            cmd.Parameters.AddWithValue("@receiverId", receiverId);
+            cmd.Parameters.AddWithValue("@amount", amount);
+            cmd.Parameters.AddWithValue("@transactionInitiated", DateTime.Now);
+            cmd.ExecuteNonQuery();
+
+            db.Close();
+        }
+    }
 }

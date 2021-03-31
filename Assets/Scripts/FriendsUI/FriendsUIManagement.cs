@@ -170,6 +170,7 @@ public class FriendsUIManagement : MonoBehaviour
             {
                 DataManager.AddCoinsByDisplayName(friendDisplayName, coinsValue);
                 EventManager.FireChangeCoinValue(-coinsValue);
+                DataManager.RegisterSendCoinsTransaction(localUserId, friendDisplayName, coinsValue);
                 CloseSendCoinsUI();
             }
         }
