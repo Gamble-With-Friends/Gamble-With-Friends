@@ -949,3 +949,5 @@ MonoBehaviour:
   description: {fileID: 693917268}
   descriptionText: {fileID: 72642751}
   itemName: 
+  errorWindow: {fileID: 0}
+  errorText: {fileID: 0}

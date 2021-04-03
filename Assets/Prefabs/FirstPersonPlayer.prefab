@@ -201,16 +201,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  hat: {fileID: 8328340272795882029}
+  tshirt: {fileID: 2744683835160146018}
+  shoes: {fileID: 2572608358657064467}
+  jeans: {fileID: 133847901243994047}
+  watch: {fileID: 5172676831281828433}
+  sweater: {fileID: 491958826801637578}
+  headphones: {fileID: 2176379178324135386}
+  glasses: {fileID: 5723212126602392520}
   controller: {fileID: 5513469463184574691}
   groundCheck: {fileID: 2926913414513304737}
   groundMask:
     serializedVersion: 2
     m_Bits: 256
   playerCamera: {fileID: 6345869226278497603}
-  UserInfoBackground: {fileID: 4477726669414982943}
   isMovementDisabled: 0
   userInfoText: {fileID: 7141142238716120671}
   displayNameTextMesh: {fileID: 8684917380898791340}
+  displayName: 
+  playerId: 
 --- !u!114 &5657047345028707288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,14 +250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40905334b9f7a0b4daa8ae9c08d658e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hat: {fileID: 8328340272795882029}
-  tshirt: {fileID: 2744683835160146018}
-  shoes: {fileID: 2572608358657064467}
-  jeans: {fileID: 133847901243994047}
-  watch: {fileID: 5172676831281828433}
-  sweater: {fileID: 491958826801637578}
-  headphones: {fileID: 2176379178324135386}
-  glasses: {fileID: 5723212126602392520}
 --- !u!1 &1593230966467887773
 GameObject:
   m_ObjectHideFlags: 0

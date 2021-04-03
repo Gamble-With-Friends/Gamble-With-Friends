@@ -8,6 +8,16 @@ using UnityEngine.UI;
 
 public class PlayerMovement : NetworkBehaviour
 {
+    // Outfit
+    public GameObject hat;
+    public GameObject tshirt;
+    public GameObject shoes;
+    public GameObject jeans;
+    public GameObject watch;
+    public GameObject sweater;
+    public GameObject headphones;
+    public GameObject glasses;
+    
     // Public vars
     public CharacterController controller;
     public Transform groundCheck;
@@ -34,11 +44,11 @@ public class PlayerMovement : NetworkBehaviour
     public TextMesh displayNameTextMesh;
     // Sync vars
     [SyncVar]
-    private string displayName;
+    public string displayName;
     [SyncVar]
-    private string playerId;
+    public string playerId;
     [SyncVar]
-    private decimal totalCoins;
+    public decimal totalCoins;
 
     private void OnEnable()
     {
@@ -46,6 +56,7 @@ public class PlayerMovement : NetworkBehaviour
         EventManager.OnReadyToExitGame += OnReadyToExitGame;
         EventManager.OnChangeCoinValue += OnChangeCoinValue;
         EventManager.OnBeforeLoginSuccess += OnBeforeLoginSuccess;
+        EventManager.OnOutfitChange += OnOutfitChange;
     }
 
     private void OnDisable()
@@ -54,15 +65,14 @@ public class PlayerMovement : NetworkBehaviour
         EventManager.OnReadyToExitGame -= OnReadyToExitGame;
         EventManager.OnChangeCoinValue -= OnChangeCoinValue;
         EventManager.OnBeforeLoginSuccess -= OnBeforeLoginSuccess;
+        EventManager.OnOutfitChange -= OnOutfitChange;
     }
 
     private void OnBeforeLoginSuccess()
     {
         if (!isLocalPlayer) return;
-        CmdSetDisplayName(UserInfo.GetInstance().DisplayName);
-        CmdSetUserId(UserInfo.GetInstance().UserId);
-        CmdSetCoins(UserInfo.GetInstance().TotalCoins);
-        EventManager.FireDelayedLoginSuccessEvent();
+        Debug.Log(UserInfo.GetInstance().TotalCoins);
+        CmdSyncVars(UserInfo.GetInstance().UserId, UserInfo.GetInstance().DisplayName, UserInfo.GetInstance().TotalCoins);
     }
 
     private void OnPrepareToGame(int instanceId)
@@ -109,7 +119,6 @@ public class PlayerMovement : NetworkBehaviour
         if (!isLocalPlayer) return;
         isMovementDisabled = UserInfo.GetInstance().LockMovement;
         HandleKeys();
-        SetSyncVars();
         HandleExitGame();
         HandleCamera();
         if (!playerCamera.activeSelf) return;
@@ -231,30 +240,21 @@ public class PlayerMovement : NetworkBehaviour
 
     private void OnChangeCoinValue(decimal amount)
     {
-        if (isLocalPlayer)
-        {
-            CmdChangeCoinValue(UserInfo.GetInstance().UserId, UserInfo.GetInstance().TotalCoins, amount);
-        }
+        if (!isLocalPlayer) return;
+        
+        UserInfo.GetInstance().TotalCoins += amount;
+        CmdChangeCoinValue(UserInfo.GetInstance().UserId, UserInfo.GetInstance().TotalCoins, amount);
     }
 
     // Commands
     
     [Command(requiresAuthority = false)]
-    private void CmdSetDisplayName(string playerDisplayName)
+    private void CmdSyncVars(string userId, string username, decimal coins)
     {
-        displayName = playerDisplayName;
-    }
-    
-    [Command(requiresAuthority = false)]
-    private void CmdSetUserId(string id)
-    {
-        playerId = id;
-    }
-    
-    [Command(requiresAuthority = false)]
-    private void CmdSetCoins(decimal total)
-    {
-        totalCoins = total;
+        playerId = userId;
+        displayName = username;
+        totalCoins = coins;
+        TargetSyncVars();
     }
     
     [Command(requiresAuthority = false)]
@@ -269,5 +269,28 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, changeAmount);
+    }
+
+    [TargetRpc]
+    private void TargetSyncVars()
+    {
+        EventManager.FireDelayedLoginSuccessEvent();
+    }
+
+    private void OnOutfitChange(string userId = null)
+    {
+        if(string.IsNullOrWhiteSpace(playerId)) return;
+
+        if (userId != null && userId != playerId) return;
+
+        var outfit = new Outfit(playerId);
+        hat.SetActive(outfit.hat);
+        tshirt.SetActive(outfit.tshirt);
+        shoes.SetActive(outfit.shoes);
+        jeans.SetActive(outfit.jeans);
+        watch.SetActive(outfit.watch);
+        sweater.SetActive(outfit.sweater);
+        headphones.SetActive(outfit.headphones);
+        glasses.SetActive(outfit.glasses);
     }
 }

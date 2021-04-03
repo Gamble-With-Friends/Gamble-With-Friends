@@ -10,7 +10,7 @@ public class DataManager
     private const string SERVER_IP = "216.58.1.35";
     private const string DATABASE = "GambleWithFriends";
     private const string USERNAME = "Anthony";
-    private const string PASSWORD = "Password123";
+    private const string PASSWORD = "password123";
 
     private const string ConnectionString = @"Data Source = " + SERVER_IP + ";Database=" + DATABASE + ";User Id=" +
                                             USERNAME + ";Password=" + PASSWORD + ";";
@@ -218,8 +218,11 @@ public class DataManager
         }
     }
 
-    public static void GetInventoryItems(string userId)
+    public static Dictionary<string, InventoryItems.InventoryItem> GetInventoryItems(string userId)
     {
+
+        var itemIdToInventoryItem = new Dictionary<string, InventoryItems.InventoryItem>();
+            
         using (var db = new SqlConnection(ConnectionString))
         {
             var cmd = new SqlCommand("SELECT itemId, equipped, purchaseDate, payouts FROM Inventory where playerId = @userId", db);
@@ -228,13 +231,10 @@ public class DataManager
 
             db.Open();
             var reader = cmd.ExecuteReader();
-
             
-            InventoryItems.itemIdToRecord = new Dictionary<string, InventoryItems.InventoryItem>();
-
             while (reader.Read())
             {
-                InventoryItems.itemIdToRecord.Add(reader.GetString(0), new InventoryItems.InventoryItem
+                itemIdToInventoryItem.Add(reader.GetString(0), new InventoryItems.InventoryItem
                 {
                     ItemId = reader.GetString(0),
                     Equipped = reader.GetBoolean(1),
@@ -244,6 +244,8 @@ public class DataManager
             }
             reader.Close();
         }
+
+        return itemIdToInventoryItem;
     }
 
     public static List<string> GetFriends(string playerId)

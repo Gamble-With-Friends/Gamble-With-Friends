@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventoryUI : MonoBehaviour
+public class InventoryUI : NetworkBehaviour
 {
     public Text CoinsValue;
     public GameObject InventoryCanvas;
@@ -14,14 +15,15 @@ public class InventoryUI : MonoBehaviour
     {
         EventManager.OnKeyDown += OnKeyDown;
         EventManager.OnLoginSuccess += OnLoginSuccess;
+        EventManager.OnRequestOutfitChange += OnRequestOutfitChange;
     }
 
     private void OnDisable()
     {
         EventManager.OnKeyDown -= OnKeyDown;
         EventManager.OnLoginSuccess -= OnLoginSuccess;
+        EventManager.OnRequestOutfitChange -= OnRequestOutfitChange;
     }
-
 
     private void OnKeyDown(KeyCode key)
     {
@@ -45,6 +47,7 @@ public class InventoryUI : MonoBehaviour
     {
         InventoryItems.UpdateItems();
         PayInvestment();
+        OnRequestOutfitChange();
     }
 
     private void PayInvestment()
@@ -83,8 +86,20 @@ public class InventoryUI : MonoBehaviour
         return UserInfo.GetInstance().TotalCoins;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnRequestOutfitChange(string userId = null)
     {
+        CmdChangeOutfit(userId);
+    }
+
+    [Command(requiresAuthority = false)]
+    private void CmdChangeOutfit(string userId)
+    {
+        RpcChangeOutfit(userId);
+    }
+    
+    [ClientRpc]
+    private void RpcChangeOutfit(string userId)
+    {
+        EventManager.FireOutfitChange(userId);
     }
 }

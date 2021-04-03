@@ -19,7 +19,7 @@ public class InventoryItems : MonoBehaviour
     {
         if (itemIdToRecord == null)
         {
-            DataManager.GetInventoryItems(UserInfo.GetInstance().UserId);
+            itemIdToRecord = DataManager.GetInventoryItems(UserInfo.GetInstance().UserId);
         }
 
         return itemIdToRecord;
@@ -27,6 +27,12 @@ public class InventoryItems : MonoBehaviour
 
     public static void UpdateItems()
     {
-        DataManager.GetInventoryItems(UserInfo.GetInstance().UserId);
+        Debug.Log(UserInfo.GetInstance().UserId);
+        itemIdToRecord = DataManager.GetInventoryItems(UserInfo.GetInstance().UserId);
+    }
+
+    public static Dictionary<string, InventoryItem> GetInventoryItems(string userId)
+    {
+        return DataManager.GetInventoryItems(userId);
     }
 }

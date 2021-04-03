@@ -63,9 +63,14 @@ public class EventManager : MonoBehaviour
 
     public static event FriendRawActionClicked OnFriendRawActionClick;
 
-    public delegate void OutfitChange();
+    public delegate void OutfitChange(string userId);
 
     public static event OutfitChange OnOutfitChange;
+    
+    
+    public delegate void RequestOutfitChange(string userId);
+
+    public static event RequestOutfitChange OnRequestOutfitChange;
 
     public delegate void StringValueChanged(EventType eventType, string oldValue, string newValue);
 
@@ -129,7 +134,6 @@ public class EventManager : MonoBehaviour
         UserInfo.GetInstance().DisplayName = username;
 
         OnBeforeLoginSuccess?.Invoke();
-        OnOutfitChange?.Invoke();
     }
 
     public static void FireDelayedLoginSuccessEvent()
@@ -162,10 +166,13 @@ public class EventManager : MonoBehaviour
         OnStringValueChange?.Invoke(eventType, oldValue, newValue);
     }
 
-    public static void FireOutfitChange()
+    public static void FireOutfitChange(string userId)
     {
-        OnOutfitChange?.Invoke();
+        OnOutfitChange?.Invoke(userId);
     }
     
-    
+    public static void FireRequestOutfitChange(string userId)
+    {
+        OnRequestOutfitChange?.Invoke(userId);
+    }
 }

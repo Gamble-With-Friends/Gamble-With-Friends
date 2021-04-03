@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -60,7 +61,7 @@ public class InventoryButton : MonoBehaviour
             {
                 DataManager.SellItem(UserInfo.GetInstance().UserId, GameItems.GetItems()[itemName].ItemId);
                 EventManager.FireChangeCoinValue(discountFactor * GameItems.GetItems()[itemName].CoinValue);
-                EventManager.FireOutfitChange();
+                EventManager.FireRequestOutfitChange(UserInfo.GetInstance().UserId);
             }
             equipButton.interactable = false;
             sellButton.interactable = false;
@@ -76,7 +77,7 @@ public class InventoryButton : MonoBehaviour
             if (itemName != null)
             {
                 DataManager.EquiptItem(UserInfo.GetInstance().UserId, itemName);
-                EventManager.FireOutfitChange();
+                EventManager.FireRequestOutfitChange(UserInfo.GetInstance().UserId);
             }
 
             equipButton.interactable = false;
@@ -88,11 +89,10 @@ public class InventoryButton : MonoBehaviour
     {
         if (unequipButton.interactable == true)
         {
-
             if (itemName != null)
             {
                 DataManager.UnequiptItem(UserInfo.GetInstance().UserId, itemName);
-                EventManager.FireOutfitChange();
+                EventManager.FireRequestOutfitChange(UserInfo.GetInstance().UserId);
             }
             unequipButton.interactable = false;
             equipButton.interactable = true;
@@ -116,10 +116,11 @@ public class InventoryButton : MonoBehaviour
     {
         description.SetActive(false);
     }
-
-    // Start is called before the first frame update
-    void Start()
+    
+    void OnEnable()
     {
+        InventoryItems.UpdateItems();
+        
         string itemId = null;
 
         if (GameItems.GetItems().ContainsKey(itemName))
@@ -142,10 +143,11 @@ public class InventoryButton : MonoBehaviour
                 {
                     equipButton.interactable = !equip;
                     unequipButton.interactable = equip;
-                    EventManager.FireOutfitChange();
                 }
             }
         }
+
+        EventManager.FireRequestOutfitChange(UserInfo.GetInstance().UserId);
     }
 
     // Update is called once per frame
@@ -162,4 +164,5 @@ public class InventoryButton : MonoBehaviour
             }
         }
     }
+
 }
