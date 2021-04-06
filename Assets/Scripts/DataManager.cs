@@ -697,4 +697,47 @@ public class DataManager
             db.Close();
         }
     }
+    public static string GetUserId(string displayName)
+    {
+        string userId = string.Empty;
+        using (var db = new SqlConnection(ConnectionString))
+        {            
+            var cmd = new SqlCommand("SELECT userId FROM Users WHERE displayName=@displayName", db);
+            cmd.Parameters.AddWithValue("@displayName", displayName);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                userId = reader.GetString(0);
+                break;
+            }
+            
+            reader.Close();
+            db.Close();
+        }
+        return userId;
+    }
+
+    public static List<ChatMessage> GetLastTenMessages(string currentUserId, string friendUserId)
+    {
+        List<ChatMessage> lastMessages = new List<ChatMessage>();
+
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT TOP 10 senderId, messageContent, DateTimeCreated, DateTimeEdited FROM ChatMessages WHERE (senderId=@currentUserId AND receiverId=@friendUserId) OR (senderId=@friendUserId AND receiverId=@currentUserId) ORDER BY DateTimeCreated DESC", db);
+            cmd.Parameters.AddWithValue("@currentUserId", currentUserId);
+            cmd.Parameters.AddWithValue("@friendUserId", friendUserId);
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                lastMessages.Add(new ChatMessage(reader.GetString(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3)));
+            }
+
+            reader.Close();
+            db.Close();
+        }
+        return lastMessages;
+    }
 }

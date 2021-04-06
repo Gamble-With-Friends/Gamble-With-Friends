@@ -24,9 +24,12 @@ public class FriendsUIManagement : MonoBehaviour
 
     public GameObject ChatCanvas;
     public GameObject MessagesScrollViewContent;
+    public GameObject MessagePrefab;
 
     private GameObject SearchBarInput;
     private GameObject SearchErrorMessage;
+
+    private UserInfo friend;
 
     
     private void OnEnable()
@@ -345,22 +348,26 @@ public class FriendsUIManagement : MonoBehaviour
                 UserInfo.GetInstance().LockMovement = true;
                 Cursor.lockState = CursorLockMode.Confined;
                 ChatCanvas.gameObject.SetActive(true);
+
+                friend = new UserInfo() { DisplayName = displayName, UserId = DataManager.GetUserId(displayName) };
+
                 GameObject chatWindowTitle = GameObject.Find("ChatWindowTitle");
                 if (chatWindowTitle != null)
                 {
                     chatWindowTitle.GetComponent<Text>().text = "Chat with " + displayName;
                 }
-                RegenerateMessagesListScrollView(displayName);
+                RegenerateMessagesListScrollView();
             }
         }
     }
 
     public void CloseChatWindow()
     {
+        friend = null;
         ChatCanvas.gameObject.SetActive(false);
     }
 
-    private void RegenerateMessagesListScrollView(string friendDisplayName)
+    private void RegenerateMessagesListScrollView()
     {
         ClearScrollViewContent(MessagesScrollViewContent);
 
@@ -371,9 +378,9 @@ public class FriendsUIManagement : MonoBehaviour
             return;
         }
 
-        //var messages = DataManager.GetLastTenMessages(localUserId, friendDisplayName);
+        var messages = DataManager.GetLastTenMessages(localUserId, friend.UserId);
 
-        //InstantiateScrollViewContent(FriendScrollViewContent, FriendCardPrefab, friends);
+        InstantiateMessageScrollViewContent(messages);
     }
 
     public void SendMessageToFriend()
@@ -387,7 +394,25 @@ public class FriendsUIManagement : MonoBehaviour
         }
         string messageContent = GameObject.Find("MessageInputField").GetComponent<InputField>().text;
         DataManager.SaveMessage(UserInfo.GetInstance().UserId, friendDisplayName, messageContent);
-        // clear message input
-        // regenerate messages in the scrollview
+
+
+        GameObject.Find("MessageInputField").GetComponent<InputField>().text = string.Empty;
+
+        RegenerateMessagesListScrollView();
+    }
+
+    public void InstantiateMessageScrollViewContent(List<ChatMessage> messages)
+    {
+        var messageHeight = MessagePrefab.transform.localScale.y; // CHANGE LATER !!!!
+        var offset = -30f;
+
+        //foreach (var message in messages)
+        //{
+        //    var messageCard = Instantiate(MessagePrefab, MessagesScrollViewContent.transform); // instantiate prefab
+        //    messageCard.transform.GetChild(0).GetComponent<Text>().text = user;
+        //    var localPosition = messageCard.transform.localPosition;
+        //    messageCard.transform.localPosition = new Vector3(localPosition.x, messageHeight + offset, localPosition.z);
+        //    offset -= 40;
+        //}
     }
 }

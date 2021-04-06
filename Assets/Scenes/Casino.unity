@@ -747,6 +747,8 @@ MonoBehaviour:
   RequestsScrollViewContent: {fileID: 1066247563}
   ChatCanvas: {fileID: 349101131}
   MessagesScrollViewContent: {fileID: 73477192}
+  MessagePrefab: {fileID: 1279711988288387878, guid: b7c95687f760b3a44b03d7714b96912b,
+    type: 3}
 --- !u!1 &43785999
 GameObject:
   m_ObjectHideFlags: 0
