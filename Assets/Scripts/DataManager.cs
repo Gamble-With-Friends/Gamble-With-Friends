@@ -272,21 +272,15 @@ public class DataManager
         return friendList;
     }
 
-    public static void UnfriendUser(string localUserId, string friendDisplayName)
+    public static void UnfriendUser(string localUserId, string friendUserId)
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("DELETE f FROM Friends f JOIN Users u ON f.friendId=u.userId WHERE f.userId=@userId AND u.displayName=@friendDisplayName", db);
+            var cmd = new SqlCommand("DELETE FROM Friends WHERE (userId=@userId AND friendId=@friendUserId) OR (userId=@friendUserId AND friendId=@userId)", db);
             cmd.Parameters.AddWithValue("@userId", localUserId);
-            cmd.Parameters.AddWithValue("@friendDisplayName", friendDisplayName);
+            cmd.Parameters.AddWithValue("@friendUserId", friendUserId);
 
             db.Open();
-            cmd.ExecuteNonQuery();
-
-
-            cmd = new SqlCommand("DELETE f FROM Friends f JOIN Users u ON f.userId=u.userId WHERE f.friendId=@userId AND u.displayName=@friendDisplayName", db);
-            cmd.Parameters.AddWithValue("@userId", localUserId);
-            cmd.Parameters.AddWithValue("@friendDisplayName", friendDisplayName);
             cmd.ExecuteNonQuery();
 
             db.Close();
