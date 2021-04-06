@@ -22,6 +22,9 @@ public class FriendsUIManagement : MonoBehaviour
     public GameObject FriendRequestsCanvas;
     public GameObject RequestsScrollViewContent;
 
+    public GameObject ChatCanvas;
+    public GameObject MessagesScrollViewContent;
+
     private GameObject SearchBarInput;
     private GameObject SearchErrorMessage;
 
@@ -101,6 +104,11 @@ public class FriendsUIManagement : MonoBehaviour
     #region Send Coins, Friend Request & Unfriend
     private void OnFriendRawActionClick(FriendRawAction action, string displayName)
     {
+        if (action == FriendRawAction.SendMessage)
+        {
+            Debug.Log("Open Chat Window");
+            OpenChatWindow(displayName);
+        }
         if (action == FriendRawAction.SendCoins)
         {
             Debug.Log("Open Send Coins");
@@ -325,5 +333,61 @@ public class FriendsUIManagement : MonoBehaviour
             SearchErrorMessage = GameObject.Find("FriendSearch/SearchMessageText");            
         }
         SearchErrorMessage.GetComponent<Text>().text = "";
+    }
+
+    public void OpenChatWindow(string displayName)
+    {
+        if (UserInfo.GetInstance().UserId != null)
+        {
+            if (!ChatCanvas.gameObject.activeSelf)
+            {
+                UserInfo.GetInstance().LockMouse = true;
+                UserInfo.GetInstance().LockMovement = true;
+                Cursor.lockState = CursorLockMode.Confined;
+                ChatCanvas.gameObject.SetActive(true);
+                GameObject chatWindowTitle = GameObject.Find("ChatWindowTitle");
+                if (chatWindowTitle != null)
+                {
+                    chatWindowTitle.GetComponent<Text>().text = "Chat with " + displayName;
+                }
+                RegenerateMessagesListScrollView(displayName);
+            }
+        }
+    }
+
+    public void CloseChatWindow()
+    {
+        ChatCanvas.gameObject.SetActive(false);
+    }
+
+    private void RegenerateMessagesListScrollView(string friendDisplayName)
+    {
+        ClearScrollViewContent(MessagesScrollViewContent);
+
+        var localUserId = UserInfo.GetInstance().UserId;
+
+        if (localUserId == null)
+        {
+            return;
+        }
+
+        //var messages = DataManager.GetLastTenMessages(localUserId, friendDisplayName);
+
+        //InstantiateScrollViewContent(FriendScrollViewContent, FriendCardPrefab, friends);
+    }
+
+    public void SendMessageToFriend()
+    {
+        string friendDisplayName = string.Empty;
+        GameObject chatWindowTitle = GameObject.Find("ChatWindowTitle");
+        if (chatWindowTitle != null)
+        {
+            string title = chatWindowTitle.GetComponent<Text>().text;
+            friendDisplayName = title.Substring(("Chat with ").Length);
+        }
+        string messageContent = GameObject.Find("MessageInputField").GetComponent<InputField>().text;
+        DataManager.SaveMessage(UserInfo.GetInstance().UserId, friendDisplayName, messageContent);
+        // clear message input
+        // regenerate messages in the scrollview
     }
 }

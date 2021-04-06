@@ -7,6 +7,10 @@ public class FriendCardPrefabScript : MonoBehaviour
 {
     public Text DisplayNameText;
 
+    public void ChatWithFriend()
+    {
+        EventManager.FireFriendRawActionClick(FriendRawAction.SendMessage, this.GetComponent<FriendCardPrefabScript>().DisplayNameText.text);
+    }
     public void UnfriendUser()
     {
         EventManager.FireFriendRawActionClick(FriendRawAction.Unfriend, this.GetComponent<FriendCardPrefabScript>().DisplayNameText.text);
