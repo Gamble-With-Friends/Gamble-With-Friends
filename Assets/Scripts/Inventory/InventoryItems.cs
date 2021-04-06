@@ -27,7 +27,7 @@ public class InventoryItems : MonoBehaviour
 
     public static void UpdateItems()
     {
-        Debug.Log(UserInfo.GetInstance().UserId);
+        Debug.Log("Updating :" + UserInfo.GetInstance().DisplayName + " Inventory");
         itemIdToRecord = DataManager.GetInventoryItems(UserInfo.GetInstance().UserId);
     }
 

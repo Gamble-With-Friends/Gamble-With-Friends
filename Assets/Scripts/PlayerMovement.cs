@@ -109,7 +109,8 @@ public class PlayerMovement : NetworkBehaviour
         if (UserInfo.GetInstance().UserId != null)
         {
             userInfoText.text = "Username: " + UserInfo.GetInstance().DisplayName + "\n" +
-                                "Coins: $" + UserInfo.GetInstance().TotalCoins;
+                                "Coins: $" + UserInfo.GetInstance().TotalCoins + "\n"+
+                                "Daily Income: $" + UserInfo.GetInstance().DailyIncome;
         }
         else
         {

@@ -8,24 +8,6 @@ public class ProfileUI : MonoBehaviour
     public GameObject profileui;
     public Text playerName;
 
-    //public Image glasses;
-    //public Image hat;
-    //public Image headphones;
-    //public Image watch;
-    //public Image shirt;
-    //public Image sweater;
-    //public Image pants;
-    //public Image shoes;
-
-    //public Image casino;
-    //public Image shop;
-    //public Image mcdonalds;
-    //public Image carwash;
-    //public Image parkinglot;
-    //public Image hotdog;
-    //public Image crypto;
-    //public Image vending;
-
     public List<Image> images;
 
     private void OnEnable()

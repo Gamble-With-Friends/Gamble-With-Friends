@@ -6,6 +6,7 @@ public class UserInfo
 {
     public string UserId { get; set; }
     public string DisplayName { get; set; }
+    public decimal DailyIncome { get; set; }
     public decimal TotalCoins { get; set; }
     public int CurrentGameId { get; set; }
     public bool LockMovement { get; set; }

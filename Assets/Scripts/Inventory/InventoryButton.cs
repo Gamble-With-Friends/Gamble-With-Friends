@@ -37,6 +37,7 @@ public class InventoryButton : MonoBehaviour
                     {
                         equipButton.interactable = true;
                     }
+                    InventoryUI.CalculateInvestment();
                 }
                 else
                 {

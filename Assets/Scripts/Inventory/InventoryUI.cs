@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class InventoryUI : NetworkBehaviour
 {
-    public Text CoinsValue;
+    public Text dailyInvestment;
     public GameObject InventoryCanvas;
 
     private void OnEnable()
@@ -47,7 +47,22 @@ public class InventoryUI : NetworkBehaviour
     {
         InventoryItems.UpdateItems();
         PayInvestment();
+        CalculateInvestment();
         OnRequestOutfitChange();
+    }
+
+    public static void CalculateInvestment()
+    {
+        decimal amount = 0;
+
+        var investments = new string[] { "CryptominingRig", "VendingMachine", "HotdogStand", "CarWash", "ParkingLot", "ConvenienceStore", "McDonalds", "Casino" };
+        foreach (var invest in investments)
+        {
+            var itemId = GameItems.GetItems()[invest].ItemId;
+            if (!InventoryItems.GetInventoryItems().ContainsKey(itemId)) continue;
+            amount += GameItems.GetItems()[invest].IncomeAmount;
+        }
+        UserInfo.GetInstance().DailyIncome = amount;
     }
 
     private void PayInvestment()
@@ -79,11 +94,6 @@ public class InventoryUI : NetworkBehaviour
         InventoryCanvas.gameObject.SetActive(false);
         UserInfo.GetInstance().LockMouse = false;
         UserInfo.GetInstance().LockMovement = false;
-    }
-
-    public decimal GetCoinValue()
-    {
-        return UserInfo.GetInstance().TotalCoins;
     }
 
     private void OnRequestOutfitChange(string userId = null)
