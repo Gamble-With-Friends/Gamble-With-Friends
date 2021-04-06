@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class ChatMessage
 {
-    public string SenderDisplayName { get; set; }
+    public string SenderUserId { get; set; }
     public string Content { get; set; }
     public DateTime Created { get; set; }
     public DateTime LastUpdated { get; set; }
 
-    public ChatMessage(string senderName, string content, DateTime created, DateTime updated)
+    public ChatMessage(string senderId, string content, DateTime created, DateTime updated)
     {
-        SenderDisplayName = senderName;
+        SenderUserId = senderId;
         Content = content;
         Created = created;
         LastUpdated = updated;

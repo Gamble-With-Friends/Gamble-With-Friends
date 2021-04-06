@@ -107,6 +107,7 @@ public class FriendsUIManagement : MonoBehaviour
     #region Send Coins, Friend Request & Unfriend
     private void OnFriendRawActionClick(FriendRawAction action, string displayName)
     {
+        friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName= displayName };
         if (action == FriendRawAction.SendMessage)
         {
             Debug.Log("Open Chat Window");
@@ -121,7 +122,7 @@ public class FriendsUIManagement : MonoBehaviour
         {
             if (UserInfo.GetInstance().UserId != null && displayName != null)
             {
-                DataManager.UnfriendUser(UserInfo.GetInstance().UserId, displayName);
+                DataManager.UnfriendUser(UserInfo.GetInstance().UserId, friend.UserId);
                 RegenerateFriendListScrollView();
             }
         }
@@ -349,6 +350,8 @@ public class FriendsUIManagement : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Confined;
                 ChatCanvas.gameObject.SetActive(true);
 
+                GameObject.Find("MessageInputField").GetComponent<InputField>().Select();
+
                 friend = new UserInfo() { DisplayName = displayName, UserId = DataManager.GetUserId(displayName) };
 
                 GameObject chatWindowTitle = GameObject.Find("ChatWindowTitle");
@@ -404,15 +407,20 @@ public class FriendsUIManagement : MonoBehaviour
     public void InstantiateMessageScrollViewContent(List<ChatMessage> messages)
     {
         var messageHeight = MessagePrefab.transform.localScale.y; // CHANGE LATER !!!!
-        var offset = -30f;
+        var offset = -100f;
 
-        //foreach (var message in messages)
-        //{
-        //    var messageCard = Instantiate(MessagePrefab, MessagesScrollViewContent.transform); // instantiate prefab
-        //    messageCard.transform.GetChild(0).GetComponent<Text>().text = user;
-        //    var localPosition = messageCard.transform.localPosition;
-        //    messageCard.transform.localPosition = new Vector3(localPosition.x, messageHeight + offset, localPosition.z);
-        //    offset -= 40;
-        //}
+        foreach (var message in messages)
+        {
+            var messageCard = Instantiate(MessagePrefab, MessagesScrollViewContent.transform); // instantiate prefab
+            string title = message.SenderUserId == friend.UserId ? friend.DisplayName + " wrote:" : "You wrote:";
+            messageCard.transform.GetChild(0).GetComponent<Text>().text = title;
+            messageCard.transform.GetChild(1).GetComponent<Text>().text = message.Content;
+            var localPosition = messageCard.transform.localPosition;
+            messageCard.transform.localPosition = new Vector3(localPosition.x, messageHeight + offset, localPosition.z);
+
+            RectTransform rt = (RectTransform)messageCard.transform;
+            float height = rt.rect.height;
+            offset -= height + 5;
+        }
     }
 }
