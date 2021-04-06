@@ -734,4 +734,26 @@ public class DataManager
         }
         return lastMessages;
     }
+
+    public static string GetItemId(string itemName)
+    {
+        string ItemId = string.Empty;
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT itemId FROM item WHERE itemTitle=@itemName", db);
+            cmd.Parameters.AddWithValue("@itemName", itemName);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                ItemId = reader.GetString(0);
+                break;
+            }
+
+            reader.Close();
+            db.Close();
+        }
+        return ItemId;
+    }
 }
