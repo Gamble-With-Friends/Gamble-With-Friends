@@ -20,4 +20,8 @@ public class FriendCardPrefabScript : MonoBehaviour
     {
         EventManager.FireFriendRawActionClick(FriendRawAction.SendCoins, this.GetComponent<FriendCardPrefabScript>().DisplayNameText.text);
     }
+    public void OpenProfile()
+    {
+        EventManager.FireFriendRawActionClick(FriendRawAction.ViewProfile, this.GetComponent<FriendCardPrefabScript>().DisplayNameText.text);
+    }
 }
