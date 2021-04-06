@@ -667,4 +667,34 @@ public class DataManager
             db.Close();
         }
     }
+
+    public static void SaveMessage(string currentUserId, string friendDisplayName, string messageContent)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            string receiverId = string.Empty;
+            var cmd = new SqlCommand("SELECT userId FROM Users WHERE displayName=@friendDisplayName", db);
+            cmd.Parameters.AddWithValue("@friendDisplayName", friendDisplayName);
+
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                receiverId = reader.GetString(0);
+                break;
+            }
+            reader.Close();
+
+            cmd = new SqlCommand("INSERT INTO ChatMessages VALUES (@messageId, @senderId, @receiverId, @content, @created, @updated)", db);
+            cmd.Parameters.AddWithValue("@messageId", Guid.NewGuid().ToString());
+            cmd.Parameters.AddWithValue("@senderId", currentUserId);
+            cmd.Parameters.AddWithValue("@receiverId", receiverId);
+            cmd.Parameters.AddWithValue("@content", messageContent);
+            cmd.Parameters.AddWithValue("@created", DateTime.Now);
+            cmd.Parameters.AddWithValue("@updated", DateTime.Now);
+            cmd.ExecuteNonQuery();
+
+            db.Close();
+        }
+    }
 }
