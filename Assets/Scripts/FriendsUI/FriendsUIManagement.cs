@@ -106,20 +106,22 @@ public class FriendsUIManagement : MonoBehaviour
 
     #region Send Coins, Friend Request & Unfriend
     private void OnFriendRawActionClick(FriendRawAction action, string displayName)
-    {
-        friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName= displayName };
+    {        
         if (action == FriendRawAction.SendMessage)
         {
+            friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName = displayName };
             Debug.Log("Open Chat Window");
             OpenChatWindow(displayName);
         }
         if (action == FriendRawAction.SendCoins)
         {
+            friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName = displayName };
             Debug.Log("Open Send Coins");
             OpenSendCoinsUI(displayName);
         }
         else if (action == FriendRawAction.Unfriend)
         {
+            friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName = displayName };
             if (UserInfo.GetInstance().UserId != null && displayName != null)
             {
                 DataManager.UnfriendUser(UserInfo.GetInstance().UserId, friend.UserId);
@@ -128,15 +130,26 @@ public class FriendsUIManagement : MonoBehaviour
         }
         else if (action == FriendRawAction.SendFriendRequest)
         {
+            friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName = displayName };
             SendFriendRequest(UserInfo.GetInstance().UserId, displayName);           
         }
         else if (action == FriendRawAction.AcceptRequest)
         {
+            friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName = displayName };
             AcceptFriendRequest(UserInfo.GetInstance().UserId, displayName);
         }
         else if (action == FriendRawAction.DenyRequest)
         {
+            friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName = displayName };
             DenyFriendRequest(UserInfo.GetInstance().UserId, displayName);
+        }
+        else if (action == FriendRawAction.EditMessage)
+        {
+            EditMessage(displayName);
+        }
+        else if (action == FriendRawAction.DeleteMessage)
+        {
+            DeleteMessage(displayName);
         }
     }
 
@@ -406,21 +419,51 @@ public class FriendsUIManagement : MonoBehaviour
 
     public void InstantiateMessageScrollViewContent(List<ChatMessage> messages)
     {
-        var messageHeight = MessagePrefab.transform.localScale.y; // CHANGE LATER !!!!
+        var contentHeight = 5f;
+        var messageHeight = MessagePrefab.transform.localScale.y;
         var offset = -100f;
 
         foreach (var message in messages)
         {
             var messageCard = Instantiate(MessagePrefab, MessagesScrollViewContent.transform); // instantiate prefab
+
             string title = message.SenderUserId == friend.UserId ? friend.DisplayName + " wrote:" : "You wrote:";
             messageCard.transform.GetChild(0).GetComponent<Text>().text = title;
             messageCard.transform.GetChild(1).GetComponent<Text>().text = message.Content;
+
+            if (message.SenderUserId == friend.UserId)
+            {
+                messageCard.transform.GetChild(2).gameObject.SetActive(false);
+                messageCard.transform.GetChild(3).gameObject.SetActive(false);
+            }
+
+            var script = messageCard.GetComponent<MessagePrefabScript>();
+            script.MessageId = message.MessageId;
+
             var localPosition = messageCard.transform.localPosition;
             messageCard.transform.localPosition = new Vector3(localPosition.x, messageHeight + offset, localPosition.z);
 
             RectTransform rt = (RectTransform)messageCard.transform;
             float height = rt.rect.height;
             offset -= height + 5;
+
+            contentHeight += offset;
         }
+        //RectTransform rtContent = (RectTransform)MessagesScrollViewContent.transform;
+        //rtContent.rect.Set(rtContent.rect.x, rtContent.rect.y, rtContent.rect.width, contentHeight);
+
+    }
+
+    public void EditMessage(string messageId)
+    {
+        // load message content
+        // display message content in the input field
+
+    }
+
+    public void DeleteMessage(string messageId)
+    {
+        DataManager.DeleteMessage(messageId);
+        RegenerateMessagesListScrollView();
     }
 }

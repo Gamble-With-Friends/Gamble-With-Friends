@@ -10,5 +10,7 @@ public enum FriendRawAction
     Unfriend,
     SendFriendRequest,
     AcceptRequest,
-    DenyRequest
+    DenyRequest,
+    EditMessage,
+    DeleteMessage
 }

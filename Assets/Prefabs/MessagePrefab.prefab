@@ -118,7 +118,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1279711986635511738}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1161232301434069951}
+        m_MethodName: EditMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1279711986891226305
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +248,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1279711986891226316}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1161232301434069951}
+        m_MethodName: DeleteMessage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1279711986941346421
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +582,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833b1d931ea1a7648959869ad32a2c05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MessageId: 
+  ContentInput: {fileID: 0}
 --- !u!1 &3335573441569778658
 GameObject:
   m_ObjectHideFlags: 0

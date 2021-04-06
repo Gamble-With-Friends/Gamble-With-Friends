@@ -719,14 +719,14 @@ public class DataManager
 
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT TOP 10 senderId, messageContent, DateTimeCreated, DateTimeEdited FROM ChatMessages WHERE (senderId=@currentUserId AND receiverId=@friendUserId) OR (senderId=@friendUserId AND receiverId=@currentUserId) ORDER BY DateTimeCreated DESC", db);
+            var cmd = new SqlCommand("SELECT TOP 10 messageId, senderId, messageContent, DateTimeCreated, DateTimeEdited FROM ChatMessages WHERE (senderId=@currentUserId AND receiverId=@friendUserId) OR (senderId=@friendUserId AND receiverId=@currentUserId) ORDER BY DateTimeCreated DESC", db);
             cmd.Parameters.AddWithValue("@currentUserId", currentUserId);
             cmd.Parameters.AddWithValue("@friendUserId", friendUserId);
             db.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                lastMessages.Add(new ChatMessage(reader.GetString(0), reader.GetString(1), reader.GetDateTime(2), reader.GetDateTime(3)));
+                lastMessages.Add(new ChatMessage(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetDateTime(3), reader.GetDateTime(4)));
             }
 
             reader.Close();
@@ -755,5 +755,17 @@ public class DataManager
             db.Close();
         }
         return ItemId;
+    }
+
+    public static void DeleteMessage(string messageId)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("DELETE FROM ChatMessages WHERE messageId=@messageId", db);
+            cmd.Parameters.AddWithValue("@messageId", messageId);
+            db.Open();           
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
     }
 }

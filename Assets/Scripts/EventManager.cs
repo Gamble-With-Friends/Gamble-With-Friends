@@ -65,8 +65,7 @@ public class EventManager : MonoBehaviour
 
     public delegate void OutfitChange(string userId);
 
-    public static event OutfitChange OnOutfitChange;
-    
+    public static event OutfitChange OnOutfitChange;    
     
     public delegate void RequestOutfitChange(string userId);
 
