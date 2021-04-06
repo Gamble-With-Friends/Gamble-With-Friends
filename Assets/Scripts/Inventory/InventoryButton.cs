@@ -120,7 +120,7 @@ public class InventoryButton : MonoBehaviour
     void OnEnable()
     {
         InventoryItems.UpdateItems();
-        
+ 
         string itemId = null;
 
         if (GameItems.GetItems().ContainsKey(itemName))
@@ -139,18 +139,27 @@ public class InventoryButton : MonoBehaviour
                 shade.a = 1f;
                 icon.color = shade;
                 sellButton.interactable = true;
-                if(GameItems.GetItems()[itemName].ItemType != 2)
+                if (GameItems.GetItems()[itemName].ItemType != 2)
                 {
                     equipButton.interactable = !equip;
                     unequipButton.interactable = equip;
                 }
+            }
+            else
+            {
+                Color shade = icon.color;
+                shade.a = 0.3f;
+                icon.color = shade;
+                sellButton.interactable = false;
+                equipButton.interactable = false;
+                unequipButton.interactable = false;
             }
         }
 
         EventManager.FireRequestOutfitChange(UserInfo.GetInstance().UserId);
     }
 
-    // Update is called once per frame
+        // Update is called once per frame
     void Update()
     {
         if (displayErrorMessage)
