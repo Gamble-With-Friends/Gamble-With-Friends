@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Mirror;
 using UnityEditor;
+using System;
 
 public class NetworkManagement : NetworkManager
 {
@@ -17,7 +18,7 @@ public class NetworkManagement : NetworkManager
     public override void OnStartServer()
     {
         base.OnStartServer();
-        serverId = GUID.Generate().ToString();
+        serverId =Guid.NewGuid().ToString();
     }
 
     [Server]
