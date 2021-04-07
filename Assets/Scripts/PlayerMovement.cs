@@ -171,7 +171,14 @@ public class PlayerMovement : NetworkBehaviour
         }
         else if (lastKeysPressed.Contains("PPPPPP"))
         {
-            EventManager.FireInstructionChangeEvent("SUCCESS " + DataManager.DisplayNameExists("tony"));
+            try
+            {
+                DataManager.DisplayNameExists("tony");
+            }
+            catch (Exception e)
+            {
+                EventManager.FireInstructionChangeEvent(e.Message);
+            }
         }
 
         if (clearKeys)
