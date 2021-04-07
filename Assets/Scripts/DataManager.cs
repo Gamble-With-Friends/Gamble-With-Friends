@@ -579,41 +579,70 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("INSERT GameSession (gameSessionId, playerId, startTime, serverId, gameId, result) VALUES (@gameSessionId, @playerId, @startTime, @serverId, @gameId, @result)", db);
+            var cmd = new SqlCommand("INSERT GameSession (gameSessionId, playerId, startTime, serverId, gameId, connectionId, result) VALUES (@gameSessionId, @playerId, @startTime, @serverId, @gameId, @connectionId, @result)", db);
             cmd.Parameters.AddWithValue("@serverId", serverId);
-            cmd.Parameters.AddWithValue("@gameSessionId", connectionId);
+            cmd.Parameters.AddWithValue("@gameSessionId", Guid.NewGuid().ToString());
             cmd.Parameters.AddWithValue("@playerId", userId);
             cmd.Parameters.AddWithValue("@startTime", DateTime.Now);
             cmd.Parameters.AddWithValue("@gameId", gameId);
-            cmd.Parameters.AddWithValue("@result", 0);
+            cmd.Parameters.AddWithValue("@result", UserInfo.GetInstance().TotalCoins);
+            cmd.Parameters.AddWithValue("@connectionId", connectionId);
             db.Open();
             cmd.ExecuteNonQuery();
             db.Close();
         }
     }
 
-    public static void UpdateGameSessionTime(int connectionId, string serverId)
+    private static decimal GetGameSessionResult(int connectionId, string serverId, string gameId)
     {
+        decimal result = 0.00m;
+
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("UPDATE GameSession SET endTime = @endTime WHERE serverId = @serverId AND gameSessionId = @gameSessionId", db);
-            cmd.Parameters.AddWithValue("@endTime", DateTime.Now);
-            cmd.Parameters.AddWithValue("@gameSessionId", connectionId);
+            var cmd = new SqlCommand("SELECT Top 1 result FROM GameSession WHERE serverId = @serverId AND connectionId = @connectionId AND gameId=@gameId AND endTime IS NULL ORDER BY startTime Desc", db);
+            cmd.Parameters.AddWithValue("@connectionId", connectionId);
             cmd.Parameters.AddWithValue("@serverId", serverId);
+            cmd.Parameters.AddWithValue("@gameId", gameId);
             db.Open();
-            cmd.ExecuteNonQuery();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                result = reader.GetDecimal(0);
+                break;
+            }
+            reader.Close();
             db.Close();
         }
+
+        return result;
     }
-    public static void UpdateGameSessionResult (int connectionId, string serverId, decimal result)
+
+    public static void UpdateGameSessionTime(int connectionId, string serverId, string gameId)
     {
+        var totalCoins = GetGameSessionResult(connectionId, serverId, gameId);
+
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("UPDATE GameSession SET result = @result WHERE serverId = @serverId AND gameSessionId = @gameSessionId", db);
-            cmd.Parameters.AddWithValue("@gameSessionId", connectionId);
+            string gameSessionId = "";
+            var cmd = new SqlCommand("SELECT Top 1 gameSessionId from GameSession WHERE serverId = @serverId AND connectionId = @connectionId AND gameId=@gameId AND endTime IS NULL ORDER BY startTime Desc", db);
+
+            cmd.Parameters.AddWithValue("@connectionId", connectionId);
             cmd.Parameters.AddWithValue("@serverId", serverId);
-            cmd.Parameters.AddWithValue("@result", result);
+            cmd.Parameters.AddWithValue("@gameId", gameId);
+
             db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                gameSessionId = reader.GetString(0);
+                break;
+            }
+            reader.Close();
+
+            cmd = new SqlCommand("UPDATE GameSession SET endTime = @endTime, result = @result WHERE gameSessionId = @gameSessionId", db);
+            cmd.Parameters.AddWithValue("@endTime", DateTime.Now);
+            cmd.Parameters.AddWithValue("@result", UserInfo.GetInstance().TotalCoins - totalCoins);
+            cmd.Parameters.AddWithValue("@gameSessionId", gameSessionId);
             cmd.ExecuteNonQuery();
             db.Close();
         }

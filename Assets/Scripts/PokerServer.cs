@@ -70,7 +70,7 @@ public class PokerServer : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdExitGameSession(NetworkConnectionToClient sender = null)
     {
-        DataManager.UpdateGameSessionTime(sender.connectionId, LobbyInfo.GetInstance().serverId);
+        DataManager.UpdateGameSessionTime(sender.connectionId, LobbyInfo.GetInstance().serverId, GameId);
     }
     
     [Command(requiresAuthority = false)]
