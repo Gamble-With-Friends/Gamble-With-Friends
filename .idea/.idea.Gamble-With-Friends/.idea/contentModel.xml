@@ -568,6 +568,7 @@
           <e p="CanvasManager.cs" t="Include" />
           <e p="CanvasScript.cs" t="Include" />
           <e p="CardScript.cs" t="Include" />
+          <e p="ChatMessage.cs" t="Include" />
           <e p="ChipScript.cs" t="Include" />
           <e p="CreateCharacterMessage.cs" t="Include" />
           <e p="DataManager.cs" t="Include" />
@@ -597,6 +598,7 @@
           <e p="LobbyInfo.cs" t="Include" />
           <e p="LoginChecker.cs" t="Include" />
           <e p="LoginTriggerScript.cs" t="Include" />
+          <e p="MessagePrefabScript.cs" t="Include" />
           <e p="MouseLook.cs" t="Include" />
           <e p="NetworkManagement.cs" t="Include" />
           <e p="Outfit.cs" t="Include" />
@@ -605,6 +607,7 @@
           <e p="PokerCardScript.cs" t="Include" />
           <e p="PokerClient.cs" t="Include" />
           <e p="PokerServer.cs" t="Include" />
+          <e p="ProfileUI.cs" t="Include" />
           <e p="RegisterLoginScript.cs" t="Include" />
           <e p="ScriptAssembly.asmdef" t="Include" />
           <e p="UserInfo.cs" t="Include" />

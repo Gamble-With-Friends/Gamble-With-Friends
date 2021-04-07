@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using Mirror;
 using UnityEngine;
 
@@ -8,19 +9,21 @@ public class PokerServer : NetworkBehaviour
 {
     public PokerClient client;
 
-    [SyncVar] public decimal totalBets;
-
-    [SyncVar(hook = nameof(SyncGameState))]
-    public GameState gameState;
+    [SyncVar] public GameState gameState;
 
     [SyncVar(hook = nameof(SyncSeatToUserId))]
     private string slotToUserIdSerialized;
+    private bool waitingTimeoutToStartGame;
 
-    [SyncVar(hook = nameof(SyncTurn))] public int turn;
-
+    // Game related variables
+    [SyncVar] public decimal highestBet;
+    [SyncVar] public decimal totalBets;
     private Dictionary<int, decimal> spotToBet;
     private Dictionary<int, List<Card>> spotToCards;
     private List<Card> deck;
+    private bool hasRaise;
+    private int spotWhoRaised;
+    public int turn;
 
     // Public Functions
     public void AddPlayer(string userId)
@@ -39,29 +42,17 @@ public class PokerServer : NetworkBehaviour
         client.OnSeatToUserIdChange(oldValue, newValue);
     }
 
-    private void SyncGameState(GameState oldValue, GameState newValue)
-    {
-        client.OnGameStateChange(oldValue.ToString(), newValue.ToString());
-    }
-
-    private void SyncTurn(int oldValue, int newValue)
-    {
-        client.OnTurnChange(newValue);
-    }
-
     private void SetGameState(Dictionary<int, string> dict)
     {
         // If not enough players, set the game state to waiting for players
         if (dict.Count < 2)
         {
-            gameState = GameState.WaitingForPlayers;
-            spotToCards = new Dictionary<int, List<Card>>();
-            spotToBet = new Dictionary<int, decimal>();
+            ResetGameVariables();
         }
         // If more than 1 player and waiting for players, set the game state to betting
         else if (gameState == GameState.WaitingForPlayers)
         {
-            gameState = GameState.BettingAnte;
+            gameState = GameState.Ante;
         }
     }
 
@@ -77,19 +68,32 @@ public class PokerServer : NetworkBehaviour
             break;
         }
 
+        slotToUserIdSerialized = JsonLibrary.SerializeDictionaryIntString(dict);
+
+        if (!waitingTimeoutToStartGame)
+        {
+            TryStartGame();
+        }
+    }
+
+    private void TryStartGame()
+    {
+        ResetGameVariables();
+        var dict = JsonLibrary.DeserializeDictionaryIntString(slotToUserIdSerialized);
         var oldGameState = gameState;
         SetGameState(dict);
 
-        slotToUserIdSerialized = JsonLibrary.SerializeDictionaryIntString(dict);
-
-        if (oldGameState == GameState.WaitingForPlayers && gameState == GameState.BettingAnte)
+        if (oldGameState == GameState.WaitingForPlayers && gameState == GameState.Ante)
         {
-            turn = 0;
+            turn = GetFirstTurn(dict);
+            client.ClientRPCTurnChange(turn, highestBet, gameState);
         }
         else if (gameState == GameState.WaitingForPlayers)
         {
             turn = -1;
         }
+
+        waitingTimeoutToStartGame = false;
     }
 
     [Command(requiresAuthority = false)]
@@ -108,25 +112,86 @@ public class PokerServer : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void CmdNextPlayer(int spot, decimal betAmount)
+    public void CmdNextAntePlayer(int spot, decimal betAmount)
     {
         if (spotToBet == null) spotToBet = new Dictionary<int, decimal>();
         spotToBet.Add(spot, betAmount);
 
         var dict = JsonLibrary.DeserializeDictionaryIntString(slotToUserIdSerialized);
 
-        var hasMoreTurns = false;
-        foreach (var keyValue in dict.Where(keyValue => keyValue.Key > turn))
+        var possibleTurns = dict.Keys.Where(x => x > turn).ToList();
+        if (possibleTurns.Any())
         {
-            turn = keyValue.Key;
-            hasMoreTurns = true;
-            break;
+            turn = possibleTurns.Min();
+            client.ClientRPCTurnChange(turn, 0, gameState);
+        }
+        else
+        {
+            highestBet = 0;
+            gameState = GameState.InitialBets;
+            hasRaise = false;
+            spotWhoRaised = -1;
+            turn = GetFirstTurn(dict);
+            DealCards(dict);
+            client.ClientRPCTurnChange(turn, highestBet, gameState);
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdNextInitialBet(int spot, decimal betAmount)
+    {
+        var dict = JsonLibrary.DeserializeDictionaryIntString(slotToUserIdSerialized);
+        var doneBetting = HandleBetting(dict, spot, betAmount);
+
+        if (!doneBetting) return;
+
+        gameState = GameState.SwitchingCards;
+        turn = GetFirstTurn(dict);
+        client.ClientRPCTurnChange(turn, 0, gameState);
+    }
+
+    private bool HandleBetting(Dictionary<int, string> dict, int spot, decimal betAmount)
+    {
+        var isDone = false;
+        if (spotToBet == null) spotToBet = new Dictionary<int, decimal>();
+        spotToBet[spot] += betAmount;
+        if (spotToBet[spot] > highestBet)
+        {
+            highestBet = spotToBet[spot];
+            hasRaise = true;
+            spotWhoRaised = spot;
         }
 
-        if (!hasMoreTurns)
+        var possibleTurns = dict.Keys.Where(x => x > turn).ToList();
+
+        if (possibleTurns.Any())
         {
-            DealCards(dict);
+            turn = possibleTurns.Min();
         }
+        else if (hasRaise)
+        {
+            turn = GetFirstTurn(dict);
+            hasRaise = false;
+        }
+        else
+        {
+            isDone = true;
+        }
+
+        if (!isDone)
+        {
+            if (turn != spotWhoRaised)
+            {
+                client.ClientRPCTurnChange(turn, highestBet, gameState);
+            }
+            else
+            {
+                spotWhoRaised = -1;
+                isDone = true;
+            }
+        }
+
+        return isDone;
     }
 
     private void DealCards(Dictionary<int, string> dict)
@@ -145,23 +210,17 @@ public class PokerServer : NetworkBehaviour
         foreach (var keyValue in spotToCards)
         {
             var entry = keyValue.Key + ",";
-            entry = spotToCards[keyValue.Key].Aggregate(entry, (current, card) => current + (card.Rank + "|" + card.Suit + ","));
+            entry = spotToCards[keyValue.Key]
+                .Aggregate(entry, (current, card) => current + (card.Rank + "|" + card.Suit + ","));
 
             // Remove last comma
             entry = entry.Substring(0, entry.Length - 1);
             spotToCardsList.Add(entry);
         }
 
-        var spotToHands = spotToCards.ToDictionary(keyValue => keyValue.Key, keyValue => keyValue.Value.GetEvaluatedHand());
-        var spotToWinner = Deck.GetSpotToWinner(spotToHands);
-
-        foreach (var keyValue in spotToWinner)
-        {
-            Debug.Log("Spot: " + keyValue.Key + " winner: " + keyValue.Value + " Hand is: " + spotToHands[keyValue.Key].PokerHand);
-        }
-
         client.ClientRPCCardsDealt(spotToCardsList);
     }
+
 
     [Command(requiresAuthority = false)]
     public void CmdSetGameState(GameState state)
@@ -182,7 +241,7 @@ public class PokerServer : NetworkBehaviour
             hand[cardsToChange[changePosition]] = newCard;
             changePosition++;
         }
-        
+
         var spotToCardsList = new List<string>();
 
         foreach (var keyValue in spotToCards)
@@ -197,7 +256,86 @@ public class PokerServer : NetworkBehaviour
             entry = entry.Substring(0, entry.Length - 1);
             spotToCardsList.Add(entry);
         }
-        
+
         client.ClientRPCCardsDealt(spotToCardsList);
+
+        var dict = JsonLibrary.DeserializeDictionaryIntString(slotToUserIdSerialized);
+
+        var possibleTurns = dict.Keys.Where(x => x > turn).ToList();
+
+        if (possibleTurns.Any())
+        {
+            turn = possibleTurns.Min();
+            client.ClientRPCTurnChange(turn, 0, gameState);
+        }
+        else
+        {
+            turn = GetFirstTurn(dict);
+            gameState = GameState.FinalBetting;
+            client.ClientRPCTurnChange(turn, highestBet, gameState);
+        }
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdNextFinalBet(int spot, decimal betAmount)
+    {
+        var dict = JsonLibrary.DeserializeDictionaryIntString(slotToUserIdSerialized);
+        var doneBetting = HandleBetting(dict, spot, betAmount);
+
+        if (!doneBetting) return;
+
+        gameState = GameState.Complete;
+
+        var spotToHands =
+            spotToCards.ToDictionary(keyValue => keyValue.Key, keyValue => keyValue.Value.GetEvaluatedHand());
+        var spotToWinner = Deck.GetSpotToWinner(spotToHands);
+
+
+        var winnerHand = PokerHand.HighCard;
+        var numberOfWinners = spotToWinner.Values.Count(x => x);
+        var totalAmount = spotToBet.Values.Sum();
+        var winnerPortion = totalAmount / numberOfWinners;
+
+        foreach (var keyValue in spotToWinner.Where(keyValue => keyValue.Value))
+        {
+            winnerHand = spotToHands[keyValue.Key].PokerHand;
+            client.ClientRPCGameResult("You Won " + spotToHands[keyValue.Key].PokerHand, keyValue.Key, true,
+                winnerPortion);
+            numberOfWinners++;
+        }
+
+        foreach (var keyValue in spotToWinner.Where(keyValue => !keyValue.Value))
+        {
+            client.ClientRPCGameResult($"You Lost :( Winner Had {winnerHand} ", keyValue.Key, false,
+                spotToBet[keyValue.Key]);
+        }
+
+        waitingTimeoutToStartGame = true;
+        Invoke(nameof(TryStartGame), 5);
+    }
+
+    private static int GetFirstTurn(Dictionary<int, string> dict)
+    {
+        var firstTurn = -1;
+        var possibleTurns = dict.Keys.ToList();
+        if (possibleTurns.Any())
+        {
+            firstTurn = possibleTurns.Min();
+        }
+
+        return firstTurn;
+    }
+
+    private void ResetGameVariables()
+    {
+        highestBet = 0;
+        totalBets = 0;
+        gameState = GameState.WaitingForPlayers;
+        spotToCards = new Dictionary<int, List<Card>>();
+        spotToBet = new Dictionary<int, decimal>();
+        deck = null;
+        spotWhoRaised = -1;
+        hasRaise = false;
+        turn = -1;
     }
 }

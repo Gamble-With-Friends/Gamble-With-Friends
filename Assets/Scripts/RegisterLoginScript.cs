@@ -308,12 +308,20 @@ public class RegisterLoginScript : MonoBehaviour
 
     private void OnLoginSuccess()
     {
-        GameObject.Find("LoginTrigger").GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
+        var loginTrigger = GameObject.Find("LoginTrigger");
+
+        if (loginTrigger != null)
+        {
+            loginTrigger.GetComponent<LoginTriggerScript>().ExitRegistrationLogin();
+        }
     }
 
     private void OnLoginError(string displayName, string errorMessage)
     {
-        loginMessageObject.GetComponent<Text>().text = errorMessage;
+        if (loginMessageObject != null)
+        {
+            loginMessageObject.GetComponent<Text>().text = errorMessage;
+        }
     }
 
     private void InitializeLoginInputs()

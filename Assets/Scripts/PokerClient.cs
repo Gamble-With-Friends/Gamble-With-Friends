@@ -3,22 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PokerClient : NetworkBehaviour
 {
     public List<PokerCardScript> pokerCardScripts;
     public GameObject cardGameObject;
-    public GameObject chipsGameObject;
     public TextMesh tableInfoTextMesh;
     public TextMesh sessionInfoTextMesh;
     public TextMesh debugTextMesh;
+    public Text gameInfoText;
+
+    #region Buttons
 
     public GameObject anteButton;
+    public GameObject switchButton;
     public GameObject foldButton;
     public GameObject raiseButton;
     public GameObject checkButton;
+    public GameObject callButton;
+    public Text callButtonText;
+    public GameObject raiseInputField;
+    public Text raiseInputText;
+    public Text raiseButtonText;
 
-    public const int MaxPlayers = 2;
+    #endregion
+
+
+    public const int MaxPlayers = 3;
     public const int MaxBet = 250;
     private const int Ante = 100;
     public PokerServer server;
@@ -34,17 +46,25 @@ public class PokerClient : NetworkBehaviour
 
     private void Update()
     {
-        tableInfoTextMesh.text = "Total Players: " + GetTotalPlayers() + "/" + MaxPlayers + "\n" +
-                                 "Total Bets: $" + server.totalBets + "\n" +
-                                 "Game Status: " + server.gameState + "\n" +
-                                 "Turn: " + server.turn;
+        var tableInfoText = "Total Players: " + GetTotalPlayers() + "/" + MaxPlayers + "\n" +
+                            "Total Bets: $" + server.totalBets + "\n" +
+                            "Game Status: " + server.gameState;
+
+
+        tableInfoTextMesh.text = tableInfoText;
 
         sessionInfoTextMesh.text = session != null ? session.ToString() : "";
-        var debugText = slotToUserId.Aggregate("",
-            (current, keyValue) => current + (" " + keyValue.Key + " => " + keyValue.Value + "\n"));
 
-        debugTextMesh.text = debugText;
+        // var debugText = slotToUserId.Aggregate("",
+        //     (current, keyValue) => current + (" " + keyValue.Key + " => " + keyValue.Value + "\n"));
+
+        if (session != null)
+        {
+            debugTextMesh.text = "\n" + (session.spot == server.turn ? "Your Turn" : "Please Wait..");
+        }
     }
+
+    #region Event Listeners
 
     private void OnEnable()
     {
@@ -64,12 +84,19 @@ public class PokerClient : NetworkBehaviour
         EventManager.OnStartGame -= OnStartGame;
     }
 
+    #endregion
+
+    #region Enter and Exit Game
+
     private void OnReadyToGame(int instanceId)
     {
         if (instanceId != transform.GetInstanceID()) return;
 
+        DisableButtons();
+
         session = new Session();
         gameCamera.SetActive(true);
+        cardGameObject.SetActive(false);
         EventManager.FireStartGameEvent(instanceId);
     }
 
@@ -83,9 +110,104 @@ public class PokerClient : NetworkBehaviour
         // TODO: Let the player know the table is full
     }
 
+    private void OnPrepareToExitGame(int instanceId)
+    {
+        if (instanceId != transform.GetInstanceID()) return;
+
+        gameCamera.SetActive(false);
+        cardGameObject.SetActive(false);
+        server.RemovePlayer(UserInfo.GetInstance().UserId);
+        session = null;
+        if (slotToUserId.Count == 0)
+        {
+            server.CmdSetGameState(GameState.WaitingForPlayers);
+        }
+
+        EventManager.FireInstructionChangeEvent("");
+        EventManager.FireReadyToExitGameEvent(instanceId);
+    }
+
+    #endregion
+
+    #region OnClicks
+
+    public void OnClickAnteButton()
+    {
+        session.totalBets = Ante;
+        EventManager.FireChangeCoinValue(-Ante);
+        server.CmdNextAntePlayer(session.spot, Ante);
+        DisableButtons();
+    }
+
+    public void OnClickFoldButton()
+    {
+    }
+
+    public void OnClickRaiseButton()
+    {
+        if (!decimal.TryParse(raiseInputText.text, out var amount)) return;
+
+        var minimumRaise = server.highestBet - session.totalBets;
+        if (UserInfo.GetInstance().TotalCoins > amount && amount >= minimumRaise)
+        {
+            session.totalBets += amount;
+            HandleBet(amount);
+            DisableButtons();
+        }
+    }
+
+    public void OnClickCallButton()
+    {
+        var amount = server.highestBet - session.totalBets;
+        session.totalBets += amount;
+
+        HandleBet(amount);
+        DisableButtons();
+    }
+
+    public void OnClickCheckButton()
+    {
+        HandleBet(0);
+        DisableButtons();
+    }
+
+    public void OnClickSwitchButton()
+    {
+        var cardsToChange = new List<int>();
+
+        foreach (var script in pokerCardScripts)
+        {
+            script.disabled = true;
+            if (script.changeRequested)
+            {
+                cardsToChange.Add(script.position);
+            }
+        }
+
+        DisableButtons();
+        server.CmdChangeCards(session.spot, cardsToChange);
+    }
+
+    #endregion
+
+    private void HandleBet(decimal amount)
+    {
+        EventManager.FireChangeCoinValue(-amount);
+
+        switch (server.gameState)
+        {
+            case GameState.InitialBets:
+                server.CmdNextInitialBet(session.spot, amount);
+                break;
+            case GameState.FinalBetting:
+                server.CmdNextFinalBet(session.spot, amount);
+                break;
+        }
+    }
+
     private void OnModifyBetAction(int amount)
     {
-        if (server.gameState != GameState.BettingAnte) return;
+        if (server.gameState != GameState.Ante) return;
         session.totalBets = Ante;
     }
 
@@ -99,30 +221,6 @@ public class PokerClient : NetworkBehaviour
         {
             EventManager.FirePrepareToGameEvent(instanceId);
         }
-    }
-
-    public void OnGameStateChange(string oldValue, string newValue)
-    {
-        var gameStateOld = (GameState) Enum.Parse(typeof(GameState), oldValue);
-        var gameStateNew = (GameState) Enum.Parse(typeof(GameState), newValue);
-    }
-
-    public void OnTurnChange(int turn)
-    {
-        // If the player left or it's not their turn, return
-        if (!slotToUserId.ContainsKey(turn) || UserInfo.GetInstance().UserId != slotToUserId[turn]) return;
-
-        if (server.gameState == GameState.BettingAnte)
-        {
-            chipsGameObject.SetActive(true);
-            Invoke(nameof(NextPlayer), 10);
-        }
-    }
-
-    private void NextPlayer()
-    {
-        chipsGameObject.SetActive(false);
-        server.CmdNextPlayer(session.spot, session.totalBets);
     }
 
     public void OnSeatToUserIdChange(string oldValue, string newValue)
@@ -152,23 +250,6 @@ public class PokerClient : NetworkBehaviour
         }
     }
 
-    private void OnPrepareToExitGame(int instanceId)
-    {
-        if (instanceId != transform.GetInstanceID()) return;
-        gameCamera.SetActive(false);
-        cardGameObject.SetActive(false);
-        chipsGameObject.SetActive(false);
-        server.RemovePlayer(UserInfo.GetInstance().UserId);
-        session = null;
-        if (slotToUserId.Count == 0)
-        {
-            server.CmdSetGameState(GameState.WaitingForPlayers);
-        }
-
-        EventManager.FireInstructionChangeEvent("");
-        EventManager.FireReadyToExitGameEvent(instanceId);
-    }
-
     [ClientRpc]
     public void ClientRPCCardsDealt(List<string> spotToCards)
     {
@@ -191,24 +272,87 @@ public class PokerClient : NetworkBehaviour
                 }
             }
         }
-
-        Invoke(nameof(SwitchCards), 10);
     }
 
-    private void SwitchCards()
+    [ClientRpc]
+    public void ClientRPCTurnChange(int turn, decimal highestBet, GameState gameState)
     {
-        var cardsToChange = new List<int>();
-
-        foreach (var script in pokerCardScripts)
+        // If the player left or it's not their turn, return
+        var isNotUserTurn = !slotToUserId.ContainsKey(turn) || UserInfo.GetInstance().UserId != slotToUserId[turn];
+        if (isNotUserTurn)
         {
-            script.disabled = true;
-            if (script.changeRequested)
+            switch (gameState)
             {
-                cardsToChange.Add(script.position);
+                case GameState.Ante:
+                    gameInfoText.text = $"Player #{turn + 1} Is Placing Their Ante";
+                    break;
+                case GameState.InitialBets:
+                case GameState.FinalBetting:
+                    gameInfoText.text = $"Player #{turn + 1} is Placing Their Bets";
+                    break;
+                case GameState.SwitchingCards:
+                    gameInfoText.text = $"Player #{turn + 1} is Switching Their Cards";
+                    break;
             }
         }
+        else
+        {
+            switch (gameState)
+            {
+                case GameState.Ante:
+                    anteButton.SetActive(true);
+                    gameInfoText.text = "Place Your Ante";
+                    break;
+                case GameState.InitialBets:
+                case GameState.FinalBetting:
+                    gameInfoText.text = "Place Your Bet";
+                    var hasRaised = highestBet > session.totalBets;
+                    checkButton.SetActive(!hasRaised);
+                    callButton.SetActive(hasRaised);
+                    raiseButton.SetActive(true);
+                    raiseInputField.SetActive(true);
+                    callButtonText.text = "Call $" + (highestBet - session.totalBets);
+                    if (hasRaised)
+                    {
+                        raiseButtonText.text = "Raise Min. ($" + (highestBet - session.totalBets) + ")";
+                        raiseInputText.text = (highestBet - session.totalBets) * 2 + "";
+                    }
+                    else
+                    {
+                        raiseButtonText.text = "Raise";
+                        raiseInputText.text = "1";
+                    }
 
-        server.CmdChangeCards(session.spot, cardsToChange);
+                    foldButton.SetActive(true);
+                    break;
+                case GameState.SwitchingCards:
+                    gameInfoText.text = $"Select Cards and Switch";
+                    switchButton.SetActive(true);
+                    foreach (var cardScript in pokerCardScripts)
+                    {
+                        cardScript.disabled = false;
+                    }
+
+                    break;
+            }
+        }
+    }
+
+
+    [ClientRpc]
+    public void ClientRPCGameResult(string message, int turn, bool hasWon, decimal amount)
+    {
+        if (!slotToUserId.ContainsKey(turn) || UserInfo.GetInstance().UserId != slotToUserId[turn]) return;
+
+        gameInfoText.text = message;
+        if (hasWon)
+        {
+            EventManager.FireChangeCoinValue(amount);
+        }
+        else
+        {
+            EventManager.FireChangeCoinValue(-amount);
+        }
     }
 
     private bool IsTableFull()
@@ -231,6 +375,18 @@ public class PokerClient : NetworkBehaviour
         }
 
         return slot;
+    }
+
+    private void DisableButtons()
+    {
+        callButton.SetActive(false);
+        foldButton.SetActive(false);
+        raiseButton.SetActive(false);
+        checkButton.SetActive(false);
+        anteButton.SetActive(false);
+        raiseInputField.SetActive(false);
+        switchButton.SetActive(false);
+        raiseInputText.text = "";
     }
 
     public class Session
