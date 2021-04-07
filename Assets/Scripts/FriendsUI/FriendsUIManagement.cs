@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Mirror;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FriendsUIManagement : MonoBehaviour
+public class FriendsUIManagement : NetworkBehaviour
 {
     public GameObject FriendsUICanvas;
 
@@ -24,6 +25,9 @@ public class FriendsUIManagement : MonoBehaviour
 
     public GameObject ChatCanvas;
     public GameObject MessagesScrollViewContent;
+    public GameObject NewMessageGroup;
+    public GameObject EditMessageGroup;
+    public GameObject MessageId;
     public GameObject MessagePrefab;
 
     private GameObject SearchBarInput;
@@ -31,19 +35,23 @@ public class FriendsUIManagement : MonoBehaviour
 
     private UserInfo friend;
 
-    
+
     private void OnEnable()
     {
         EventManager.OnFriendRawActionClick += OnFriendRawActionClick;
         EventManager.OnKeyDown += OnKeyDown;
+        EventManager.OnRequestChatUpdate += OnRequestChatUpdate;
+        EventManager.OnChatUpdate += OnChatUpdate;
     }
 
     private void OnDisable()
     {
         EventManager.OnFriendRawActionClick -= OnFriendRawActionClick;
         EventManager.OnKeyDown -= OnKeyDown;
+        EventManager.OnRequestChatUpdate -= OnRequestChatUpdate;
+        EventManager.OnChatUpdate -= OnChatUpdate;
     }
-    
+
     private void OnKeyDown(KeyCode key)
     {
         if (key == KeyCode.F)
@@ -53,18 +61,31 @@ public class FriendsUIManagement : MonoBehaviour
         }
     }
 
+    private void OnRequestChatUpdate(string userId)
+    {
+        CmdRequestChatUpdate(userId);
+    }
+
+    private void OnChatUpdate(string userId)
+    {
+        if (UserInfo.GetInstance().UserId == userId)
+        {
+            RegenerateMessagesListScrollView();
+        }
+    }
+
     #region open/close UI and tabs
     public void OpenFriendUI()
     {
         if (UserInfo.GetInstance().UserId != null)
         {
             if (!FriendsUICanvas.gameObject.activeSelf)
-            {                
+            {
                 UserInfo.GetInstance().LockMouse = true;
                 UserInfo.GetInstance().LockMovement = true;
                 Cursor.lockState = CursorLockMode.Confined;
                 FriendsUICanvas.gameObject.SetActive(true);
-                RegenerateFriendListScrollView();                
+                RegenerateFriendListScrollView();
             }
         }
     }
@@ -106,7 +127,7 @@ public class FriendsUIManagement : MonoBehaviour
 
     #region Send Coins, Friend Request & Unfriend
     private void OnFriendRawActionClick(FriendRawAction action, string displayName)
-    {        
+    {
         if (action == FriendRawAction.SendMessage)
         {
             friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName = displayName };
@@ -131,7 +152,7 @@ public class FriendsUIManagement : MonoBehaviour
         else if (action == FriendRawAction.SendFriendRequest)
         {
             friend = new UserInfo() { UserId = DataManager.GetUserId(displayName), DisplayName = displayName };
-            SendFriendRequest(UserInfo.GetInstance().UserId, displayName);           
+            SendFriendRequest(UserInfo.GetInstance().UserId, displayName);
         }
         else if (action == FriendRawAction.AcceptRequest)
         {
@@ -245,7 +266,7 @@ public class FriendsUIManagement : MonoBehaviour
         if (foundUsers == null || foundUsers.Count == 0)
         {
             DisplaySearchMessage("No users found", true);
-        }        
+        }
 
         InstantiateScrollViewContent(SearchScrollViewContent, FoundUsersCardPrefab, foundUsers);
     }
@@ -264,9 +285,9 @@ public class FriendsUIManagement : MonoBehaviour
         {
             DataManager.SendFriendRequest(currentUserId, otherUserDisplayName);
             DisplaySearchMessage("Friend request was sent to " + otherUserDisplayName, false);
-        }       
+        }
     }
-    
+
     private void AcceptFriendRequest(string currentUserId, string otherUserDisplayName)
     {
         DataManager.AcceptFriendRequest(currentUserId, otherUserDisplayName);
@@ -281,11 +302,11 @@ public class FriendsUIManagement : MonoBehaviour
 
     private void ClearScrollViewContent(GameObject scrollViewContentObj)
     {
-        if (scrollViewContentObj!= null && scrollViewContentObj.transform.childCount > 0)
+        if (scrollViewContentObj != null && scrollViewContentObj.transform.childCount > 0)
         {
-            for (int i = 0; i < scrollViewContentObj.transform.childCount; ++i) 
-            { 
-                Destroy(scrollViewContentObj.transform.GetChild(i).gameObject); 
+            for (int i = 0; i < scrollViewContentObj.transform.childCount; ++i)
+            {
+                Destroy(scrollViewContentObj.transform.GetChild(i).gameObject);
             }
         }
     }
@@ -333,7 +354,7 @@ public class FriendsUIManagement : MonoBehaviour
     {
         if (SearchErrorMessage != null)
         {
-            SearchErrorMessage.GetComponent<Text>().color = isError? Color.red : Color.white;
+            SearchErrorMessage.GetComponent<Text>().color = isError ? Color.red : Color.white;
             SearchErrorMessage.GetComponent<Text>().text = message;
         }
     }
@@ -342,12 +363,12 @@ public class FriendsUIManagement : MonoBehaviour
     {
         if (SearchBarInput == null)
         {
-            SearchBarInput = GameObject.Find("FriendSearchBar");            
+            SearchBarInput = GameObject.Find("FriendSearchBar");
         }
         SearchBarInput.GetComponent<InputField>().text = "";
         if (SearchErrorMessage == null)
         {
-            SearchErrorMessage = GameObject.Find("FriendSearch/SearchMessageText");            
+            SearchErrorMessage = GameObject.Find("FriendSearch/SearchMessageText");
         }
         SearchErrorMessage.GetComponent<Text>().text = "";
     }
@@ -415,6 +436,8 @@ public class FriendsUIManagement : MonoBehaviour
         GameObject.Find("MessageInputField").GetComponent<InputField>().text = string.Empty;
 
         RegenerateMessagesListScrollView();
+
+        EventManager.FireRequestChatUpdate(friend.UserId);
     }
 
     public void InstantiateMessageScrollViewContent(List<ChatMessage> messages)
@@ -449,21 +472,58 @@ public class FriendsUIManagement : MonoBehaviour
 
             contentHeight += offset;
         }
-        //RectTransform rtContent = (RectTransform)MessagesScrollViewContent.transform;
-        //rtContent.rect.Set(rtContent.rect.x, rtContent.rect.y, rtContent.rect.width, contentHeight);
-
     }
 
     public void EditMessage(string messageId)
     {
+        // hide NewMessage group and show editMessage group
+        NewMessageGroup.gameObject.SetActive(false);
+        EditMessageGroup.gameObject.SetActive(true);
         // load message content
-        // display message content in the input field
+        var message = DataManager.GetMessage(messageId);
+        // display message content in the input field        
+        GameObject.Find("EditMessageInputField").GetComponent<InputField>().text = message;
+        MessageId.GetComponent<Text>().text = messageId;
+    }
 
+    public void CancelEdit()
+    {
+        GameObject.Find("EditMessageInputField").GetComponent<InputField>().text = "";
+        MessageId.GetComponent<Text>().text = "";
+        EditMessageGroup.gameObject.SetActive(false);
+        NewMessageGroup.gameObject.SetActive(true);        
+    }
+
+    public void UpdateMessage()
+    {
+        var messageId = MessageId.GetComponent<Text>().text;
+        var content = GameObject.Find("EditMessageInputField").GetComponent<InputField>().text;
+        DataManager.UpdateMessage(messageId, content);
+        GameObject.Find("EditMessageInputField").GetComponent<InputField>().text = "";
+        MessageId.GetComponent<Text>().text = "";
+        EditMessageGroup.gameObject.SetActive(false);
+        NewMessageGroup.gameObject.SetActive(true);
+        RegenerateMessagesListScrollView();
+        EventManager.FireRequestChatUpdate(friend.UserId);
     }
 
     public void DeleteMessage(string messageId)
     {
         DataManager.DeleteMessage(messageId);
         RegenerateMessagesListScrollView();
+        EventManager.FireRequestChatUpdate(friend.UserId);
+    }
+
+
+    [Command(requiresAuthority = false)]
+    private void CmdRequestChatUpdate(string userId)
+    {
+        RpcChatUpdate(userId);
+    }
+
+    [ClientRpc]
+    private void RpcChatUpdate(string userId)
+    {
+        EventManager.FireChatUpdate(userId);
     }
 }

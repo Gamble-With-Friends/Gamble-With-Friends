@@ -40,15 +40,15 @@ public class EventManager : MonoBehaviour
     public delegate void LoginSuccess();
 
     public static event LoginSuccess OnLoginSuccess;
-    
+
     public delegate void LoginError(string username, string message);
-    
+
     public static event BeforeLoginSuccess OnBeforeLoginSuccess;
-    
+
     public delegate void BeforeLoginSuccess();
 
     public static event LoginError OnLoginError;
-    
+
     public delegate void ChangeCoinValue(decimal amount);
 
     public static event ChangeCoinValue OnChangeCoinValue;
@@ -65,8 +65,8 @@ public class EventManager : MonoBehaviour
 
     public delegate void OutfitChange(string userId);
 
-    public static event OutfitChange OnOutfitChange;    
-    
+    public static event OutfitChange OnOutfitChange;
+
     public delegate void RequestOutfitChange(string userId);
 
     public static event RequestOutfitChange OnRequestOutfitChange;
@@ -74,6 +74,16 @@ public class EventManager : MonoBehaviour
     public delegate void StringValueChanged(EventType eventType, string oldValue, string newValue);
 
     public static event StringValueChanged OnStringValueChange;
+
+    // request chat changes from server
+    public delegate void RequestChatUpdate(string userId);
+
+    public static event RequestChatUpdate OnRequestChatUpdate;
+
+    // request chat changes from user
+    public delegate void ChatUpdate(string userId);
+
+    public static event ChatUpdate OnChatUpdate;
 
 
     private void OnEnable()
@@ -144,12 +154,12 @@ public class EventManager : MonoBehaviour
     {
         OnLoginError?.Invoke(username, errorMessage);
     }
-    
+
     public static void FireChangeCoinValue(decimal amount)
     {
         OnChangeCoinValue?.Invoke(amount);
     }
-    
+
     public static void FireKeyDownEvent(KeyCode key)
     {
         OnKeyDown?.Invoke(key);
@@ -158,8 +168,8 @@ public class EventManager : MonoBehaviour
     public static void FireFriendRawActionClick(FriendRawAction action, string displayName)
     {
         OnFriendRawActionClick?.Invoke(action, displayName);
-    }   
-    
+    }
+
     public static void FireStringValueChange(EventType eventType, string oldValue, string newValue)
     {
         OnStringValueChange?.Invoke(eventType, oldValue, newValue);
@@ -169,9 +179,24 @@ public class EventManager : MonoBehaviour
     {
         OnOutfitChange?.Invoke(userId);
     }
-    
+
     public static void FireRequestOutfitChange(string userId)
     {
         OnRequestOutfitChange?.Invoke(userId);
+    }
+
+    public static void FireServer(string userId)
+    {
+        OnOutfitChange?.Invoke(userId);
+    }
+
+    public static void FireRequestChatUpdate(string userId)
+    {
+        OnRequestChatUpdate?.Invoke(userId);
+    }
+
+    public static void FireChatUpdate(string userId)
+    {
+        OnChatUpdate?.Invoke(userId);
     }
 }

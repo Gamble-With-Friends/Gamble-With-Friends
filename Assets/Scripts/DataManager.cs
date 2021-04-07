@@ -768,4 +768,38 @@ public class DataManager
             db.Close();
         }
     }
+
+    public static string GetMessage(string messageId)
+    {
+        var content = string.Empty;
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("SELECT messageContent FROM ChatMessages WHERE messageId=@messageId", db);
+            cmd.Parameters.AddWithValue("@messageId", messageId);
+            db.Open();
+            SqlDataReader reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                content = reader.GetString(0);
+                break;
+            }
+
+            reader.Close();
+            db.Close();
+        }
+        return content;
+    }
+
+    public static void UpdateMessage(string messageId, string content)
+    {
+        using (var db = new SqlConnection(ConnectionString))
+        {
+            var cmd = new SqlCommand("UPDATE ChatMessages SET messageContent = @content WHERE messageId = @messageId", db);
+            cmd.Parameters.AddWithValue("@content", content);
+            cmd.Parameters.AddWithValue("@messageId", messageId);
+            db.Open();
+            cmd.ExecuteNonQuery();
+            db.Close();
+        }
+    }
 }
