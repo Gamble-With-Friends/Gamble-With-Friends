@@ -54,7 +54,7 @@ public class DataManager
         using (var db = new SqlConnection(ConnectionString))
         {
             var cmd = new SqlCommand(
-                "SELECT * FROM Users WHERE displayName=@displayName COLLATE SQL_Latin1_General_CP1_CS_AS", db);
+                "SELECT * FROM Users WHERE displayName=@displayName", db);
 
             var param = new SqlParameter {ParameterName = "@displayName", Value = displayName};
             cmd.Parameters.Add(param);
