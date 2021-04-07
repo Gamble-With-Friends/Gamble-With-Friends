@@ -11,7 +11,6 @@ public class PokerClient : NetworkBehaviour
     public GameObject cardGameObject;
     public TextMesh tableInfoTextMesh;
     public TextMesh sessionInfoTextMesh;
-    public TextMesh debugTextMesh;
     public Text gameInfoText;
 
     #region Buttons
@@ -29,7 +28,6 @@ public class PokerClient : NetworkBehaviour
 
     #endregion
 
-
     public const int MaxPlayers = 3;
     public const int MaxBet = 250;
     private const int Ante = 100;
@@ -37,31 +35,16 @@ public class PokerClient : NetworkBehaviour
     public GameObject gameCamera;
     private int betAmount;
     private Dictionary<int, string> slotToUserId = new Dictionary<int, string>();
-    private Dictionary<int, decimal> slotToBet = new Dictionary<int, decimal>();
 
     // Local Values
     private Session session;
 
-    //GameObject variableForPrefab = (GameObject)Resources.Load("Prefabs/FirstPersonPlayer", typeof(GameObject));
-
     private void Update()
     {
-        var tableInfoText = "Total Players: " + GetTotalPlayers() + "/" + MaxPlayers + "\n" +
-                            "Total Bets: $" + server.totalBets + "\n" +
-                            "Game Status: " + server.gameState;
-
-
-        tableInfoTextMesh.text = tableInfoText;
+        tableInfoTextMesh.text = "Total Players: " + GetTotalPlayers() + "/" + MaxPlayers + "\n" +
+                                 "Total Bets: $" + server.totalBets;
 
         sessionInfoTextMesh.text = session != null ? session.ToString() : "";
-
-        // var debugText = slotToUserId.Aggregate("",
-        //     (current, keyValue) => current + (" " + keyValue.Key + " => " + keyValue.Value + "\n"));
-
-        if (session != null)
-        {
-            debugTextMesh.text = "\n" + (session.spot == server.turn ? "Your Turn" : "Please Wait..");
-        }
     }
 
     #region Event Listeners
@@ -94,7 +77,6 @@ public class PokerClient : NetworkBehaviour
 
         DisableButtons();
 
-        session = new Session();
         gameCamera.SetActive(true);
         cardGameObject.SetActive(false);
         EventManager.FireStartGameEvent(instanceId);
@@ -105,6 +87,7 @@ public class PokerClient : NetworkBehaviour
         if (!IsTableFull())
         {
             server.AddPlayer(UserInfo.GetInstance().UserId);
+            server.CmdCreateGameSession(UserInfo.GetInstance().UserId);
         }
 
         // TODO: Let the player know the table is full
@@ -118,13 +101,9 @@ public class PokerClient : NetworkBehaviour
         cardGameObject.SetActive(false);
         server.RemovePlayer(UserInfo.GetInstance().UserId);
         session = null;
-        if (slotToUserId.Count == 0)
-        {
-            server.CmdSetGameState(GameState.WaitingForPlayers);
-        }
-
         EventManager.FireInstructionChangeEvent("");
         EventManager.FireReadyToExitGameEvent(instanceId);
+        server.CmdExitGameSession();
     }
 
     #endregion
@@ -135,12 +114,17 @@ public class PokerClient : NetworkBehaviour
     {
         session.totalBets = Ante;
         EventManager.FireChangeCoinValue(-Ante);
+        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, -Ante);
         server.CmdNextAntePlayer(session.spot, Ante);
         DisableButtons();
     }
 
     public void OnClickFoldButton()
     {
+        server.CmdFold(session.spot);
+        cardGameObject.SetActive(false);
+        session = null;
+        DisableButtons();
     }
 
     public void OnClickRaiseButton()
@@ -193,6 +177,7 @@ public class PokerClient : NetworkBehaviour
     private void HandleBet(decimal amount)
     {
         EventManager.FireChangeCoinValue(-amount);
+        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, -amount);
 
         switch (server.gameState)
         {
@@ -300,7 +285,10 @@ public class PokerClient : NetworkBehaviour
             switch (gameState)
             {
                 case GameState.Ante:
+                    session = new Session();
+                    session.spot = GetPlayerSeatNumber();
                     anteButton.SetActive(true);
+                    foldButton.SetActive(true);
                     gameInfoText.text = "Place Your Ante";
                     break;
                 case GameState.InitialBets:
@@ -351,8 +339,10 @@ public class PokerClient : NetworkBehaviour
         }
         else
         {
-            EventManager.FireChangeCoinValue(-amount);
+            EventManager.FireChangeCoinValue(amount);
         }
+        
+        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, amount);
     }
 
     private bool IsTableFull()
@@ -398,16 +388,13 @@ public class PokerClient : NetworkBehaviour
         public Session()
         {
             spot = -1;
+            totalBets = 0;
         }
 
         public override string ToString()
         {
             var str = "Your Total Bets: $" + totalBets + "\n" +
                       "Your Seat #: " + (spot + 1) + "\n";
-            if (hand != null)
-            {
-                str += "Hand: " + hand;
-            }
 
             return str;
         }
