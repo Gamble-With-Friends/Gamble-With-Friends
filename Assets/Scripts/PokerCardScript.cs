@@ -1,13 +1,28 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PokerCardScript : MonoBehaviour
 {
     public List<Material> materials;
+    public Material zoneMaterial;
     public MeshRenderer cardMeshRender;
-    
+    public int position;
+    public bool changeRequested;
+    public bool disabled;
+
+    private void OnEnable()
+    {
+        EventManager.OnClick += OnClick;
+    }
+
+    private void OnDisable()
+    {
+        EventManager.OnClick -= OnClick;
+    }
+
     public void SetCardValue(string value)
     {
         var strChucks = value.Split('|');
@@ -17,17 +32,26 @@ public class PokerCardScript : MonoBehaviour
 
         var matName = "Black_PlayingCards_" + card.GetImageName() + "_00";
 
-        Material found = null;
-        foreach (var material in materials)
-        {
-            if (matName == material.name)
-            {
-                found = material;
-                break;
-            }
-        }
+        var found = materials.FirstOrDefault(material => matName == material.name);
 
         GetComponent<Renderer>().materials = new[]{found};
     }
-    
+
+    private void OnClick(int instanceId)
+    {
+        if(instanceId != transform.GetInstanceID()) return;
+        
+        if(disabled) return;
+
+        changeRequested = !changeRequested;
+        
+        if (changeRequested)
+        {
+            GetComponent<Renderer>().materials = new[]{GetComponent<Renderer>().materials[0], zoneMaterial};
+        }
+        else
+        {
+            GetComponent<Renderer>().materials = new[] {GetComponent<Renderer>().materials[0]};
+        }
+    }
 }

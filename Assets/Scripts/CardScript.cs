@@ -54,6 +54,7 @@ public class Hand
 }
 
 #region Card class
+
 public class Card
 {
     public CardRank Rank { get; set; }
@@ -67,17 +68,17 @@ public class Card
 
     public int BlackjackValue()
     {
-        return (int)Rank < 11 ? (int)Rank : (int)Rank == 14 ? 1 : 10;
+        return (int) Rank < 11 ? (int) Rank : (int) Rank == 14 ? 1 : 10;
     }
 
     public int BaccaratValue()
     {
-        return (int)Rank < 10 ? (int)Rank : (int)Rank > 13 ? 1 : 0;
+        return (int) Rank < 10 ? (int) Rank : (int) Rank > 13 ? 1 : 0;
     }
 
     public int PokerValue()
     {
-        return (int)Rank == 1 ? 14 : (int)Rank;
+        return (int) Rank == 1 ? 14 : (int) Rank;
     }
 
     // Included for testing
@@ -86,9 +87,11 @@ public class Card
         return Rank.ToString() + " of " + Suit.ToString();
     }
 }
+
 #endregion
 
 #region CardExtensions
+
 public static class CardExtensions
 {
     // takes in a deck of cards, removes the first, and returns the removed card
@@ -106,6 +109,7 @@ public static class CardExtensions
         deck.RemoveRange(0, cardNumber);
         return cards;
     }
+
     public static int BaccaratGetHandValue(this List<Card> hand)
     {
         return hand.Sum(c => c.BaccaratValue());
@@ -118,6 +122,7 @@ public static class CardExtensions
         {
             return sum;
         }
+
         return sum + 10;
     }
 
@@ -128,6 +133,7 @@ public static class CardExtensions
         {
             val += c.Rank.ToString() + " of " + c.Suit.ToString() + ", ";
         }
+
         val = val.Remove(val.Length - 2);
 
         return val;
@@ -140,9 +146,10 @@ public static class CardExtensions
         {
             imageNames.Add(SuitToImageName(c.Suit) + RankToImageName(c.Rank));
         }
+
         return imageNames;
     }
-    
+
     public static string GetImageName(this Card card)
     {
         return SuitToImageName(card.Suit) + RankToImageName(card.Rank);
@@ -155,6 +162,7 @@ public static class CardExtensions
         {
             rankString = "0" + rankString;
         }
+
         return rankString;
     }
 
@@ -176,6 +184,7 @@ public static class CardExtensions
                 suitString = "Club";
                 break;
         }
+
         return suitString;
     }
 
@@ -201,7 +210,8 @@ public static class CardExtensions
 
     public static bool IsStraight(this List<Card> hand)
     {
-        return hand.GroupBy(card => card.Rank).Count() == hand.Count() && hand.Max(card => card.PokerValue()) - hand.Min(card => card.PokerValue()) == 4;
+        return hand.GroupBy(card => card.Rank).Count() == hand.Count() &&
+               hand.Max(card => card.PokerValue()) - hand.Min(card => card.PokerValue()) == 4;
     }
 
     public static bool HasThreeOfKind(this List<Card> hand)
@@ -236,7 +246,7 @@ public static class CardExtensions
 
     public static bool IsRoyalFlush(this List<Card> hand)
     {
-        return hand.Min(card => (int)card.Rank) == 10 && HasStraightFlush(hand);
+        return hand.Min(card => (int) card.Rank) == 10 && HasStraightFlush(hand);
     }
 
     public static bool IsStraightFlush(this List<Card> hand)
@@ -245,82 +255,84 @@ public static class CardExtensions
     }
 
     public static Hand GetEvaluatedHand(this List<Card> hand)
-    {       
+    {
         List<Card> sortedHand = hand.SortHandByValue();
 
         PokerHand pokerHand = hand.IsRoyalFlush() ? PokerHand.RoyalFlush :
-                                hand.IsStraightFlush() ? PokerHand.StraightFlush :
-                                hand.IsFourOfKind() ? PokerHand.FourOfAKind :
-                                hand.IsFullHouse() ? PokerHand.FullHouse :
-                                hand.IsFlush() ? PokerHand.Flush :
-                                hand.IsStraight() ? PokerHand.Straight :
-                                hand.IsThreeOfKind() ? PokerHand.ThreeOfAKind :
-                                hand.IsTwoPair() ? PokerHand.TwoPair :
-                                hand.IsPair() ? PokerHand.OnePair : PokerHand.HighCard;
+            hand.IsStraightFlush() ? PokerHand.StraightFlush :
+            hand.IsFourOfKind() ? PokerHand.FourOfAKind :
+            hand.IsFullHouse() ? PokerHand.FullHouse :
+            hand.IsFlush() ? PokerHand.Flush :
+            hand.IsStraight() ? PokerHand.Straight :
+            hand.IsThreeOfKind() ? PokerHand.ThreeOfAKind :
+            hand.IsTwoPair() ? PokerHand.TwoPair :
+            hand.IsPair() ? PokerHand.OnePair : PokerHand.HighCard;
         return new Hand(pokerHand, sortedHand);
     }
 }
+
 #endregion
 
 #region Deck class
+
 // static class designed to generate a shuffled deck of cards or several shuffled deck of cards
 public static class Deck
 {
     // static array of ordered cards used to generate chuffled deck(s)
     public static Card[] OrderedDeck = new Card[52]
     {
-            new Card(CardRank.Two, CardSuit.Diamonds),
-            new Card(CardRank.Two, CardSuit.Clubs),
-            new Card(CardRank.Two, CardSuit.Hearts),
-            new Card(CardRank.Two, CardSuit.Spades),
-            new Card(CardRank.Three, CardSuit.Diamonds),
-            new Card(CardRank.Three, CardSuit.Clubs),
-            new Card(CardRank.Three, CardSuit.Hearts),
-            new Card(CardRank.Three, CardSuit.Spades),
-            new Card(CardRank.Four, CardSuit.Diamonds),
-            new Card(CardRank.Four, CardSuit.Clubs),
-            new Card(CardRank.Four, CardSuit.Hearts),
-            new Card(CardRank.Four, CardSuit.Spades),
-            new Card(CardRank.Five, CardSuit.Diamonds),
-            new Card(CardRank.Five, CardSuit.Clubs),
-            new Card(CardRank.Five, CardSuit.Hearts),
-            new Card(CardRank.Five, CardSuit.Spades),
-            new Card(CardRank.Six, CardSuit.Diamonds),
-            new Card(CardRank.Six, CardSuit.Clubs),
-            new Card(CardRank.Six, CardSuit.Hearts),
-            new Card(CardRank.Six, CardSuit.Spades),
-            new Card(CardRank.Seven, CardSuit.Diamonds),
-            new Card(CardRank.Seven, CardSuit.Clubs),
-            new Card(CardRank.Seven, CardSuit.Hearts),
-            new Card(CardRank.Seven, CardSuit.Spades),
-            new Card(CardRank.Eight, CardSuit.Diamonds),
-            new Card(CardRank.Eight, CardSuit.Clubs),
-            new Card(CardRank.Eight, CardSuit.Hearts),
-            new Card(CardRank.Eight, CardSuit.Spades),
-            new Card(CardRank.Nine, CardSuit.Diamonds),
-            new Card(CardRank.Nine, CardSuit.Clubs),
-            new Card(CardRank.Nine, CardSuit.Hearts),
-            new Card(CardRank.Nine, CardSuit.Spades),
-            new Card(CardRank.Ten, CardSuit.Diamonds),
-            new Card(CardRank.Ten, CardSuit.Clubs),
-            new Card(CardRank.Ten, CardSuit.Hearts),
-            new Card(CardRank.Ten, CardSuit.Spades),
-            new Card(CardRank.Jack, CardSuit.Diamonds),
-            new Card(CardRank.Jack, CardSuit.Clubs),
-            new Card(CardRank.Jack, CardSuit.Hearts),
-            new Card(CardRank.Jack, CardSuit.Spades),
-            new Card(CardRank.Queen, CardSuit.Diamonds),
-            new Card(CardRank.Queen, CardSuit.Clubs),
-            new Card(CardRank.Queen, CardSuit.Hearts),
-            new Card(CardRank.Queen, CardSuit.Spades),
-            new Card(CardRank.King, CardSuit.Diamonds),
-            new Card(CardRank.King, CardSuit.Clubs),
-            new Card(CardRank.King, CardSuit.Hearts),
-            new Card(CardRank.King, CardSuit.Spades),
-            new Card(CardRank.Ace, CardSuit.Diamonds),
-            new Card(CardRank.Ace, CardSuit.Clubs),
-            new Card(CardRank.Ace, CardSuit.Hearts),
-            new Card(CardRank.Ace, CardSuit.Spades)
+        new Card(CardRank.Two, CardSuit.Diamonds),
+        new Card(CardRank.Two, CardSuit.Clubs),
+        new Card(CardRank.Two, CardSuit.Hearts),
+        new Card(CardRank.Two, CardSuit.Spades),
+        new Card(CardRank.Three, CardSuit.Diamonds),
+        new Card(CardRank.Three, CardSuit.Clubs),
+        new Card(CardRank.Three, CardSuit.Hearts),
+        new Card(CardRank.Three, CardSuit.Spades),
+        new Card(CardRank.Four, CardSuit.Diamonds),
+        new Card(CardRank.Four, CardSuit.Clubs),
+        new Card(CardRank.Four, CardSuit.Hearts),
+        new Card(CardRank.Four, CardSuit.Spades),
+        new Card(CardRank.Five, CardSuit.Diamonds),
+        new Card(CardRank.Five, CardSuit.Clubs),
+        new Card(CardRank.Five, CardSuit.Hearts),
+        new Card(CardRank.Five, CardSuit.Spades),
+        new Card(CardRank.Six, CardSuit.Diamonds),
+        new Card(CardRank.Six, CardSuit.Clubs),
+        new Card(CardRank.Six, CardSuit.Hearts),
+        new Card(CardRank.Six, CardSuit.Spades),
+        new Card(CardRank.Seven, CardSuit.Diamonds),
+        new Card(CardRank.Seven, CardSuit.Clubs),
+        new Card(CardRank.Seven, CardSuit.Hearts),
+        new Card(CardRank.Seven, CardSuit.Spades),
+        new Card(CardRank.Eight, CardSuit.Diamonds),
+        new Card(CardRank.Eight, CardSuit.Clubs),
+        new Card(CardRank.Eight, CardSuit.Hearts),
+        new Card(CardRank.Eight, CardSuit.Spades),
+        new Card(CardRank.Nine, CardSuit.Diamonds),
+        new Card(CardRank.Nine, CardSuit.Clubs),
+        new Card(CardRank.Nine, CardSuit.Hearts),
+        new Card(CardRank.Nine, CardSuit.Spades),
+        new Card(CardRank.Ten, CardSuit.Diamonds),
+        new Card(CardRank.Ten, CardSuit.Clubs),
+        new Card(CardRank.Ten, CardSuit.Hearts),
+        new Card(CardRank.Ten, CardSuit.Spades),
+        new Card(CardRank.Jack, CardSuit.Diamonds),
+        new Card(CardRank.Jack, CardSuit.Clubs),
+        new Card(CardRank.Jack, CardSuit.Hearts),
+        new Card(CardRank.Jack, CardSuit.Spades),
+        new Card(CardRank.Queen, CardSuit.Diamonds),
+        new Card(CardRank.Queen, CardSuit.Clubs),
+        new Card(CardRank.Queen, CardSuit.Hearts),
+        new Card(CardRank.Queen, CardSuit.Spades),
+        new Card(CardRank.King, CardSuit.Diamonds),
+        new Card(CardRank.King, CardSuit.Clubs),
+        new Card(CardRank.King, CardSuit.Hearts),
+        new Card(CardRank.King, CardSuit.Spades),
+        new Card(CardRank.Ace, CardSuit.Diamonds),
+        new Card(CardRank.Ace, CardSuit.Clubs),
+        new Card(CardRank.Ace, CardSuit.Hearts),
+        new Card(CardRank.Ace, CardSuit.Spades)
     };
 
 
@@ -331,7 +343,9 @@ public static class Deck
         for (int i = 0; i < numberDecks * 52; i++)
         {
             array[i] = i;
-        };
+        }
+
+        ;
 
         // seed the Random with current current time millisecond value
         var rnd = new Random(DateTime.Now.Millisecond);
@@ -344,6 +358,7 @@ public static class Deck
             array[j] = array[i - 1];
             array[i - 1] = k;
         }
+
         return array;
     }
 
@@ -354,6 +369,7 @@ public static class Deck
         {
             return null;
         }
+
         List<Card> deck = new List<Card>();
 
         int[] randomIndexes = ShuffleIntArray(deckNumber);
@@ -362,6 +378,7 @@ public static class Deck
         {
             deck.Add(OrderedDeck[randomIndexes[i] % 52]);
         }
+
         return deck;
     }
 
@@ -372,11 +389,11 @@ public static class Deck
 
     public static int CompareHands(Hand firstHand, Hand secondHand)
     {
-        if ((int)firstHand.PokerHand > (int)secondHand.PokerHand)
+        if ((int) firstHand.PokerHand > (int) secondHand.PokerHand)
         {
             return 1;
         }
-        else if ((int)secondHand.PokerHand > (int)firstHand.PokerHand)
+        else if ((int) secondHand.PokerHand > (int) firstHand.PokerHand)
         {
             return -1;
         }
@@ -393,28 +410,35 @@ public static class Deck
                     return -1;
                 }
             }
+
             return 0;
         }
     }
 
-    public static List<int> WinnerPositions(List<Hand> hands)
+    public static Dictionary<int, bool> GetSpotToWinner(Dictionary<int, Hand> spotToHands)
     {
-        List<int> winnerPositions = new List<int> { 0 };
-        Hand highestValueHand = hands[0];
-        for (int i = 1; i < hands.Count; i++)
+        var handToPosition = spotToHands.ToDictionary(keyValue => keyValue.Value, keyValue => keyValue.Key);
+        var hands = spotToHands.Values.ToList();
+
+        var winners = new List<Hand> {hands[0]};
+        var highestValueHand = hands[0];
+        for (var i = 1; i < hands.Count; i++)
         {
-            int result = Deck.CompareHands(highestValueHand, hands[i]);
-            if (result == -1)
+            var result = CompareHands(highestValueHand, hands[i]);
+            switch (result)
             {
-                winnerPositions = new List<int> { i };
-                highestValueHand = hands[i];
-            }
-            else if (result == 0)
-            {
-                winnerPositions.Add(i);
+                case -1:
+                    winners = new List<Hand> {hands[i]};
+                    highestValueHand = hands[i];
+                    break;
+                case 0:
+                    winners.Add(hands[i]);
+                    break;
             }
         }
-        return winnerPositions;
+
+        return handToPosition.ToDictionary(keyValue => keyValue.Value, keyValue => winners.Contains(keyValue.Key));
     }
 }
+
 #endregion

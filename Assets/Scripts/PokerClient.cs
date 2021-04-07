@@ -13,6 +13,11 @@ public class PokerClient : NetworkBehaviour
     public TextMesh sessionInfoTextMesh;
     public TextMesh debugTextMesh;
 
+    public GameObject anteButton;
+    public GameObject foldButton;
+    public GameObject raiseButton;
+    public GameObject checkButton;
+
     public const int MaxPlayers = 2;
     public const int MaxBet = 250;
     private const int Ante = 100;
@@ -168,7 +173,7 @@ public class PokerClient : NetworkBehaviour
     public void ClientRPCCardsDealt(List<string> spotToCards)
     {
         var spot = session.spot;
-        
+
         foreach (var str in spotToCards)
         {
             var strChunks = str.Split(',');
@@ -179,12 +184,31 @@ public class PokerClient : NetworkBehaviour
 
                 for (var i = 1; i < strChunks.Length; i++)
                 {
-                    pokerCardScripts[i -1].SetCardValue(strChunks[i]);
+                    pokerCardScripts[i - 1].SetCardValue(strChunks[i]);
+                    pokerCardScripts[i - 1].position = i - 1;
+                    pokerCardScripts[i - 1].changeRequested = false;
+                    pokerCardScripts[i - 1].disabled = true;
                 }
             }
         }
-        
-        Debug.Log("Spot to cards");
+
+        Invoke(nameof(SwitchCards), 10);
+    }
+
+    private void SwitchCards()
+    {
+        var cardsToChange = new List<int>();
+
+        foreach (var script in pokerCardScripts)
+        {
+            script.disabled = true;
+            if (script.changeRequested)
+            {
+                cardsToChange.Add(script.position);
+            }
+        }
+
+        server.CmdChangeCards(session.spot, cardsToChange);
     }
 
     private bool IsTableFull()
@@ -223,7 +247,7 @@ public class PokerClient : NetworkBehaviour
         public override string ToString()
         {
             var str = "Your Total Bets: $" + totalBets + "\n" +
-                            "Your Seat #: " + (spot + 1) + "\n";
+                      "Your Seat #: " + (spot + 1) + "\n";
             if (hand != null)
             {
                 str += "Hand: " + hand;

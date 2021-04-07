@@ -18,8 +18,9 @@ public class PokerServer : NetworkBehaviour
 
     [SyncVar(hook = nameof(SyncTurn))] public int turn;
 
-    private Dictionary<int, decimal> slotToBet;
+    private Dictionary<int, decimal> spotToBet;
     private Dictionary<int, List<Card>> spotToCards;
+    private List<Card> deck;
 
     // Public Functions
     public void AddPlayer(string userId)
@@ -54,6 +55,8 @@ public class PokerServer : NetworkBehaviour
         if (dict.Count < 2)
         {
             gameState = GameState.WaitingForPlayers;
+            spotToCards = new Dictionary<int, List<Card>>();
+            spotToBet = new Dictionary<int, decimal>();
         }
         // If more than 1 player and waiting for players, set the game state to betting
         else if (gameState == GameState.WaitingForPlayers)
@@ -107,8 +110,8 @@ public class PokerServer : NetworkBehaviour
     [Command(requiresAuthority = false)]
     public void CmdNextPlayer(int spot, decimal betAmount)
     {
-        if (slotToBet == null) slotToBet = new Dictionary<int, decimal>();
-        slotToBet.Add(spot, betAmount);
+        if (spotToBet == null) spotToBet = new Dictionary<int, decimal>();
+        spotToBet.Add(spot, betAmount);
 
         var dict = JsonLibrary.DeserializeDictionaryIntString(slotToUserIdSerialized);
 
@@ -129,14 +132,57 @@ public class PokerServer : NetworkBehaviour
     private void DealCards(Dictionary<int, string> dict)
     {
         spotToCards = new Dictionary<int, List<Card>>();
-        var cards = Deck.GetShuffledDeck(1);
+        deck = Deck.GetShuffledDeck(1);
 
         foreach (var keyValue in dict)
         {
-            var hand = cards.DealCards(5);
+            var hand = deck.DealCards(5);
             spotToCards.Add(keyValue.Key, hand);
         }
 
+        var spotToCardsList = new List<string>();
+
+        foreach (var keyValue in spotToCards)
+        {
+            var entry = keyValue.Key + ",";
+            entry = spotToCards[keyValue.Key].Aggregate(entry, (current, card) => current + (card.Rank + "|" + card.Suit + ","));
+
+            // Remove last comma
+            entry = entry.Substring(0, entry.Length - 1);
+            spotToCardsList.Add(entry);
+        }
+
+        var spotToHands = spotToCards.ToDictionary(keyValue => keyValue.Key, keyValue => keyValue.Value.GetEvaluatedHand());
+        var spotToWinner = Deck.GetSpotToWinner(spotToHands);
+
+        foreach (var keyValue in spotToWinner)
+        {
+            Debug.Log("Spot: " + keyValue.Key + " winner: " + keyValue.Value + " Hand is: " + spotToHands[keyValue.Key].PokerHand);
+        }
+
+        client.ClientRPCCardsDealt(spotToCardsList);
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdSetGameState(GameState state)
+    {
+        gameState = state;
+    }
+
+    [Command(requiresAuthority = false)]
+    public void CmdChangeCards(int spot, List<int> cardsToChange)
+    {
+        var hand = spotToCards[spot];
+
+        var newCards = deck.DealCards(cardsToChange.Count);
+
+        int changePosition = 0;
+        foreach (var newCard in newCards)
+        {
+            hand[cardsToChange[changePosition]] = newCard;
+            changePosition++;
+        }
+        
         var spotToCardsList = new List<string>();
 
         foreach (var keyValue in spotToCards)
@@ -151,13 +197,7 @@ public class PokerServer : NetworkBehaviour
             entry = entry.Substring(0, entry.Length - 1);
             spotToCardsList.Add(entry);
         }
-
+        
         client.ClientRPCCardsDealt(spotToCardsList);
-    }
-
-    [Command(requiresAuthority = false)]
-    public void CmdSetGameState(GameState state)
-    {
-        gameState = state;
     }
 }

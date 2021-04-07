@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2327293095061621828}
   - component: {fileID: 2327293095061621827}
   - component: {fileID: -8247099610594576585}
+  - component: {fileID: 5174887027682008264}
   m_Layer: 0
   m_Name: Card
   m_TagString: Untagged
@@ -144,4 +145,21 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 4ab20250de733e842b9f85ebd2bdc1f7, type: 2}
   - {fileID: 2100000, guid: 4fda78aa9a04e7c43aa9aa2d3a52792d, type: 2}
   - {fileID: 2100000, guid: ca454e9bc9e39de468bbd90ebb6beb7c, type: 2}
+  zoneMaterial: {fileID: 2100000, guid: a7c679cf124f7ae46a0291ea35848554, type: 2}
   cardMeshRender: {fileID: 2327293095061621827}
+  position: 0
+  changeRequested: 0
+--- !u!64 &5174887027682008264
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2327293095061621825}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -4393675991995823134, guid: 0464afc39207ab540b94807b2273e3e5, type: 3}
