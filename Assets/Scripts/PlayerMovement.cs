@@ -100,15 +100,6 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (!isLocalPlayer) return;
         displayNameTextMesh.text = "Guest";
-        
-        if (DataManager.IsPlayerLoggedIn("harout", LobbyInfo.GetInstance().serverId))
-        {
-            LobbyInfo.GetInstance().Login("tony", "Qwe!23");
-        }
-        else
-        {
-            LobbyInfo.GetInstance().Login("harout","Qwe!23");
-        }
     }
 
     private void Update()
