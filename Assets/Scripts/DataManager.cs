@@ -14,6 +14,8 @@ public class DataManager
 
     private const string ConnectionString = @"Data Source = " + SERVER_IP + ";Database=" + DATABASE + ";User Id=" +
                                             USERNAME + ";Password=" + PASSWORD + ";";
+    
+    
 
     public static void AddUser(string email, string displayName, string password)
     {

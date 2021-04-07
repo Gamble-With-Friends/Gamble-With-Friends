@@ -164,6 +164,9 @@ public class PlayerMovement : NetworkBehaviour
         {
             clearKeys = true;
             LobbyInfo.GetInstance().Login("win","Qwe!23");
+        } else if (lastKeysPressed.Contains("PPPPPP"))
+        {
+            EventManager.FireInstructionChangeEvent("SUCCESS " + DataManager.DisplayNameExists("tony"));
         }
 
         if (clearKeys)
