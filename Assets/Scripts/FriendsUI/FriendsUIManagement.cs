@@ -59,6 +59,21 @@ public class FriendsUIManagement : NetworkBehaviour
             Debug.Log("Open Friends UI");
             OpenFriendUI();
         }
+
+        else if (key == KeyCode.Return)
+        {
+            if (ChatCanvas.activeSelf)
+            {
+                if (NewMessageGroup.activeSelf)
+                {
+                    SendMessageToFriend();
+                }
+                else if (EditMessageGroup.activeSelf)
+                {
+                    UpdateMessage();
+                }
+            }
+        }
     }
 
     private void OnRequestChatUpdate(string userId)
@@ -421,16 +436,13 @@ public class FriendsUIManagement : NetworkBehaviour
     }
 
     public void SendMessageToFriend()
-    {
-        string friendDisplayName = string.Empty;
-        GameObject chatWindowTitle = GameObject.Find("ChatWindowTitle");
-        if (chatWindowTitle != null)
-        {
-            string title = chatWindowTitle.GetComponent<Text>().text;
-            friendDisplayName = title.Substring(("Chat with ").Length);
-        }
+    {        
         string messageContent = GameObject.Find("MessageInputField").GetComponent<InputField>().text;
-        DataManager.SaveMessage(UserInfo.GetInstance().UserId, friendDisplayName, messageContent);
+        if (string.IsNullOrEmpty(messageContent))
+        {
+            return;
+        }
+        DataManager.SaveMessage(UserInfo.GetInstance().UserId, friend.DisplayName, messageContent);
 
 
         GameObject.Find("MessageInputField").GetComponent<InputField>().text = string.Empty;
@@ -481,8 +493,9 @@ public class FriendsUIManagement : NetworkBehaviour
         EditMessageGroup.gameObject.SetActive(true);
         // load message content
         var message = DataManager.GetMessage(messageId);
-        // display message content in the input field        
+        // display message content in the input field
         GameObject.Find("EditMessageInputField").GetComponent<InputField>().text = message;
+        GameObject.Find("MessageInputField").GetComponent<InputField>().Select();
         MessageId.GetComponent<Text>().text = messageId;
     }
 
