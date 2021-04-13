@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2890726906521198886}
   - component: {fileID: 110525016882891196}
   - component: {fileID: 1523822704884736574}
-  - component: {fileID: 8455325815500683704}
   m_Layer: 0
   m_Name: Chip1
   m_TagString: Untagged
@@ -95,15 +94,3 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &8455325815500683704
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8521134196155747359}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e2dd58fd26a3a468f9e4b5eafc0345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

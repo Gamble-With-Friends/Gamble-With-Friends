@@ -564,20 +564,23 @@
           </e>
         </e>
         <e p="Scripts" t="Include">
-          <e p="AutoHostClient.cs" t="Include" />
-          <e p="CanvasManager.cs" t="Include" />
           <e p="CanvasScript.cs" t="Include" />
           <e p="CardScript.cs" t="Include" />
-          <e p="ChatMessage.cs" t="Include" />
-          <e p="ChipScript.cs" t="Include" />
-          <e p="CreateCharacterMessage.cs" t="Include" />
+          <e p="Classes" t="Include">
+            <e p="ChatMessage.cs" t="Include" />
+            <e p="Outfit.cs" t="Include" />
+            <e p="PlayerModelScript.cs" t="Include" />
+            <e p="UserInfo.cs" t="Include" />
+          </e>
           <e p="DataManager.cs" t="Include" />
           <e p="Editor" t="Include">
             <e p="BuildScript.cs" t="Include" />
             <e p="Scripts.Editor.asmdef" t="Include" />
           </e>
+          <e p="Enums" t="Include">
+            <e p="GameState.cs" t="Include" />
+          </e>
           <e p="EventManager.cs" t="Include" />
-          <e p="EventType.cs" t="Include" />
           <e p="FriendsUI" t="Include">
             <e p="FriendCardPrefabScript.cs" t="Include" />
             <e p="FriendRawAction.cs" t="Include" />
@@ -587,7 +590,6 @@
             <e p="UserCardPrefabScript.cs" t="Include" />
           </e>
           <e p="GameCameraScript.cs" t="Include" />
-          <e p="GameState.cs" t="Include" />
           <e p="Inventory" t="Include">
             <e p="GameItems.cs" t="Include" />
             <e p="InventoryButton.cs" t="Include" />
@@ -601,8 +603,10 @@
           <e p="MessagePrefabScript.cs" t="Include" />
           <e p="MouseLook.cs" t="Include" />
           <e p="NetworkManagement.cs" t="Include" />
-          <e p="Outfit.cs" t="Include" />
-          <e p="PlayerModelScript.cs" t="Include" />
+          <e p="OfflineMode" t="Include">
+            <e p="AutoHostClient.cs" t="Include" />
+            <e p="CanvasManager.cs" t="Include" />
+          </e>
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PokerCardScript.cs" t="Include" />
           <e p="PokerClient.cs" t="Include" />
@@ -610,8 +614,6 @@
           <e p="ProfileUI.cs" t="Include" />
           <e p="RegisterLoginScript.cs" t="Include" />
           <e p="ScriptAssembly.asmdef" t="Include" />
-          <e p="UserInfo.cs" t="Include" />
-          <e p="Utilities.cs" t="Include" />
         </e>
         <e p="Tests" t="Include">
           <e p="EditTests" t="Include">

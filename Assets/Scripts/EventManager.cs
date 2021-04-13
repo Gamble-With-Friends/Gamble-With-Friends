@@ -71,10 +71,6 @@ public class EventManager : MonoBehaviour
 
     public static event RequestOutfitChange OnRequestOutfitChange;
 
-    public delegate void StringValueChanged(EventType eventType, string oldValue, string newValue);
-
-    public static event StringValueChanged OnStringValueChange;
-
     // request chat changes from server
     public delegate void RequestChatUpdate(string userId);
 
@@ -168,11 +164,6 @@ public class EventManager : MonoBehaviour
     public static void FireFriendRawActionClick(FriendRawAction action, string displayName)
     {
         OnFriendRawActionClick?.Invoke(action, displayName);
-    }
-
-    public static void FireStringValueChange(EventType eventType, string oldValue, string newValue)
-    {
-        OnStringValueChange?.Invoke(eventType, oldValue, newValue);
     }
 
     public static void FireOutfitChange(string userId)

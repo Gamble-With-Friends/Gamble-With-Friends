@@ -9,8 +9,6 @@ public class RegisterLoginScript : MonoBehaviour
     public CanvasGroup registrationForm;
     public CanvasGroup loginForm;
 
-    #region Registration Scripts
-
     private GameObject userNameObject;
     private GameObject emailObject;
     private GameObject passwordObject;
@@ -45,6 +43,8 @@ public class RegisterLoginScript : MonoBehaviour
         EventManager.OnLoginSuccess -= OnLoginSuccess;
         EventManager.OnLoginError -= OnLoginError;
     }
+
+    #region Registration Scripts
 
     public void Update()
     {

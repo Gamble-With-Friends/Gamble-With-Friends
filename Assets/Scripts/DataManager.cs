@@ -5,8 +5,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System;
 
-public class DataManager
+public static class DataManager
 {
+    public static bool isTest = false;
     private const string SERVER_IP = "216.58.1.35";
     private const string DATABASE = "GambleWithFriends";
     private const string USERNAME = "Anthony";
@@ -14,8 +15,6 @@ public class DataManager
 
     private const string ConnectionString = @"Data Source = " + SERVER_IP + ";Database=" + DATABASE + ";User Id=" +
                                             USERNAME + ";Password=" + PASSWORD + ";";
-    
-    
 
     public static void AddUser(string email, string displayName, string password)
     {
@@ -23,28 +22,13 @@ public class DataManager
         {
             var cmd = new SqlCommand("INSERT Users VALUES (@userId, @email, @displayName, @password, 1000.00)", db);
 
-            var userIdParam = new SqlParameter();
-            userIdParam.ParameterName = "@userId";
-            userIdParam.Value = Guid.NewGuid().ToString();
-            cmd.Parameters.Add(userIdParam);
-
-            var emailParam = new SqlParameter();
-            emailParam.ParameterName = "@email";
-            emailParam.Value = email;
-            cmd.Parameters.Add(emailParam);
-
-            var userNameParam = new SqlParameter();
-            userNameParam.ParameterName = "@displayName";
-            userNameParam.Value = displayName;
-            cmd.Parameters.Add(userNameParam);
-
-            var passwordParam = new SqlParameter();
-            passwordParam.ParameterName = "@password";
-            passwordParam.Value = password;
-            cmd.Parameters.Add(passwordParam);
+            cmd.Parameters.AddWithValue("@userId", Guid.NewGuid().ToString());
+            cmd.Parameters.AddWithValue("@email", email);
+            cmd.Parameters.AddWithValue("@displayName", displayName);
+            cmd.Parameters.AddWithValue("@password", password);
 
             db.Open();
-            cmd.ExecuteNonQuery();
+            cmd.ExecuteNoneQuery(db);
             db.Close();
         }
     }
@@ -66,6 +50,7 @@ public class DataManager
                 reader.Close();
                 return true;
             }
+
             reader.Close();
             return false;
         }
@@ -103,6 +88,7 @@ public class DataManager
                 reader.Close();
                 return player;
             }
+
             reader.Close();
             return null;
         }
@@ -117,14 +103,15 @@ public class DataManager
             db.Open();
             var reader = cmd.ExecuteReader();
             decimal currentAmount = 0;
-            
+
             while (reader.Read())
-            { 
+            {
                 currentAmount = reader.GetDecimal(0);
                 if (currentAmount + amount < 0) throw new ArgumentException("Funds not available");
             }
+
             reader.Close();
-            
+
             cmd = new SqlCommand("UPDATE Users SET coins = @coins Where userId=@userId", db);
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@coins", currentAmount + amount);
@@ -136,7 +123,8 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("INSERT Inventory VALUES (@userId, @itemId, @equipped, @purchaseDate, @payouts)", db);
+            var cmd = new SqlCommand("INSERT Inventory VALUES (@userId, @itemId, @equipped, @purchaseDate, @payouts)",
+                db);
 
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@itemId", GameItems.GetItems()[itemName].ItemId);
@@ -163,6 +151,7 @@ public class DataManager
             db.Open();
             cmd.ExecuteNonQuery();
         }
+
         InventoryItems.UpdateItems();
     }
 
@@ -170,7 +159,8 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("UPDATE Inventory set equipped = 1 where playerId = @userId and itemId = @itemId", db);
+            var cmd = new SqlCommand("UPDATE Inventory set equipped = 1 where playerId = @userId and itemId = @itemId",
+                db);
 
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@itemId", GameItems.GetItems()[itemName].ItemId);
@@ -184,7 +174,8 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("UPDATE Inventory set equipped = 0 where playerId = @userId and itemId = @itemId", db);
+            var cmd = new SqlCommand("UPDATE Inventory set equipped = 0 where playerId = @userId and itemId = @itemId",
+                db);
 
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@itemId", GameItems.GetItems()[itemName].ItemId);
@@ -196,7 +187,6 @@ public class DataManager
 
     public static void GetItems()
     {
-
         using (var db = new SqlConnection(ConnectionString))
         {
             var cmd = new SqlCommand("SELECT itemId, itemTitle, itemType, coinValue, incomeAmount FROM Item", db);
@@ -208,32 +198,34 @@ public class DataManager
 
             while (reader.Read())
             {
-                GameItems.itemNameToRecord.Add(reader.GetString(1),new GameItems.Item {
-                    ItemId =  reader.GetString(0),
+                GameItems.itemNameToRecord.Add(reader.GetString(1), new GameItems.Item
+                {
+                    ItemId = reader.GetString(0),
                     ItemTitle = reader.GetString(1),
                     ItemType = reader.GetInt32(2),
                     CoinValue = reader.GetDecimal(3),
                     IncomeAmount = reader.GetDecimal(4),
                 });
             }
+
             reader.Close();
         }
     }
 
     public static Dictionary<string, InventoryItems.InventoryItem> GetInventoryItems(string userId)
     {
-
         var itemIdToInventoryItem = new Dictionary<string, InventoryItems.InventoryItem>();
-            
+
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT itemId, equipped, purchaseDate, payouts FROM Inventory where playerId = @userId", db);
+            var cmd = new SqlCommand(
+                "SELECT itemId, equipped, purchaseDate, payouts FROM Inventory where playerId = @userId", db);
 
             cmd.Parameters.AddWithValue("@userId", userId);
 
             db.Open();
             var reader = cmd.ExecuteReader();
-            
+
             while (reader.Read())
             {
                 itemIdToInventoryItem.Add(reader.GetString(0), new InventoryItems.InventoryItem
@@ -244,6 +236,7 @@ public class DataManager
                     Payouts = reader.GetInt32(3)
                 });
             }
+
             reader.Close();
         }
 
@@ -257,9 +250,10 @@ public class DataManager
         using (var db = new SqlConnection(ConnectionString))
         {
             var cmd = new SqlCommand(
-                "SELECT Users.displayName FROM Friends JOIN Users ON Friends.friendID = Users.userId WHERE Friends.userId = @userId AND Friends.status=1;", db);
+                "SELECT Users.displayName FROM Friends JOIN Users ON Friends.friendID = Users.userId WHERE Friends.userId = @userId AND Friends.status=1;",
+                db);
 
-            var param = new SqlParameter { ParameterName = "@userId", Value = playerId };
+            var param = new SqlParameter {ParameterName = "@userId", Value = playerId};
             cmd.Parameters.Add(param);
 
             db.Open();
@@ -268,6 +262,7 @@ public class DataManager
             {
                 friendList.Add(reader.GetString(0));
             }
+
             reader.Close();
         }
 
@@ -278,7 +273,9 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("DELETE FROM Friends WHERE (userId=@userId AND friendId=@friendUserId) OR (userId=@friendUserId AND friendId=@userId)", db);
+            var cmd = new SqlCommand(
+                "DELETE FROM Friends WHERE (userId=@userId AND friendId=@friendUserId) OR (userId=@friendUserId AND friendId=@userId)",
+                db);
             cmd.Parameters.AddWithValue("@userId", localUserId);
             cmd.Parameters.AddWithValue("@friendUserId", friendUserId);
 
@@ -296,7 +293,7 @@ public class DataManager
         {
             var cmd = new SqlCommand("SELECT coins FROM Users WHERE userId = @userId", db);
 
-            var param = new SqlParameter { ParameterName = "@userId", Value = playerId };
+            var param = new SqlParameter {ParameterName = "@userId", Value = playerId};
             cmd.Parameters.Add(param);
 
             db.Open();
@@ -308,6 +305,7 @@ public class DataManager
                 db.Close();
                 return true;
             }
+
             reader.Close();
             db.Close();
             return false;
@@ -320,7 +318,7 @@ public class DataManager
         {
             var cmd = new SqlCommand("SELECT userId, coins FROM Users WHERE displayName = @displayName", db);
 
-            var param = new SqlParameter { ParameterName = "@displayName", Value = displayName };
+            var param = new SqlParameter {ParameterName = "@displayName", Value = displayName};
             cmd.Parameters.Add(param);
 
             db.Open();
@@ -362,6 +360,7 @@ public class DataManager
 
             db.Close();
         }
+
         if (foundUsers.Contains(currentUser))
         {
             foundUsers.Remove(currentUser);
@@ -369,13 +368,14 @@ public class DataManager
 
         return foundUsers;
     }
-    
+
     public static bool IsFriend(string userId, string friendName)
     {
         using (var db = new SqlConnection(ConnectionString))
         {
             var cmd = new SqlCommand(
-                "SELECT f.userId FROM Friends f JOIN Users u ON f.userId = u.userId WHERE friendId=@userId AND u.displayName=@friendName AND f.status=1", db);
+                "SELECT f.userId FROM Friends f JOIN Users u ON f.userId = u.userId WHERE friendId=@userId AND u.displayName=@friendName AND f.status=1",
+                db);
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@friendName", friendName);
 
@@ -388,6 +388,7 @@ public class DataManager
 
             db.Close();
         }
+
         return false;
     }
 
@@ -396,7 +397,8 @@ public class DataManager
         using (var db = new SqlConnection(ConnectionString))
         {
             var cmd = new SqlCommand(
-                "SELECT f.userId FROM Friends f JOIN Users u ON f.userId = u.userId WHERE friendId=@userId AND u.displayName=@friendName AND f.status=0", db);
+                "SELECT f.userId FROM Friends f JOIN Users u ON f.userId = u.userId WHERE friendId=@userId AND u.displayName=@friendName AND f.status=0",
+                db);
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@friendName", friendName);
 
@@ -409,6 +411,7 @@ public class DataManager
 
             db.Close();
         }
+
         return false;
     }
 
@@ -427,9 +430,10 @@ public class DataManager
                 recipientId = reader.GetString(0);
                 break;
             }
+
             reader.Close();
 
-            cmd = new SqlCommand("INSERT Friends VALUES (@recipientId, @senderId, 0)", db);            
+            cmd = new SqlCommand("INSERT Friends VALUES (@recipientId, @senderId, 0)", db);
             cmd.Parameters.AddWithValue("@senderId", senderId);
             cmd.Parameters.AddWithValue("@recipientId", recipientId);
             cmd.ExecuteNonQuery();
@@ -444,7 +448,9 @@ public class DataManager
 
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT displayName FROM Users u JOIN Friends f ON u.userId = f.friendId WHERE f.userId=@userId AND f.status=0;", db);
+            var cmd = new SqlCommand(
+                "SELECT displayName FROM Users u JOIN Friends f ON u.userId = f.friendId WHERE f.userId=@userId AND f.status=0;",
+                db);
             cmd.Parameters.AddWithValue("@userId", userId);
 
             db.Open();
@@ -454,9 +460,11 @@ public class DataManager
                 pendingRequest.Add(reader.GetString(0));
                 break;
             }
+
             reader.Close();
             db.Close();
         }
+
         return pendingRequest;
     }
 
@@ -475,6 +483,7 @@ public class DataManager
                 otherUserId = reader.GetString(0);
                 break;
             }
+
             reader.Close();
 
             cmd = new SqlCommand("UPDATE Friends SET status = 1 WHERE userId=@userId AND friendId=@otherUserId", db);
@@ -506,6 +515,7 @@ public class DataManager
                 otherUserId = reader.GetString(0);
                 break;
             }
+
             reader.Close();
 
             cmd = new SqlCommand("DELETE FROM Friends WHERE userId=@userId AND friendId=@otherUserId", db);
@@ -522,36 +532,40 @@ public class DataManager
         using (var db = new SqlConnection(ConnectionString))
         {
             var cmd = new SqlCommand("INSERT Server VALUES (@serverId)", db);
-            cmd.Parameters.AddWithValue("@serverId",serverId);
+            cmd.Parameters.AddWithValue("@serverId", serverId);
             db.Open();
             cmd.ExecuteNonQuery();
             db.Close();
         }
     }
-    
+
     public static void CreateLoginSession(int connectionId, string serverId, string userId)
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("INSERT LoginSession (loginSessionId, playerId, loginDateTime, serverId) VALUES (@loginSessionId, @playerId, @loginDateTime, @serverId)", db);
-            cmd.Parameters.AddWithValue("@serverId",serverId);
+            var cmd = new SqlCommand(
+                "INSERT LoginSession (loginSessionId, playerId, loginDateTime, serverId) VALUES (@loginSessionId, @playerId, @loginDateTime, @serverId)",
+                db);
+            cmd.Parameters.AddWithValue("@serverId", serverId);
             cmd.Parameters.AddWithValue("@loginSessionId", connectionId);
-            cmd.Parameters.AddWithValue("@playerId",userId);
+            cmd.Parameters.AddWithValue("@playerId", userId);
             cmd.Parameters.AddWithValue("@loginDateTime", DateTime.Now);
             db.Open();
             cmd.ExecuteNonQuery();
             db.Close();
         }
     }
-    
+
     public static void UpdateLogoutTime(int connectionId, string serverId)
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("UPDATE LoginSession SET logoutDateTime = @logoutDateTime WHERE serverId = @serverId AND loginSessionId = @loginSessionId", db);
-            cmd.Parameters.AddWithValue("@logoutDateTime",DateTime.Now);
+            var cmd = new SqlCommand(
+                "UPDATE LoginSession SET logoutDateTime = @logoutDateTime WHERE serverId = @serverId AND loginSessionId = @loginSessionId",
+                db);
+            cmd.Parameters.AddWithValue("@logoutDateTime", DateTime.Now);
             cmd.Parameters.AddWithValue("@loginSessionId", connectionId);
-            cmd.Parameters.AddWithValue("@serverId",serverId);
+            cmd.Parameters.AddWithValue("@serverId", serverId);
             db.Open();
             cmd.ExecuteNonQuery();
             db.Close();
@@ -561,10 +575,12 @@ public class DataManager
     public static bool IsPlayerLoggedIn(string userId, string serverId)
     {
         var isLoggedIn = false;
-        
+
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT loginSessionId FROM LoginSession WHERE serverId = @serverId AND playerId = @playerId AND logoutDateTime IS NULL", db);
+            var cmd = new SqlCommand(
+                "SELECT loginSessionId FROM LoginSession WHERE serverId = @serverId AND playerId = @playerId AND logoutDateTime IS NULL",
+                db);
             cmd.Parameters.AddWithValue("@playerId", userId);
             cmd.Parameters.AddWithValue("@serverId", serverId);
             db.Open();
@@ -581,7 +597,9 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("INSERT GameSession (gameSessionId, playerId, startTime, serverId, gameId, connectionId, result) VALUES (@gameSessionId, @playerId, @startTime, @serverId, @gameId, @connectionId, @result)", db);
+            var cmd = new SqlCommand(
+                "INSERT GameSession (gameSessionId, playerId, startTime, serverId, gameId, connectionId, result) VALUES (@gameSessionId, @playerId, @startTime, @serverId, @gameId, @connectionId, @result)",
+                db);
             cmd.Parameters.AddWithValue("@serverId", serverId);
             cmd.Parameters.AddWithValue("@gameSessionId", Guid.NewGuid().ToString());
             cmd.Parameters.AddWithValue("@playerId", userId);
@@ -601,7 +619,9 @@ public class DataManager
 
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT Top 1 result FROM GameSession WHERE serverId = @serverId AND connectionId = @connectionId AND gameId=@gameId AND endTime IS NULL ORDER BY startTime Desc", db);
+            var cmd = new SqlCommand(
+                "SELECT Top 1 result FROM GameSession WHERE serverId = @serverId AND connectionId = @connectionId AND gameId=@gameId AND endTime IS NULL ORDER BY startTime Desc",
+                db);
             cmd.Parameters.AddWithValue("@connectionId", connectionId);
             cmd.Parameters.AddWithValue("@serverId", serverId);
             cmd.Parameters.AddWithValue("@gameId", gameId);
@@ -612,6 +632,7 @@ public class DataManager
                 result = reader.GetDecimal(0);
                 break;
             }
+
             reader.Close();
             db.Close();
         }
@@ -626,7 +647,9 @@ public class DataManager
         using (var db = new SqlConnection(ConnectionString))
         {
             string gameSessionId = "";
-            var cmd = new SqlCommand("SELECT Top 1 gameSessionId from GameSession WHERE serverId = @serverId AND connectionId = @connectionId AND gameId=@gameId AND endTime IS NULL ORDER BY startTime Desc", db);
+            var cmd = new SqlCommand(
+                "SELECT Top 1 gameSessionId from GameSession WHERE serverId = @serverId AND connectionId = @connectionId AND gameId=@gameId AND endTime IS NULL ORDER BY startTime Desc",
+                db);
 
             cmd.Parameters.AddWithValue("@connectionId", connectionId);
             cmd.Parameters.AddWithValue("@serverId", serverId);
@@ -639,9 +662,11 @@ public class DataManager
                 gameSessionId = reader.GetString(0);
                 break;
             }
+
             reader.Close();
 
-            cmd = new SqlCommand("UPDATE GameSession SET endTime = @endTime, result = @result WHERE gameSessionId = @gameSessionId", db);
+            cmd = new SqlCommand(
+                "UPDATE GameSession SET endTime = @endTime, result = @result WHERE gameSessionId = @gameSessionId", db);
             cmd.Parameters.AddWithValue("@endTime", DateTime.Now);
             cmd.Parameters.AddWithValue("@result", UserInfo.GetInstance().TotalCoins - totalCoins);
             cmd.Parameters.AddWithValue("@gameSessionId", gameSessionId);
@@ -654,7 +679,8 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("UPDATE Inventory SET payouts = @payouts WHERE playerId = @userId AND itemId = @itemId", db);
+            var cmd = new SqlCommand(
+                "UPDATE Inventory SET payouts = @payouts WHERE playerId = @userId AND itemId = @itemId", db);
             cmd.Parameters.AddWithValue("@userId", userId);
             cmd.Parameters.AddWithValue("@itemId", itemId);
             cmd.Parameters.AddWithValue("@payouts", payouts);
@@ -679,9 +705,12 @@ public class DataManager
                 receiverId = reader.GetString(0);
                 break;
             }
+
             reader.Close();
 
-            cmd = new SqlCommand("INSERT INTO TransactionHistory VALUES (@transactionId, @senderId, @receiverId, @amount, @transactionInitiated)", db);
+            cmd = new SqlCommand(
+                "INSERT INTO TransactionHistory VALUES (@transactionId, @senderId, @receiverId, @amount, @transactionInitiated)",
+                db);
             cmd.Parameters.AddWithValue("@transactionId", Guid.NewGuid());
             cmd.Parameters.AddWithValue("@senderId", senderId);
             cmd.Parameters.AddWithValue("@receiverId", receiverId);
@@ -708,9 +737,12 @@ public class DataManager
                 receiverId = reader.GetString(0);
                 break;
             }
+
             reader.Close();
 
-            cmd = new SqlCommand("INSERT INTO ChatMessages VALUES (@messageId, @senderId, @receiverId, @content, @created, @updated)", db);
+            cmd = new SqlCommand(
+                "INSERT INTO ChatMessages VALUES (@messageId, @senderId, @receiverId, @content, @created, @updated)",
+                db);
             cmd.Parameters.AddWithValue("@messageId", Guid.NewGuid().ToString());
             cmd.Parameters.AddWithValue("@senderId", currentUserId);
             cmd.Parameters.AddWithValue("@receiverId", receiverId);
@@ -722,11 +754,12 @@ public class DataManager
             db.Close();
         }
     }
+
     public static string GetUserId(string displayName)
     {
         string userId = string.Empty;
         using (var db = new SqlConnection(ConnectionString))
-        {            
+        {
             var cmd = new SqlCommand("SELECT userId FROM Users WHERE displayName=@displayName", db);
             cmd.Parameters.AddWithValue("@displayName", displayName);
 
@@ -737,10 +770,11 @@ public class DataManager
                 userId = reader.GetString(0);
                 break;
             }
-            
+
             reader.Close();
             db.Close();
         }
+
         return userId;
     }
 
@@ -750,19 +784,23 @@ public class DataManager
 
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("SELECT TOP 10 messageId, senderId, messageContent, DateTimeCreated, DateTimeEdited FROM ChatMessages WHERE (senderId=@currentUserId AND receiverId=@friendUserId) OR (senderId=@friendUserId AND receiverId=@currentUserId) ORDER BY DateTimeCreated DESC", db);
+            var cmd = new SqlCommand(
+                "SELECT TOP 10 messageId, senderId, messageContent, DateTimeCreated, DateTimeEdited FROM ChatMessages WHERE (senderId=@currentUserId AND receiverId=@friendUserId) OR (senderId=@friendUserId AND receiverId=@currentUserId) ORDER BY DateTimeCreated DESC",
+                db);
             cmd.Parameters.AddWithValue("@currentUserId", currentUserId);
             cmd.Parameters.AddWithValue("@friendUserId", friendUserId);
             db.Open();
             SqlDataReader reader = cmd.ExecuteReader();
             while (reader.Read())
             {
-                lastMessages.Add(new ChatMessage(reader.GetString(0), reader.GetString(1), reader.GetString(2), reader.GetDateTime(3), reader.GetDateTime(4)));
+                lastMessages.Add(new ChatMessage(reader.GetString(0), reader.GetString(1), reader.GetString(2),
+                    reader.GetDateTime(3), reader.GetDateTime(4)));
             }
 
             reader.Close();
             db.Close();
         }
+
         return lastMessages;
     }
 
@@ -785,6 +823,7 @@ public class DataManager
             reader.Close();
             db.Close();
         }
+
         return ItemId;
     }
 
@@ -794,7 +833,7 @@ public class DataManager
         {
             var cmd = new SqlCommand("DELETE FROM ChatMessages WHERE messageId=@messageId", db);
             cmd.Parameters.AddWithValue("@messageId", messageId);
-            db.Open();           
+            db.Open();
             cmd.ExecuteNonQuery();
             db.Close();
         }
@@ -818,6 +857,7 @@ public class DataManager
             reader.Close();
             db.Close();
         }
+
         return content;
     }
 
@@ -825,12 +865,28 @@ public class DataManager
     {
         using (var db = new SqlConnection(ConnectionString))
         {
-            var cmd = new SqlCommand("UPDATE ChatMessages SET messageContent = @content WHERE messageId = @messageId", db);
+            var cmd = new SqlCommand("UPDATE ChatMessages SET messageContent = @content WHERE messageId = @messageId",
+                db);
             cmd.Parameters.AddWithValue("@content", content);
             cmd.Parameters.AddWithValue("@messageId", messageId);
             db.Open();
             cmd.ExecuteNonQuery();
             db.Close();
+        }
+    }
+
+    private static void ExecuteNoneQuery(this SqlCommand cmd, SqlConnection db)
+    {
+        if (isTest)
+        {
+            var sqlTransaction = db.BeginTransaction();
+            cmd.Transaction = sqlTransaction;
+            cmd.ExecuteNonQuery();
+            sqlTransaction.Rollback();
+        }
+        else
+        {
+            cmd.ExecuteNonQuery();
         }
     }
 }

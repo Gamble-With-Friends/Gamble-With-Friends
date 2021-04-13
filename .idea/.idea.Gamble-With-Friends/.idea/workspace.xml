@@ -1,7 +1,192 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="03372e41-68d1-4378-a14b-1ab2bd8ca5f9" name="Default Changelist" comment="Formatting" />
+    <list default="true" id="03372e41-68d1-4378-a14b-1ab2bd8ca5f9" name="Default Changelist" comment="Formatting">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Classes.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Classes/ChatMessage.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Classes/Outfit.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Classes/PlayerModelScript.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Classes/UserInfo.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Enums.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/GameState.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Enums/GameState.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/OfflineMode.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/OfflineMode/AutoHostClient.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/OfflineMode/AutoHostClient.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/OfflineMode/CanvasManager.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/OfflineMode/CanvasManager.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/annotated.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/bc_s.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/bdwn.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_canvas_script.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_canvas_script.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_card-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_card.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_event_manager-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_event_manager.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_event_manager.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_game_camera_script-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_game_camera_script.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_game_camera_script.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_hand-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_hand.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_json_library_1_1_int_to_decimal-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_json_library_1_1_int_to_decimal.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_json_library_1_1_int_to_decimal_collection-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_json_library_1_1_int_to_decimal_collection.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_json_library_1_1_int_to_string_collection-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_json_library_1_1_int_to_string_collection.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_lobby_info-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_login_checker-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_login_checker.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_login_trigger_script-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_login_trigger_script.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_message_prefab_script-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_message_prefab_script.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_mouse_look-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_mouse_look.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_network_management-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_network_management.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_network_management.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_player_movement-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_player_movement.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_player_movement.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_card_script-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_card_script.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_card_script.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_client-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_client.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_client.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_client_1_1_session.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_server-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_server.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_poker_server.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_profile_u_i-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_profile_u_i.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_register_login_script-members.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_register_login_script.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/class_register_login_script.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/closed.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/doxygen.css.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/doxygen.svg.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/dynsections.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/folderclosed.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/index.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/jquery.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/menudata.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/nav_f.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/nav_h.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_0.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_0.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_1.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_1.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_2.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_2.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_3.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_3.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_4.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_4.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_5.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_5.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_6.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_6.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_7.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_7.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_8.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_8.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_9.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_9.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/all_a.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_0.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_0.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_1.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_4.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_5.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_6.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_6.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_7.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_8.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_8.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_9.html.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_9.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/classes_a.js.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/search.css.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/search_l.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/search/search_m.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/splitbar.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/sync_off.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/sync_on.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/tab_b.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/tab_h.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/tab_s.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/html/tabs.css.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/Makefile.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/annotated.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_canvas_script.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_canvas_script.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_event_manager.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_event_manager.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_game_camera_script.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_game_camera_script.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_hand.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_json_library_1_1_int_to_decimal_collection.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_lobby_info.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_lobby_info.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_login_checker.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_login_checker.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_login_trigger_script.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_mouse_look.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_mouse_look.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_network_management.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_network_management.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_player_movement.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_poker_client_1_1_session.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_poker_server.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_profile_u_i.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_register_login_script.eps.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/class_register_login_script.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/doxygen.sty.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/hierarchy.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/longtable_doxygen.sty.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/refman.tex.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/latex/tabu_doxygen.sty.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/contentModel.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/indexLayout.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Gamble-With-Friends/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chip1.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Chip1.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/Chip100.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/Chip100.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/PokerTable.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/PokerTable.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AutoHostClient.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/AutoHostClient.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CanvasManager.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CanvasManager.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChatMessage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChatMessage.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChipScript.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ChipScript.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Classes/Outfit.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CreateCharacterMessage.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/CreateCharacterMessage.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Classes/UserInfo.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/DataManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/DataManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventType.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/EventType.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Classes/ChatMessage.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameState.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameState.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/JSONLibrary.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/JSONLibrary.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Outfit.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Outfit.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerModelScript.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/PlayerModelScript.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/RegisterLoginScript.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/RegisterLoginScript.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInfo.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/UserInfo.cs.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utilities.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Utilities.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Classes/PlayerModelScript.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Tests/EditTests/DataManagerTests.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Tests/EditTests/DataManagerTests.cs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -11,7 +196,6 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/Outfit.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/EAE584CE-26BC-4022-9C1B-1AA476BFA589/1f/e55a66be/SerializableAttribute.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/6DF2BF6E-7BC1-499C-BB0F-04556DF8B702/df/28123d65/Canvas.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/LoginChecker.cs" root0="FORCE_HIGHLIGHTING" />
@@ -19,14 +203,12 @@
     <setting file="file://$PROJECT_DIR$/../../../../Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/UI/Core/Button.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/JsonLibrary.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/FE7EE188-1B52-4B0D-9443-F74417FB598B/50/e3f05e2e/GUIUtility.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/UserInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/LobbyInfo.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../../../../Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/Resources/PackageManager/BuiltInPackages/com.unity.ugui/Runtime/EventSystem/UIBehaviour.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Gamble-With-Friends_clone_0/Assets/Mirror/Runtime/MessagePacking.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/18652B59-14B1-4E07-A740-76A4608F13E3/11/ad179aca/SendMouseEvents.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/EAE584CE-26BC-4022-9C1B-1AA476BFA589/87/3986f685/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/EAE584CE-26BC-4022-9C1B-1AA476BFA589/74/ab01c5b4/UTF8Encoding.cs" root0="SKIP_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Assets/Scripts/EventType.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/../Gamble-With-Friends_clone_0/Assets/Mirror/Runtime/ClientScene.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/EF151B6A-BB5D-474C-B2C1-CB8906A8B5A4/91/455a5823/Stack`1.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/53FA4D04-FF9E-437D-AC8E-1BA5C15E99CE/28/8c0d9abf/NativeInputSystem.cs" root0="SKIP_HIGHLIGHTING" />
@@ -42,14 +224,12 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/NetworkedPrefabManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/AutoHostClient.cs" />
       <option value="$PROJECT_DIR$/Assets/Mirror/Runtime/NetworkManager.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/CanvasManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/FriendsScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/UserInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerGameManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/JSONLibrary.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/EventType.cs" />
       <option value="$PROJECT_DIR$/Assets/PokerCardScript.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/JsonLibrary.cs" />
       <option value="$PROJECT_DIR$/Assets/LobbyInfo.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerHandValue.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/NetworkManagement.cs" />
@@ -59,7 +239,6 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/LoginChecker.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Outfit.cs" />
       <option value="$PROJECT_DIR$/Assets/InventoryPlayerEquip.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Inventory/InventoryUI.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Inventory/InventoryItems.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/Inventory/InventoryButton.cs" />
@@ -67,12 +246,16 @@
       <option value="$PROJECT_DIR$/Assets/Scripts/CardScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerCardScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/LobbyInfo.cs" />
-      <option value="$PROJECT_DIR$/Assets/Scripts/RegisterLoginScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/GameState.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerServer.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PokerClient.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/PlayerMovement.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/EventManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/JsonLibrary.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/CanvasManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Scripts/RegisterLoginScript.cs" />
       <option value="$PROJECT_DIR$/Assets/Scripts/DataManager.cs" />
+      <option value="$PROJECT_DIR$/Assets/Tests/EditTests/DataManagerTests.cs" />
     </changedPaths>
   </component>
   <component name="ProjectId" id="1pqpQlBa35qlHTJR57cKgVocGBp" />
@@ -85,7 +268,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34963325" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34955752" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -105,10 +288,10 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" ignored-value-for-modified-check="13208">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
-      <option name="pid" />
+      <option name="pid" value="13208" />
       <option name="selectedOptions">
         <list />
       </option>
@@ -149,6 +332,9 @@
       <workItem from="1617750531226" duration="1192000" />
       <workItem from="1617753519744" duration="568000" />
       <workItem from="1617762516045" duration="24626000" />
+      <workItem from="1618086385450" duration="844000" />
+      <workItem from="1618087254917" duration="706000" />
+      <workItem from="1618336461807" duration="9156000" />
     </task>
     <task id="LOCAL-00001" summary="Formatting">
       <created>1615920959819</created>

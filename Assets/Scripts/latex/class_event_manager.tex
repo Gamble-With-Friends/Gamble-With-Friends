@@ -1,0 +1,187 @@
+\hypertarget{class_event_manager}{}\doxysection{Event\+Manager Class Reference}
+\label{class_event_manager}\index{EventManager@{EventManager}}
+Inheritance diagram for Event\+Manager\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_event_manager}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_manager_ac44cc390cdcb954f8659656084ebcd56}\label{class_event_manager_ac44cc390cdcb954f8659656084ebcd56}} 
+delegate void {\bfseries Prepare\+To\+Game\+Action} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a4884582f4a5bde63c91dd9fd993afc1f}\label{class_event_manager_a4884582f4a5bde63c91dd9fd993afc1f}} 
+delegate void {\bfseries Ready\+To\+Game\+Action} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a81fddb85f117d5a77274035896e80910}\label{class_event_manager_a81fddb85f117d5a77274035896e80910}} 
+delegate void {\bfseries Prepare\+To\+Exit\+Game\+Action} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a5520221f24ac6b753fac36eda56b2d6e}\label{class_event_manager_a5520221f24ac6b753fac36eda56b2d6e}} 
+delegate void {\bfseries Ready\+To\+Exit\+Game\+Action} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_ab59c6be08eb0a368e47ddb9ecff493de}\label{class_event_manager_ab59c6be08eb0a368e47ddb9ecff493de}} 
+delegate void {\bfseries Start\+Game} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_ac650db3bc7dd78814d4d6d6531ba0994}\label{class_event_manager_ac650db3bc7dd78814d4d6d6531ba0994}} 
+delegate void {\bfseries Modify\+Bet\+Action} (int amount)
+\item 
+\mbox{\Hypertarget{class_event_manager_a1b8afea8584a86cec8eb9e665faee003}\label{class_event_manager_a1b8afea8584a86cec8eb9e665faee003}} 
+delegate void {\bfseries Click\+Action} (int instance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a9db31b723a69a5485e92e458f8ffc364}\label{class_event_manager_a9db31b723a69a5485e92e458f8ffc364}} 
+delegate void {\bfseries Instruction\+Change} (string instruction)
+\item 
+\mbox{\Hypertarget{class_event_manager_afd6116669c28f1adbeef9544a24808b9}\label{class_event_manager_afd6116669c28f1adbeef9544a24808b9}} 
+delegate void {\bfseries Login\+Success} ()
+\item 
+\mbox{\Hypertarget{class_event_manager_a497ed0d671fcc8ce2edaf77cfdf53355}\label{class_event_manager_a497ed0d671fcc8ce2edaf77cfdf53355}} 
+delegate void {\bfseries Login\+Error} (string username, string message)
+\item 
+\mbox{\Hypertarget{class_event_manager_a31461ee0a2a3b2c20881226f387ce451}\label{class_event_manager_a31461ee0a2a3b2c20881226f387ce451}} 
+delegate void {\bfseries Before\+Login\+Success} ()
+\item 
+\mbox{\Hypertarget{class_event_manager_a8e17393e2b7a5bf64ee11f693e99d95b}\label{class_event_manager_a8e17393e2b7a5bf64ee11f693e99d95b}} 
+delegate void {\bfseries Change\+Coin\+Value} (decimal amount)
+\item 
+\mbox{\Hypertarget{class_event_manager_a9f802d659326735662ef5e2b079df946}\label{class_event_manager_a9f802d659326735662ef5e2b079df946}} 
+delegate void {\bfseries Key\+Down\+Events} (Key\+Code key)
+\item 
+\mbox{\Hypertarget{class_event_manager_a39327a3c444078e39579c640ce67e0c1}\label{class_event_manager_a39327a3c444078e39579c640ce67e0c1}} 
+delegate void {\bfseries Friend\+Raw\+Action\+Clicked} (Friend\+Raw\+Action action, string display\+Name)
+\item 
+\mbox{\Hypertarget{class_event_manager_a1101479d6bbd805b415c877591abebc5}\label{class_event_manager_a1101479d6bbd805b415c877591abebc5}} 
+delegate void {\bfseries Outfit\+Change} (string user\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_ac168edbb8dbeb72e06e634bccd81b7fb}\label{class_event_manager_ac168edbb8dbeb72e06e634bccd81b7fb}} 
+delegate void {\bfseries Request\+Outfit\+Change} (string user\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a139e5471b08a037bad9a50160af6334a}\label{class_event_manager_a139e5471b08a037bad9a50160af6334a}} 
+delegate void {\bfseries Request\+Chat\+Update} (string user\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a333f420371b4fc9f9f360ee754a42043}\label{class_event_manager_a333f420371b4fc9f9f360ee754a42043}} 
+delegate void {\bfseries Chat\+Update} (string user\+Id)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_manager_a2f229a5346df7498048568dcd7d99345}\label{class_event_manager_a2f229a5346df7498048568dcd7d99345}} 
+static void {\bfseries Fire\+Click\+Event} (int instance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_ae32d8c60d16949a60af121d4bdf176af}\label{class_event_manager_ae32d8c60d16949a60af121d4bdf176af}} 
+static void {\bfseries Fire\+Prepare\+To\+Game\+Event} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a799061cd164068df4ac8e35a1fc64682}\label{class_event_manager_a799061cd164068df4ac8e35a1fc64682}} 
+static void {\bfseries Fire\+Ready\+To\+Game\+Event} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a664ad710e9e9f11f72f078492b418c9e}\label{class_event_manager_a664ad710e9e9f11f72f078492b418c9e}} 
+static void {\bfseries Fire\+Prepare\+To\+Exit\+Game\+Event} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_ac5944823b18f54f3284a6f1599aaf153}\label{class_event_manager_ac5944823b18f54f3284a6f1599aaf153}} 
+static void {\bfseries Fire\+Ready\+To\+Exit\+Game\+Event} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a6f4196c55acb605d99f5dadff62a3de5}\label{class_event_manager_a6f4196c55acb605d99f5dadff62a3de5}} 
+static void {\bfseries Fire\+Start\+Game\+Event} (int intance\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a186515fa0e379e6904e7f1d2f66474b8}\label{class_event_manager_a186515fa0e379e6904e7f1d2f66474b8}} 
+static void {\bfseries Fire\+On\+Modify\+Bet\+Event} (int amount)
+\item 
+\mbox{\Hypertarget{class_event_manager_a7e176d5357b856bd2ed7303159e5a82b}\label{class_event_manager_a7e176d5357b856bd2ed7303159e5a82b}} 
+static void {\bfseries Fire\+Instruction\+Change\+Event} (string instruction)
+\item 
+\mbox{\Hypertarget{class_event_manager_a9e8477fd5af6973e31ad284d767e1a5a}\label{class_event_manager_a9e8477fd5af6973e31ad284d767e1a5a}} 
+static void {\bfseries Fire\+Login\+Success\+Event} (string username, string user\+Id, decimal coins)
+\item 
+\mbox{\Hypertarget{class_event_manager_a6553983a962a874d42978eb8a88dbaa0}\label{class_event_manager_a6553983a962a874d42978eb8a88dbaa0}} 
+static void {\bfseries Fire\+Delayed\+Login\+Success\+Event} ()
+\item 
+\mbox{\Hypertarget{class_event_manager_a5dc2cc996e4f3695e9a79a34b175dc1c}\label{class_event_manager_a5dc2cc996e4f3695e9a79a34b175dc1c}} 
+static void {\bfseries Fire\+Login\+Error\+Event} (string username, string error\+Message)
+\item 
+\mbox{\Hypertarget{class_event_manager_af8de4374385573fa8288bedcf6769242}\label{class_event_manager_af8de4374385573fa8288bedcf6769242}} 
+static void {\bfseries Fire\+Change\+Coin\+Value} (decimal amount)
+\item 
+\mbox{\Hypertarget{class_event_manager_add905a2f95c2f42552299ac58bff7713}\label{class_event_manager_add905a2f95c2f42552299ac58bff7713}} 
+static void {\bfseries Fire\+Key\+Down\+Event} (Key\+Code key)
+\item 
+\mbox{\Hypertarget{class_event_manager_ae15c1cec55ad1c429916da8311826864}\label{class_event_manager_ae15c1cec55ad1c429916da8311826864}} 
+static void {\bfseries Fire\+Friend\+Raw\+Action\+Click} (Friend\+Raw\+Action action, string display\+Name)
+\item 
+\mbox{\Hypertarget{class_event_manager_af4268e8b54276d5d41b711349da3a60c}\label{class_event_manager_af4268e8b54276d5d41b711349da3a60c}} 
+static void {\bfseries Fire\+Outfit\+Change} (string user\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_aae89e04484ef7a060a942c1d16c56b5d}\label{class_event_manager_aae89e04484ef7a060a942c1d16c56b5d}} 
+static void {\bfseries Fire\+Request\+Outfit\+Change} (string user\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_aab1c81971e1a15068f7f5c89ece0fc16}\label{class_event_manager_aab1c81971e1a15068f7f5c89ece0fc16}} 
+static void {\bfseries Fire\+Server} (string user\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_a8e6b2385fd675f652835024488eca86e}\label{class_event_manager_a8e6b2385fd675f652835024488eca86e}} 
+static void {\bfseries Fire\+Request\+Chat\+Update} (string user\+Id)
+\item 
+\mbox{\Hypertarget{class_event_manager_ac41915a44d0a89b74fbbc04c199d58fa}\label{class_event_manager_ac41915a44d0a89b74fbbc04c199d58fa}} 
+static void {\bfseries Fire\+Chat\+Update} (string user\+Id)
+\end{DoxyCompactItemize}
+\doxysubsection*{Events}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_event_manager_ac46b7210b24e28326a8d2212f0e2eb0b}\label{class_event_manager_ac46b7210b24e28326a8d2212f0e2eb0b}} 
+static Prepare\+To\+Game\+Action {\bfseries On\+Prepare\+To\+Game}
+\item 
+\mbox{\Hypertarget{class_event_manager_a19c78c9e9b22486c5053dca9609d8ba9}\label{class_event_manager_a19c78c9e9b22486c5053dca9609d8ba9}} 
+static Ready\+To\+Game\+Action {\bfseries On\+Ready\+To\+Game}
+\item 
+\mbox{\Hypertarget{class_event_manager_ad366147ad82e81905a368676221e8b6c}\label{class_event_manager_ad366147ad82e81905a368676221e8b6c}} 
+static Prepare\+To\+Exit\+Game\+Action {\bfseries On\+Prepare\+To\+Exit\+Game}
+\item 
+\mbox{\Hypertarget{class_event_manager_a2b2d7ed85a5adf769bf1f2563f4e483c}\label{class_event_manager_a2b2d7ed85a5adf769bf1f2563f4e483c}} 
+static Ready\+To\+Exit\+Game\+Action {\bfseries On\+Ready\+To\+Exit\+Game}
+\item 
+\mbox{\Hypertarget{class_event_manager_ab8e44654818994ab306ee515137ec8d4}\label{class_event_manager_ab8e44654818994ab306ee515137ec8d4}} 
+static Start\+Game {\bfseries On\+Start\+Game}
+\item 
+\mbox{\Hypertarget{class_event_manager_ac8298ddd4c18406ffed5fda2ddc66a12}\label{class_event_manager_ac8298ddd4c18406ffed5fda2ddc66a12}} 
+static Modify\+Bet\+Action {\bfseries On\+Modify\+Bet\+Action}
+\item 
+\mbox{\Hypertarget{class_event_manager_afabbca3f7b4af54106249ffad82f9b2a}\label{class_event_manager_afabbca3f7b4af54106249ffad82f9b2a}} 
+static Click\+Action {\bfseries On\+Click}
+\item 
+\mbox{\Hypertarget{class_event_manager_afb9b5feecfd50723db4aefe07dfdf029}\label{class_event_manager_afb9b5feecfd50723db4aefe07dfdf029}} 
+static Instruction\+Change {\bfseries On\+Instruction\+Change}
+\item 
+\mbox{\Hypertarget{class_event_manager_a5c608376785816f354ea84f61eb69044}\label{class_event_manager_a5c608376785816f354ea84f61eb69044}} 
+static Login\+Success {\bfseries On\+Login\+Success}
+\item 
+\mbox{\Hypertarget{class_event_manager_a6ba547a9dc953a35435be8525efb823c}\label{class_event_manager_a6ba547a9dc953a35435be8525efb823c}} 
+static Before\+Login\+Success {\bfseries On\+Before\+Login\+Success}
+\item 
+\mbox{\Hypertarget{class_event_manager_abe6c9488a0ae27dde54f63b270d21687}\label{class_event_manager_abe6c9488a0ae27dde54f63b270d21687}} 
+static Login\+Error {\bfseries On\+Login\+Error}
+\item 
+\mbox{\Hypertarget{class_event_manager_af477a502940067fc3faac81be346d3b3}\label{class_event_manager_af477a502940067fc3faac81be346d3b3}} 
+static Change\+Coin\+Value {\bfseries On\+Change\+Coin\+Value}
+\item 
+\mbox{\Hypertarget{class_event_manager_a03565120c5d6f25a3e1d8ee48d540274}\label{class_event_manager_a03565120c5d6f25a3e1d8ee48d540274}} 
+static Key\+Down\+Events {\bfseries On\+Key\+Down}
+\item 
+\mbox{\Hypertarget{class_event_manager_ae5ae155bfbb282b8967a487cc8aa23bc}\label{class_event_manager_ae5ae155bfbb282b8967a487cc8aa23bc}} 
+static Friend\+Raw\+Action\+Clicked {\bfseries On\+Friend\+Raw\+Action\+Click}
+\item 
+\mbox{\Hypertarget{class_event_manager_afdcc6569000081de147bff92d5bbc489}\label{class_event_manager_afdcc6569000081de147bff92d5bbc489}} 
+static Outfit\+Change {\bfseries On\+Outfit\+Change}
+\item 
+\mbox{\Hypertarget{class_event_manager_a498274c54eb4a321c1e30e5d81e46fbf}\label{class_event_manager_a498274c54eb4a321c1e30e5d81e46fbf}} 
+static Request\+Outfit\+Change {\bfseries On\+Request\+Outfit\+Change}
+\item 
+\mbox{\Hypertarget{class_event_manager_abd2794ceffa2f83ff6f95a6170acda8b}\label{class_event_manager_abd2794ceffa2f83ff6f95a6170acda8b}} 
+static Request\+Chat\+Update {\bfseries On\+Request\+Chat\+Update}
+\item 
+\mbox{\Hypertarget{class_event_manager_a886e860e2e4dffcf499cae15e10ec1b8}\label{class_event_manager_a886e860e2e4dffcf499cae15e10ec1b8}} 
+static Chat\+Update {\bfseries On\+Chat\+Update}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Event\+Manager.\+cs\end{DoxyCompactItemize}

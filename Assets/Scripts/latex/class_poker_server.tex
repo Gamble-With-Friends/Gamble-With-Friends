@@ -1,0 +1,67 @@
+\hypertarget{class_poker_server}{}\doxysection{Poker\+Server Class Reference}
+\label{class_poker_server}\index{PokerServer@{PokerServer}}
+Inheritance diagram for Poker\+Server\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_poker_server}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_poker_server_a92af52e6182447aef76aa09b3b457d1d}\label{class_poker_server_a92af52e6182447aef76aa09b3b457d1d}} 
+void {\bfseries Add\+Player} (string user\+Id)
+\item 
+\mbox{\Hypertarget{class_poker_server_af22abd9eb894d299a40a2eaed41d38b5}\label{class_poker_server_af22abd9eb894d299a40a2eaed41d38b5}} 
+void {\bfseries Remove\+Player} (string user\+Id)
+\item 
+\mbox{\Hypertarget{class_poker_server_a6433a99c3d4700fd10fa2f0b3641958f}\label{class_poker_server_a6433a99c3d4700fd10fa2f0b3641958f}} 
+void {\bfseries Cmd\+Create\+Game\+Session} (string user\+Id, Network\+Connection\+To\+Client sender=null)
+\item 
+\mbox{\Hypertarget{class_poker_server_a2de09bb057efe00008e179546dffc3ef}\label{class_poker_server_a2de09bb057efe00008e179546dffc3ef}} 
+void {\bfseries Cmd\+Exit\+Game\+Session} (Network\+Connection\+To\+Client sender=null)
+\item 
+\mbox{\Hypertarget{class_poker_server_a7d90d0f0082de3fd8d801bc917773b8a}\label{class_poker_server_a7d90d0f0082de3fd8d801bc917773b8a}} 
+void {\bfseries Cmd\+Next\+Ante\+Player} (int spot, decimal bet\+Amount)
+\item 
+\mbox{\Hypertarget{class_poker_server_a57dede7f514b53dbe2170167cdc39c80}\label{class_poker_server_a57dede7f514b53dbe2170167cdc39c80}} 
+void {\bfseries Cmd\+Next\+Initial\+Bet} (int spot, decimal bet\+Amount)
+\item 
+\mbox{\Hypertarget{class_poker_server_a8a16c07e9cd2f732c758800410ef7867}\label{class_poker_server_a8a16c07e9cd2f732c758800410ef7867}} 
+void {\bfseries Cmd\+Change\+Cards} (int spot, List$<$ int $>$ cards\+To\+Change)
+\item 
+\mbox{\Hypertarget{class_poker_server_a0f1bc6d5ef429cc4e81a64de542c596c}\label{class_poker_server_a0f1bc6d5ef429cc4e81a64de542c596c}} 
+void {\bfseries Cmd\+Next\+Final\+Bet} (int spot, decimal bet\+Amount)
+\item 
+\mbox{\Hypertarget{class_poker_server_ac4985de1e42e66f1335b7c86cc56d356}\label{class_poker_server_ac4985de1e42e66f1335b7c86cc56d356}} 
+void {\bfseries Cmd\+Fold} (int spot)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_poker_server_a567195a7524c8c4bc5066331a742f937}\label{class_poker_server_a567195a7524c8c4bc5066331a742f937}} 
+\mbox{\hyperlink{class_poker_client}{Poker\+Client}} {\bfseries client}
+\item 
+\mbox{\Hypertarget{class_poker_server_aa270a209c9ad5dd47b03b6977fa7691c}\label{class_poker_server_aa270a209c9ad5dd47b03b6977fa7691c}} 
+Game\+State {\bfseries game\+State}
+\item 
+\mbox{\Hypertarget{class_poker_server_a214bdfc2999169f9266ece017b7d7a49}\label{class_poker_server_a214bdfc2999169f9266ece017b7d7a49}} 
+decimal {\bfseries highest\+Bet}
+\item 
+\mbox{\Hypertarget{class_poker_server_a5ff18865947a35da2808933e686ec2c8}\label{class_poker_server_a5ff18865947a35da2808933e686ec2c8}} 
+decimal {\bfseries total\+Bets}
+\item 
+\mbox{\Hypertarget{class_poker_server_a793e05f85dfb0d80609d4afbf8339998}\label{class_poker_server_a793e05f85dfb0d80609d4afbf8339998}} 
+int {\bfseries turn}
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_poker_server_ae03c31c6bee90d46c97f137c565b7607}\label{class_poker_server_ae03c31c6bee90d46c97f137c565b7607}} 
+const string {\bfseries Game\+Id} = \char`\"{}3a6cffb4-\/8856-\/42e6-\/a3ed-\/a7be70953518\char`\"{}
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Poker\+Server.\+cs\end{DoxyCompactItemize}

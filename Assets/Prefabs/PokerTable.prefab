@@ -385,7 +385,6 @@ GameObject:
   - component: {fileID: 3154573642691664887}
   - component: {fileID: 3154573642691664886}
   - component: {fileID: 3154573642691664885}
-  - component: {fileID: 3154573642691664884}
   m_Layer: 0
   m_Name: Chip1
   m_TagString: Untagged
@@ -468,18 +467,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &3154573642691664884
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3154573642691664650}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e2dd58fd26a3a468f9e4b5eafc0345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3154573643054882754
 GameObject:
   m_ObjectHideFlags: 0
@@ -589,7 +576,6 @@ GameObject:
   - component: {fileID: 3154573643189476207}
   - component: {fileID: 3154573643189476206}
   - component: {fileID: 3154573643189476205}
-  - component: {fileID: 3154573643189476204}
   m_Layer: 0
   m_Name: Chip100
   m_TagString: Untagged
@@ -672,18 +658,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &3154573643189476204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3154573643189476194}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90e2dd58fd26a3a468f9e4b5eafc0345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3251736116649115325
 GameObject:
   m_ObjectHideFlags: 0
@@ -1201,7 +1175,6 @@ MonoBehaviour:
   cardGameObject: {fileID: 3154573642426345409}
   tableInfoTextMesh: {fileID: 1553515907953448851}
   sessionInfoTextMesh: {fileID: 4902799244336893138}
-  debugTextMesh: {fileID: 0}
   gameInfoText: {fileID: 5976677647397300480}
   anteButton: {fileID: 5149824384389253812}
   switchButton: {fileID: 5958875834498275477}
@@ -2704,12 +2677,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 318e8454683a8fb4d8475d2267c04e52, type: 3}
---- !u!4 &1693144884371850084 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2327293095061621826, guid: 318e8454683a8fb4d8475d2267c04e52,
-    type: 3}
-  m_PrefabInstance: {fileID: 3977653670960369446}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &4233133412352817169 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: -8247099610594576585, guid: 318e8454683a8fb4d8475d2267c04e52,
@@ -2722,6 +2689,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bcb1f6c634c400408708f0d38632e1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1693144884371850084 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2327293095061621826, guid: 318e8454683a8fb4d8475d2267c04e52,
+    type: 3}
+  m_PrefabInstance: {fileID: 3977653670960369446}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6308419282013457429
 PrefabInstance:
   m_ObjectHideFlags: 0

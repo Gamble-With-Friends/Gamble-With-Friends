@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-public class JsonLibrary
+public static class JsonLibrary
 {
     
     public static string SerializeDictionaryIntString(Dictionary<int, string> dict)
