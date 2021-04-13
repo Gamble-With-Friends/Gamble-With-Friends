@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Casino.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
-    path: Assets/Scenes/TestingMultiplayer.unity
-    guid: caa3bb39e1b5e0b428801c9d07c7751d
-  - enabled: 1
-    path: Assets/Scenes/WarGame.unity
-    guid: 8b082c81adeb11243894150bba06085a
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   m_configObjects: {}

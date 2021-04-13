@@ -288,7 +288,7 @@ public class PlayerMovement : NetworkBehaviour
             totalCoins = 0;
         }
 
-        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, changeAmount);
+        DataManager.ChangeCoinValue(userId, changeAmount);
     }
 
     [TargetRpc]
