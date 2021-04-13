@@ -81,7 +81,7 @@ namespace Tests
         {
             string userName = "new_user";
             string email = "fake@email.com";
-            string password = "Qwe!2";
+            string password = "";
             string confirmPassword = "Qwe!2";
 
             bool valid = registrationScript.ValidateInput(userName, email, password, confirmPassword, true);

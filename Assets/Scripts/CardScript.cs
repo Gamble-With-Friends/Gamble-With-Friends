@@ -54,7 +54,6 @@ public class Hand
 }
 
 #region Card class
-
 public class Card
 {
     public CardRank Rank { get; set; }
@@ -91,7 +90,6 @@ public class Card
 #endregion
 
 #region CardExtensions
-
 public static class CardExtensions
 {
     // takes in a deck of cards, removes the first, and returns the removed card
@@ -188,7 +186,7 @@ public static class CardExtensions
         return suitString;
     }
 
-    private static List<Card> SortHandByValue(this List<Card> hand)
+    public static List<Card> SortHandByValue(this List<Card> hand)
     {
         return hand = hand.OrderBy(card => card.PokerValue()).ToList();
     }
