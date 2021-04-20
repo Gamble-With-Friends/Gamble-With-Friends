@@ -1522,7 +1522,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Switch
+  m_Text: Switch/Continue
 --- !u!1 &5958875834498275477
 GameObject:
   m_ObjectHideFlags: 0

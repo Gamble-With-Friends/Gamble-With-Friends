@@ -114,7 +114,6 @@ public class PokerClient : NetworkBehaviour
     {
         session.totalBets = Ante;
         EventManager.FireChangeCoinValue(-Ante);
-        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, -Ante);
         server.CmdNextAntePlayer(session.spot, Ante);
         DisableButtons();
     }
@@ -338,13 +337,8 @@ public class PokerClient : NetworkBehaviour
         if (hasWon)
         {
             EventManager.FireChangeCoinValue(amount);
+            DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, amount);
         }
-        else
-        {
-            EventManager.FireChangeCoinValue(amount);
-        }
-        
-        DataManager.ChangeCoinValue(UserInfo.GetInstance().UserId, amount);
     }
 
     private bool IsTableFull()

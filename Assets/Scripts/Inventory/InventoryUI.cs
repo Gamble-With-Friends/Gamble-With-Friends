@@ -83,9 +83,15 @@ public class InventoryUI : NetworkBehaviour
             amount += GameItems.GetItems()[invest].IncomeAmount * Math.Abs((Convert.ToDecimal((int)(InventoryItems.GetInventoryItems()[itemId].PurchaseDate - DateTime.Now).TotalDays)-payout));
 
             payout += difference;
-            DataManager.UpdateInvestmentPayout(UserInfo.GetInstance().UserId, itemId, payout);
+            if (payout > 0)
+            {
+                DataManager.UpdateInvestmentPayout(UserInfo.GetInstance().UserId, itemId, payout);
+            }
         }
-        EventManager.FireChangeCoinValue(amount);
+        if (amount > 0)
+        {
+            EventManager.FireChangeCoinValue(amount);
+        }
     }
 
     public void ExitInventory()

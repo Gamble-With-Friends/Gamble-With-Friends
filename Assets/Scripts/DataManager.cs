@@ -107,6 +107,7 @@ public static class DataManager
             while (reader.Read())
             {
                 currentAmount = reader.GetDecimal(0);
+                Debug.Log("Current Amount: " + currentAmount + "Amount: " + amount + "Current Time: " + DateTime.Now);
                 if (currentAmount + amount < 0) throw new ArgumentException("Funds not available");
             }
 
