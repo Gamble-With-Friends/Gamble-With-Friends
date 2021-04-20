@@ -201,7 +201,7 @@ public class RegisterLoginScript : MonoBehaviour
         {
             if (passwordError != null)
             {
-                passwordError.GetComponent<Text>().text = "Password must be at least 6-character long.";
+                passwordError.GetComponent<Text>().text = "Must have 1 uppercase, 1 lowercase, 1 number, 1 special character.";
             }
 
             valid = false;
