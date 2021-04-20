@@ -53,6 +53,7 @@ public class LoginTriggerScript : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        if (collidingPlayerMovement == null) return;
         if (collidingPlayerMovement != null && !collidingPlayerMovement.isLocalPlayer) return;
         isInsideTrigger = false;
         EventManager.FireInstructionChangeEvent("");
