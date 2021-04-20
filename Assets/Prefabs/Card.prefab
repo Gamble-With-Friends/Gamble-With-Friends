@@ -145,10 +145,12 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 4ab20250de733e842b9f85ebd2bdc1f7, type: 2}
   - {fileID: 2100000, guid: 4fda78aa9a04e7c43aa9aa2d3a52792d, type: 2}
   - {fileID: 2100000, guid: ca454e9bc9e39de468bbd90ebb6beb7c, type: 2}
+  - {fileID: 2100000, guid: 2ca0fe2bbbfb6c045a1e2569cbcf63d6, type: 2}
   zoneMaterial: {fileID: 2100000, guid: a7c679cf124f7ae46a0291ea35848554, type: 2}
   cardMeshRender: {fileID: 2327293095061621827}
   position: 0
   changeRequested: 0
+  disabled: 0
 --- !u!64 &5174887027682008264
 MeshCollider:
   m_ObjectHideFlags: 0
