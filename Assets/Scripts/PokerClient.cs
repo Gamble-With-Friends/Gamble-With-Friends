@@ -132,7 +132,7 @@ public class PokerClient : NetworkBehaviour
         if (!decimal.TryParse(raiseInputText.text, out var amount)) return;
 
         var minimumRaise = server.highestBet - session.totalBets;
-        if (UserInfo.GetInstance().TotalCoins > amount && amount >= minimumRaise)
+        if (UserInfo.GetInstance().TotalCoins >= amount && amount >= minimumRaise)
         {
             session.totalBets += amount;
             HandleBet(amount);
@@ -144,9 +144,11 @@ public class PokerClient : NetworkBehaviour
     {
         var amount = server.highestBet - session.totalBets;
         session.totalBets += amount;
-
-        HandleBet(amount);
-        DisableButtons();
+        if (UserInfo.GetInstance().TotalCoins >= amount)
+        {
+            HandleBet(amount);
+            DisableButtons();
+        }
     }
 
     public void OnClickCheckButton()
